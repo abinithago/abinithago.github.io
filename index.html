@@ -1,4 +1,1188 @@
----
-layout: home
-author_profile: true
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abinitha Gourabathina | Personal Website</title>
+  <meta name="description" content="Abinitha Gourabathina is a PhD student at MIT EECS working on trustworthy machine learning, model robustness, and AI safety, particularly in healthcare applications. Research focuses on LLM safety, algorithmic fairness, and reliable ML systems." />
+  <meta name="keywords" content="Abinitha Gourabathina, MIT EECS, PhD student, machine learning, AI safety, LLM safety, healthcare AI, trustworthy ML, algorithmic fairness, MIT LIDS" />
+  <meta name="author" content="Abinitha Gourabathina" />
+  <meta name="google-site-verification" content="OJ9WMqnpFjQ2UeB4skqmiUvm7_lw3fs5hfuZdDC6cYM" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://abinithago.github.io/" />
+  <meta property="og:title" content="Abinitha Gourabathina | Hello and Welcome!" />
+  <meta property="og:description" content="PhD student at MIT EECS working on trustworthy machine learning, AI safety, and model robustness in high-stakes domains." />
+  <meta property="og:image" content="https://abinithago.github.io/assets/files/profile2.png" />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://abinithago.github.io/" />
+  <meta property="twitter:title" content="Abinitha Gourabathina | Hello and Welcome!" />
+  <meta property="twitter:description" content="PhD student at MIT EECS working on trustworthy machine learning, AI safety, and model robustness in high-stakes domains." />
+  <meta property="twitter:image" content="https://abinithago.github.io/assets/files/profile2.png" />
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://abinithago.github.io/" />
+  
+  <!-- Sitemap -->
+  <link rel="sitemap" type="application/xml" href="https://abinithago.github.io/sitemap.xml" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Single dark theme styles */
+
+    .title.is-3 {
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 700; /* Bold */
+      letter-spacing: -0.02em;
+    }
+
+    .title.is-5 {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      line-height: 1.3;
+      font-size: 1.15rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      .title.is-5 {
+        font-size: 1.1rem;
+        line-height: 1.2;
+      }
+    }
+
+    .title.mt-4 {
+      font-family: 'Lora', Georgia, serif;
+      letter-spacing: -0.01em;
+    }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background-color: #EBE9DE;
+      color: #252015;
+      margin: 0;
+      padding: 0;
+      line-height: 1.5;
+    }
+
+
+    .hero.is-info {
+      background-color: #0F3A43;
+      color: #FFFBEB;
+    }
+
+    .navbar.is-light {
+      background-color: #252015;
+      color: #FFFBEB;
+    }
+
+    a,
+    .navbar-item,
+    .title,
+    p,
+    ul li {
+      color: #252015;
+    }
+
+    a {
+      color: #094D92 !important;
+      transition: color 0.2s ease, text-decoration 0.2s ease;
+    }
+
+    a:hover {
+      color: #0F3A43 !important;
+      text-decoration: underline;
+    }
+
+    .social-icons a {
+      color: #FFFBEB !important;
+    }
+
+    .social-icons a:hover {
+      color: #094D92 !important;
+      text-decoration: none;
+    }
+
+    ul li strong {
+      color: #252015;
+    }
+
+    /* Navbar styling */
+    .navbar.is-light {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .navbar.is-light,
+    .navbar.is-light .navbar-item,
+    .navbar.is-light .navbar-link {
+      color: #FFFBEB !important;
+      transition: color 0.3s ease, background-color 0.3s ease;
+    }
+
+    .navbar.is-light .navbar-item:hover,
+    .navbar.is-light .navbar-link:hover {
+      background-color: rgba(130, 176, 165, 0.1) !important;
+      color: #82B0A5 !important;
+      text-decoration: none;
+    }
+
+    .navbar-brand strong {
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Mobile navbar menu dropdown */
+    @media screen and (max-width: 1023px) {
+      .navbar-menu {
+        background-color: #252015 !important;
+      }
+      
+      .navbar-menu .navbar-item {
+        color: #FFFBEB !important;
+      }
+      
+      .navbar-menu .navbar-item:hover {
+        background-color: rgba(130, 176, 165, 0.15) !important;
+        color: #82B0A5 !important;
+      }
+    }
+
+    /* Card styling */
+    .card {
+      background-color: rgb(223, 222, 210);
+      color: #252015;
+      border: 1.5px solid #E8E5DD;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      border-radius: 8px;
+      overflow: hidden;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .card-content {
+      padding: 1rem;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    @media screen and (max-width: 768px) {
+      .card-content {
+        padding: 0.75rem;
+      }
+    }
+
+    /* Research card thumbnail images */
+    .research-card-content-wrapper {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .research-thumbnail {
+      width: 275px;
+      height: 150px;
+      object-fit: fill;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+    }
+
+    .research-card-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    @media screen and (max-width: 768px) {
+      .research-card-content-wrapper {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .research-thumbnail {
+        width: 100%;
+        height: 150px;
+        margin-top: 0;
+      }
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      border-color: #82B0A5;
+    }
+
+    .research-card {
+      margin-bottom: 1rem;
+    }
+
+    /* Research grid layout - single row, scrollable */
+    .research-grid-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .research-grid {
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding-top: 0.5rem;
+      padding-bottom: 1rem;
+      width: 100%;
+      scroll-behavior: smooth;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+      scroll-snap-type: x mandatory;
+    }
+
+    .research-grid::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    .research-nav-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: transparent;
+      color: #252015;
+      border: none;
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      z-index: 10;
+      transition: all 0.3s ease;
+      opacity: 0.8;
+    }
+
+    .research-nav-button:hover {
+      opacity: 1;
+      color: #0F3A43;
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .research-nav-button:active {
+      transform: translateY(-50%) scale(0.9);
+    }
+
+    .research-nav-button.prev {
+      left: -40px;
+    }
+
+    .research-nav-button.next {
+      right: -40px;
+    }
+
+    .research-nav-button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      color: #252015;
+    }
+
+    .research-nav-button:disabled:hover {
+      opacity: 0.3;
+      color: #252015;
+      transform: translateY(-50%);
+    }
+
+    /* Pagination dots */
+    .research-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      padding-top: 0.25rem;
+      width: 100%;
+      order: 3;
+    }
+
+    .research-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #82B0A5;
+      opacity: 0.3;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .research-dot:hover {
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
+
+    .research-dot.active {
+      opacity: 1;
+      transform: scale(1.3);
+      background-color: #0F3A43;
+    }
+
+    @media screen and (max-width: 768px) {
+      .research-nav-button {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+
+      .research-nav-button.prev {
+        left: -15px;
+      }
+
+      .research-nav-button.next {
+        right: -15px;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .research-grid {
+        gap: 1rem;
+      }
+    }
+
+    .research-grid-item {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+      width: calc(50% - 0.75rem);
+      min-width: 280px;
+      scroll-snap-align: start;
+    }
+
+    @media screen and (max-width: 768px) {
+      .research-grid-item {
+        width: calc(100% - 0.5rem);
+        min-width: 250px;
+      }
+    }
+
+    /* Footer styling */
+    .footer {
+      background-color: #252015;
+      color: #fffbeb !important;
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    .footer .content {
+      padding: 0.5rem 0 !important;
+    }
+
+    .footer,
+    .footer p,
+    .footer .content p {
+      background-color: #252015;
+      color: #fffbeb !important;
+      margin-bottom: 0.25rem !important;
+    }
+
+    .footer p:last-child {
+      margin-bottom: 0 !important;
+    }
+
+    .footer a {
+      color: #82B0A5 !important;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hover animation for icons */
+    .social-icons a {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+      margin: 0 8px;
+      display: inline-block;
+    }
+    .social-icons a:hover {
+      transform: translateY(-4px) scale(1.15);
+      color: #82B0A5 !important;
+    }
+
+    .custom-hero {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .custom-hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(15, 58, 67, 0.95) 0%, rgba(15, 58, 67, 0.98) 100%);
+      z-index: 0;
+    }
+
+    .custom-hero .hero-body {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-body figure {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .hero-body h1 {
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .hero-body h2 {
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    .hero-body p {
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .social-icons {
+      animation: fadeInUp 0.8s ease-out 0.5s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media screen and (min-width: 769px) {
+      .with-gradient-divider {
+        position: relative;
+      }
+      .with-gradient-divider::after {
+        content: "";
+        position: absolute;
+        top: 10%;
+        right: -2px;
+        width: 2px;
+        height: 80%;
+        background: linear-gradient(to bottom, transparent, #4F4B42, transparent);
+        pointer-events: none;
+      }
+    }
+
+    .abstract-toggle {
+      cursor: pointer;
+      color: #094D92;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+    .abstract-toggle:hover {
+      color: #0F3A43;
+      background-color: rgba(15, 58, 67, 0.1);
+      text-decoration: underline;
+    }
+
+    .abstract-text {
+      font-style: italic;
+      font-size: 0.9rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease-in-out, padding-top 0.5s ease-in-out, margin-top 0.5s ease-in-out, border-top-width 0.5s ease-in-out;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      border-top: 0 solid rgba(15, 58, 67, 0.1);
+    }
+
+    .abstract-text:not(.is-hidden) {
+      max-height: 2000px;
+      padding-top: 1rem;
+      margin-top: 1rem;
+      border-top-width: 1px;
+    }
+
+    .pub-list {
+      font-size: 0.9rem;
+      list-style: none;
+      padding-left: 0;
+      line-height: 1.4;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    @media screen and (max-width: 768px) {
+      .pub-list {
+        font-size: 0.85rem;
+      }
+    }
+
+    .pub-list li {
+      margin-bottom: 0.5rem;
+      padding-left: 0.5rem;
+      border-left: 3px solid transparent;
+      transition: border-color 0.3s ease, padding-left 0.3s ease;
+    }
+
+    .pub-list li:hover {
+      border-left-color: #82B0A5;
+      padding-left: 0.75rem;
+    }
+
+
+    /* About and News side-by-side layout */
+    .about-news-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media screen and (max-width: 768px) {
+      .about-news-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    /* News column scrollbar styling */
+    .news-list {
+      position: relative; /* Make sure container can position pseudo-elements */
+      max-height: 400px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      scrollbar-width: thin;
+      scrollbar-color: #82B0A5 #DCD4BB;
+      border: 2px dashed #82B0A5;
+    }
+
+    .news-list::-webkit-scrollbar {
+      width: 8px;
+      background: #DCD4BB;
+    }
+
+    .news-list::-webkit-scrollbar-track {
+      background: #DCD4BB;
+      border-radius: 4px;
+    }
+
+    .news-list::-webkit-scrollbar-thumb {
+      background: #82B0A5;
+      border-radius: 4px;
+      border: 1px solid #DCD4BB;
+    }
+
+    .news-list::-webkit-scrollbar-thumb:hover {
+      background: #50A2A7;
+    }
+
+    .news-list::-webkit-scrollbar-corner {
+      background: #DCD4BB;
+    }
+
+    .news-list::after {
+      content: "";
+      pointer-events: none; /* So clicks go through */
+      position: sticky; /* or absolute, but sticky keeps it at bottom during scroll */
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30px; /* height of the fade */
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #EBE9DE 60%);
+      /* Adjust the colors above depending on your background color */
+      z-index: 10;
+    }
+
+    /* Increase left and right margins */
+    .container {
+      margin-left: 3rem;
+      margin-right: 3rem;
+      max-width: calc(100% - 6rem);
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+      box-sizing: border-box;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        margin-left: 2rem;
+        margin-right: 2rem;
+        max-width: calc(100% - 4rem);
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+
+    /* Responsive margins for different screen sizes */
+    @media screen and (min-width: 769px) {
+      .container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 500px;
+      }
+    }
+
+    @media screen and (min-width: 1024px) {
+      .container {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 500px;
+      }
+    }
+
+    /* Section spacing improvements */
+    .section {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    @media screen and (max-width: 768px) {
+      .section {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
+    }
+
+    /* Typography improvements */
+    p {
+      margin-bottom: 0.75rem;
+    }
+
+    /* Constrain text content width */
+    .content-wrapper {
+      max-width: 900px;
+    }
+
+    /* Image improvements */
+    .is-rounded {
+      border: 3px solid rgba(255, 251, 235, 0.3);
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .is-rounded:hover {
+      border-color: rgba(130, 176, 165, 0.6);
+      transform: scale(1.02);
+    }
+  </style>
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Abinitha Gourabathina",
+    "url": "https://abinithago.github.io",
+    "image": "https://abinithago.github.io/assets/files/profile2.png",
+    "jobTitle": "PhD Student",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "MIT EECS",
+      "url": "https://www.eecs.mit.edu/"
+    },
+    "alumniOf": {
+      "@type": "Organization",
+      "name": "Princeton University"
+    },
+    "email": "abinitha@mit.edu",
+    "sameAs": [
+      "https://github.com/abinithago",
+      "https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en",
+      "https://www.linkedin.com/in/abinithag"
+    ],
+    "description": "PhD student at MIT EECS working on trustworthy machine learning, AI safety, and model robustness in healthcare applications."
+  }
+  </script>
+
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#">
+        <strong>Abinitha G</strong>
+      </a>
+      <a
+        role="button"
+        class="navbar-burger"
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="navbarMenu"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarMenu" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#about">About</a>
+        <a class="navbar-item" href="#research">Research</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero is-info custom-hero">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <figure class="image is-128x128 is-inline-block">
+          <img
+            class="is-rounded"
+            src="assets/files/profile2.png"
+            alt="Profile picture"
+            style="object-fit: cover; width: 128px; height: 128px;"
+          />
+        </figure>
+        <h1 class="title mt-4 has-text-warning-light	">Abinitha Gourabathina</h1>
+        <h2 class="subtitle has-text-warning-light	">PhD Student @ MIT EECS</h2>
+        <p class="has-text-warning-light" style="max-width: 600px; margin: 0 auto;">
+          My research focuses on model robustness and AI safety, particularly in
+          sensitive domains such as healthcare.
+        </p>
+
+        <!-- Social icons -->
+        <div class="social-icons mt-5">
+          <a
+            href="https://github.com/abinithago"
+            class="icon is-medium has-text-warning-light"
+            target="_blank"
+            aria-label="GitHub"
+            ><i class="fab fa-github fa-2x"></i
+          ></a>
+          <a href="assets/files/CV.pdf" class="icon is-medium has-text-warning-light" target="_blank"
+            aria-label="CV"
+            ><i class="fas fa-file-alt fa-2x"></i
+          ></a>
+          <a
+            href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en"
+            class="icon is-medium has-text-warning-light"
+            target="_blank"
+            aria-label="Google Scholar"
+            ><i class="fas fa-graduation-cap fa-2x"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/abinithag"
+            class="icon is-medium has-text-warning-light"
+            target="_blank"
+            aria-label="LinkedIn"
+            ><i class="fab fa-linkedin fa-2x"></i
+          ></a>
+          <a 
+            href="mailto:abinitha@mit.edu" 
+            class="icon is-medium has-text-warning-light" 
+            target="_blank"
+            aria-label="Email"
+            ><i class="fas fa-envelope fa-2x"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-news-container">
+        <!-- About Me Column -->
+        <div class="content-wrapper">
+          <h3 class="title is-3" style="margin-bottom: 1rem;">About Me</h3>
+          <p>
+            Hello! I am a PhD student in
+            <a href="https://lids.mit.edu/" target="_blank">MIT LIDS</a>, working on trustworthy
+            machine learning with interests in high-stakes domains like healthcare.
+            I'm lucky to be co-advised by Professors
+            <a href="https://healthyml.org/" target="_blank">Marzyeh Ghassemi</a> and
+            <a href="https://cb.mit.edu/" target="_blank">Collin Stultz</a>. In 2023, I graduated
+            from Princeton University with a B.S.E. in Operations Research and
+            Financial Engineering, along with minors in Cognitive Science, Computer
+            Science, Linguistics, and Statistics & Machine Learning. My senior
+            thesis, supervised by the incredible Professor
+            <a href="https://www.cs.princeton.edu/~fellbaum/" target="_blank">Christiane Fellbaum</a>, explored NLP
+            techniques for detecting and editing stigmatizing language in medical
+            records.
+          </p>
+          <p>
+            My research focuses on reliable, responsible, and trustworthy Machine Learning, and my work spans group robustness, GenAI Agents, chain-of-thought, and backdoor attacks. 
+            I use tools and frameworks from Optimization, Probability, and Statistics. My work has been published at venues such as ACM FAccT and IEEE.
+          </p>
+          <p>
+          This past summer, I interned at <a href="https://research.ibm.com/" target="_blank">IBM Research</a>, where I investigated inverted model outputs to identify gaps in reasoning chains and improve hallucination detection for large language models. 
+          </p>
+          <p>You can reach me at abinitha@mit.edu. I'd love to hear from you!</p>
+        </div>
+
+        <!-- News Column -->
+        <div class="news-section">
+          <h3 class="title is-3" style="margin-bottom: 1rem;">News</h3>
+          <div class="news-list">
+            <ul>
+              <li><strong>Oct 2025:</strong> Presented an <a href="https://www.csail.mit.edu/taxonomy/term/417">ML Tea Talk</a> on trace inversion </li>
+              <li><strong>Sept 2025:</strong> Excited to serve as Program Chair of the <a href="https://lidsconf.mit.edu/2026/"> 2026 LIDS Student Conference</a>!</li>
+              <li><strong>Aug 2025:</strong> Completed my summer internship at IBM Research!</li>
+              <li><strong>June 2025:</strong> Our work is covered by <a href="https://news.mit.edu/2025/llms-factor-unrelated-information-when-recommending-medical-treatments-0623">MIT News</a> and other <a href=https://www.usnews.com/news/health-news/articles/2025-06-26/typos-slang-trip-up-ai-medical-assessments> press</a> 
+              <li><strong>June 2025:</strong> Presented at FAccT '25!</li>
+              <li><strong>June 2025:</strong> <a href="https://arxiv.org/abs/2506.17163">Paper</a> released on arXiv!</li>
+              <li><strong>May 2025:</strong> Excited to join the AIES PC!</li>
+              <li><strong>May 2025:</strong> MedPerturb project <a href="https://medperturb.csail.mit.edu/">website</a> online!</li>
+              <li><strong>April 2025:</strong> Presented @ the MIT EECS Town Hall for <a href="https://computing.mit.edu/cross-cutting/social-and-ethical-responsibilities-of-computing/SERC">SERC</a> </li>
+              <li><strong>April 2025:</strong> Paper accepted to FAccT '25!</li>
+              <li><strong>April 2025:</strong> Presented @ the MIT <a href="https://imes.mit.edu/">IMES</a> Seminar Series </li>
+              <li><strong>Aug 2024:</strong> Started my PhD at MIT!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Highlights -->
+  <section class="section" id="research">
+    <div class="container">
+      <h3 class="title is-3" style="margin-bottom: 1rem;">Research Highlights</h3>
+      <div class="research-grid-wrapper">
+        <button class="research-nav-button prev" aria-label="Previous research cards">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="research-grid" id="researchGrid">
+
+        <!-- Research Card -->
+        <div class="research-grid-item">
+          <div class="card research-card">
+            <div class="card-content">
+              <p class="title is-5">
+                The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making
+              </p>
+              <div class="research-card-content-wrapper">
+                <img src="assets/files/medperturb-thumb.png" alt="MedPerturb Dataset" class="research-thumbnail">
+                <div class="research-card-text">
+                  <ul class="pub-list">
+                <li>
+                  <strong>Abinitha Gourabathina</strong>, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi, 2025. arXiv preprint arXiv:2506.17163.<br>
+                  [<a href="#" class="abstract-toggle" data-target="abstract1">Abstract</a>]
+                  [<a href="https://medperturb.csail.mit.edu/" target="_blank">Website</a>]
+                  [<a href="https://arxiv.org/abs/2506.17163" target="_blank">Paper</a>]
+                  [<a href="https://github.com/abinithago/MedPerturb" target="_blank">Code</a>]
+                </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="abstract1" class="content abstract-text is-hidden">
+                <p>
+                  Clinical robustness is critical to the safe deployment of medical Large Language Models (LLMs), but key questions remain about how LLMs and humans may differ in response to the real-world variability typified by clinical settings. To address this, we introduce MedPerturb, a dataset designed to systematically evaluate medical LLMs under controlled perturbations of clinical input. MedPerturb consists of clinical vignettes spanning a range of pathologies, each transformed along three axes: (1) gender modifications (e.g., gender-swapping or gender-removal); (2) style variation (e.g., uncertain phrasing or colloquial tone); and (3) format changes (e.g., LLM-generated multi-turn conversations or summaries). With MedPerturb, we release a dataset of 800 clinical contexts grounded in realistic input variability, outputs from four LLMs, and three human expert reads per clinical context. We use MedPerturb in two case studies to reveal how shifts in gender identity cues, language style, or format reflect diverging treatment selections between humans and LLMs. We find that LLMs are more sensitive to gender and style perturbations while human annotators are more sensitive to LLM-generated format perturbations such as clinical summaries. Our results highlight the need for evaluation frameworks that go beyond static benchmarks to assess the similarity between human clinician and LLM decisions under the variability characteristic of clinical settings.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Another research card (repeat structure) -->
+        <div class="research-grid-item">
+          <div class="card research-card">
+            <div class="card-content">
+              <p class="title is-5">
+                The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs
+              </p>
+              <div class="research-card-content-wrapper">
+                <img src="assets/files/medium-message-thumb.png" alt="The Medium is the Message" class="research-thumbnail">
+                <div class="research-card-text">
+                  <ul class="pub-list">
+                <li>
+                  <strong>Abinitha Gourabathina</strong>, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (<strong>FAccT '25</strong>). Association for Computing Machinery, New York, NY, USA, 1805–1828. https://doi.org/10.1145/3715275.3732121<br>
+                  [<a href="#" class="abstract-toggle" data-target="abstract2">Abstract</a>]
+                  [<a href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank">Paper</a>]
+                  [<a href="https://github.com/abinithago/medium-is-message" target="_blank">Code</a>]
+                </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="abstract2" class="content abstract-text is-hidden">
+                <p>
+                  The integration of large language models (LLMs) into clinical diagnostics necessitates a careful understanding of how clinically irrelevant aspects of user inputs directly influence generated treatment recommendations and, consequently, clinical outcomes for end-users. Building on prior research that examines the impact of demographic attributes on clinical LLM reasoning, this study explores how non-clinically relevant attributes shape clinical decision-making by LLMs. Through the perturbation of patient messages, we evaluate whether LLM behavior remains consistent, accurate, and unbiased when non-clinical information is altered. These perturbations assess the brittleness of clinical LLM reasoning by replicating structural errors that may occur during electronic data processing patient questions and simulating interactions between patient-AI systems in diverse, vulnerable patient groups. Our findings reveal notable inconsistencies in LLM treatment recommendations and significant degradation of clinical accuracy in ways that reduce care allocation to patients. Additionally, there are significant disparities in treatment recommendations between gender subgroups as well as between model-inferred gender subgroups. We also apply our perturbation framework to a conversational clinical dataset to find that even in conversation, LLM clinical accuracy decreases post-perturbation, and disparities exist in how perturbations impact gender subgroups. By analyzing LLM outputs in response to realistic yet modified clinical contexts, our work deepens understanding of the sensitivity, inaccuracy, and biases inherent in medical LLMs, offering critical insights for the deployment of patient-AI systems. 
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Research Card -->
+        <div class="research-grid-item">
+          <div class="card research-card">
+            <div class="card-content">
+              <p class="title is-5">
+                PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model
+              </p>
+              <div class="research-card-content-wrapper">
+                <img src="assets/files/panda-thumb.png" alt="PanDa Game" class="research-thumbnail">
+                <div class="research-card-text">
+                  <ul class="pub-list">
+                <li>
+                  <strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. In <strong>IEEE</strong> Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817, Oct. 2023, doi: 10.1109/TNB.2023.3284092.<br>
+                  [<a href="#" class="abstract-toggle" data-target="abstract3">Abstract</a>]
+                  [<a href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank">Paper</a>]
+                  [<a href="https://github.com/zhywan/covid19-privacy-game" target="_blank">Code</a>]
+                </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="abstract3" class="content abstract-text is-hidden">
+                <p>
+                  Sharing individual-level pandemic data is essential for accelerating the understanding of a disease. For example, COVID-19 data have been widely collected to support public health surveillance and research. In the United States, these data are typically de-identified before publication to protect the privacy of the corresponding individuals. However, current data publishing approaches for this type of data, such as those adopted by the U.S. Centers for Disease Control and Prevention (CDC), have not flexed over time to account for the dynamic nature of infection rates. Thus, the policies generated by these strategies have the potential to both raise privacy risks or overprotect the data and impair the data utility (or usability). To optimize the tradeoff between privacy risk and data utility, we introduce a game theoretic model that adaptively generates policies for the publication of individual-level COVID-19 data according to infection dynamics. We model the data publishing process as a two-player Stackelberg game between a data publisher and a data recipient and then search for the best strategy for the publisher. In this game, we consider 1) average performance of predicting future case counts; and 2) mutual information between the original data and the released data. We use COVID-19 case data from Vanderbilt University Medical Center from March 2020 to December 2021 to demonstrate the effectiveness of the new model. The results indicate that the game theoretic model outperforms all state-of-the-art baseline approaches, including those adopted by CDC, while maintaining low privacy risk. We further perform an extensive sensitivity analyses to show that our findings are robust to order-of-magnitude parameter fluctuations.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Another research card (repeat structure) -->
+        <div class="research-grid-item">
+          <div class="card research-card">
+            <div class="card-content">
+              <p class="title is-5">
+                What seems to be the problem? Stigmatizing language in patient medical notes 
+              </p>
+              <div class="research-card-content-wrapper">
+                <img src="assets/files/stigma-thumb.png" alt="Stigmatizing language in medical notes" class="research-thumbnail">
+                <div class="research-card-text">
+                  <ul class="pub-list">
+                <li>
+                  <strong>Abinitha Gourabathina</strong> (Senior thesis, Princeton University). Princeton DataSpace. http://arks.princeton.edu/ark:/88435/dsp01cv43p110t <br>
+                  [<a href="#" class="abstract-toggle" data-target="abstract4">Abstract</a>]
+                  [<a href="assets/files/senior_thesis.pdf" target="_blank">Paper</a>]
+                </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="abstract4" class="content abstract-text is-hidden">
+                <p>
+                  Stigmatizing language in medical notes can prevent a patient from acquiring proper treatment. Reading medical notes containing biased language can influence subsequent clinicians' perception of a patient, further compounding a patient's inability to receive adequate care. Thus, there is a clear need to correct patient notes to eliminate stigmatizing language. Prior work involving stigmatizing language in medical notes has largely remained qualitative where clinicians and researchers manually analyzed notes for stigmatizing keywords. Our work utilized a computational approach to obtain a more robust set of stigmatizing keywords. We created contextual word embeddings from BERT-based and BioBERT-based models that are trained on free-text patient-oriented clinical data. These state-of-the-art models allowed us to develop word vector representations, from which we identified 30 new stigmatizing keywords. We then complete a thorough analysis to build a grammar structure that categorizes stigmatizing keywords according to the ways they induce stigma and better understand the syntactical environments in which these keywords occur. Following our analysis, we developed a model called MedStiLE (Medical note Stigmatizing Language Editor) that utilizes the grammar structure and constituency parsing to edit notes containing the stigmatizing keywords to be non-stigmatizing. We conducted an evaluation to test the efficacy of MedStiLE using human raters and found that it significantly reduced stigma in notes. This research provides various novel insights in terms of methodology and results that can help shape future works involving the intersection of language and healthcare.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <button class="research-nav-button next" aria-label="Next research cards">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="research-pagination" id="researchPagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section class="section" id="publications">
+    <div class="container">
+      <h3 class="title is-3" style="margin-bottom: 1rem;">Publications</h3>
+      <ul class="pub-list">
+        <li>
+          <strong>Abinitha Gourabathina</strong>, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi, 2025. The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making. arXiv preprint arXiv:2506.17163. (<strong>Preprint</strong>).<br>
+          [<a href="https://arxiv.org/abs/2506.17163" target="_blank">Paper</a>]
+          [<a href="https://medperturb.csail.mit.edu/" target="_blank">Website</a>]
+          [<a href="https://github.com/abinithago/MedPerturb" target="_blank">Code</a>]
+        </li>
+        <li>
+          <strong>Abinitha Gourabathina</strong>, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (<strong>FAccT '25</strong>).<br>
+          [<a href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank">Paper</a>]
+          [<a href="https://github.com/abinithago/medium-is-message" target="_blank">Code</a>]
+        </li>
+        <li>
+          <strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model. In <strong>IEEE</strong> Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817, Oct. 2023.<br>
+          [<a href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank">Paper</a>]
+          [<a href="https://github.com/zhywan/covid19-privacy-game" target="_blank">Code</a>]
+        </li>
+        <li>
+          <strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2022. PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model. In Proceedings of the 2022 <strong>IEEE</strong> International Conference on Bioinformatics and Biomedicine (BIBM), Las Vegas, NV, USA, 2022, pp. 961-968.<br>
+          [<a href="https://ieeexplore.ieee.org/abstract/document/9995513" target="_blank">Paper</a>]
+        </li>
+        <li>
+          <strong>Abinitha Gourabathina</strong> (Senior thesis, Princeton University). What seems to be the problem? Stigmatizing language in patient medical notes. Princeton DataSpace. http://arks.princeton.edu/ark:/88435/dsp01cv43p110t<br>
+          [<a href="assets/files/senior_thesis.pdf" target="_blank">Paper</a>]
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // Research grid navigation
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('researchGrid');
+      const prevButton = document.querySelector('.research-nav-button.prev');
+      const nextButton = document.querySelector('.research-nav-button.next');
+      const pagination = document.getElementById('researchPagination');
+
+      if (grid && prevButton && nextButton) {
+        const cards = grid.querySelectorAll('.research-grid-item');
+        let dots = [];
+        let totalPages = 0;
+
+        const createDots = () => {
+          if (!pagination) return;
+          
+          // Clear existing dots
+          pagination.innerHTML = '';
+          dots = [];
+
+          if (cards.length === 0) return;
+
+          // Calculate total pages: showing 2 cards, scrolling 1 card at a time
+          // For 4 cards: positions are 0 (cards 1-2), 1 (cards 2-3), 2 (cards 3-4) = 3 dots
+          totalPages = cards.length - 1;
+
+          // Create dots
+          for (let i = 0; i < totalPages; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'research-dot';
+            if (i === 0) dot.classList.add('active');
+            dot.setAttribute('aria-label', `Go to page ${i + 1}`);
+            dot.addEventListener('click', () => {
+              scrollToPage(i);
+            });
+            pagination.appendChild(dot);
+            dots.push(dot);
+          }
+
+          updateActiveDot();
+        };
+
+        const updateActiveDot = () => {
+          if (cards.length === 0 || dots.length === 0) return;
+          
+          const scrollLeft = grid.scrollLeft;
+          const cardWidth = cards[0]?.offsetWidth || 0;
+          const gap = 24;
+          const scrollAmount = cardWidth + gap;
+          
+          // Calculate which position we're at (one card scroll increments)
+          const currentPage = Math.round(scrollLeft / scrollAmount);
+          const clampedPage = Math.max(0, Math.min(currentPage, totalPages - 1));
+
+          dots.forEach((dot, index) => {
+            if (index === clampedPage) {
+              dot.classList.add('active');
+            } else {
+              dot.classList.remove('active');
+            }
+          });
+        };
+
+        const scrollToPage = (pageIndex) => {
+          if (cards.length === 0) return;
+          
+          const cardWidth = cards[0]?.offsetWidth || 0;
+          const gap = 24;
+          const scrollPosition = pageIndex * (cardWidth + gap);
+          grid.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+        };
+
+        const updateButtons = () => {
+          const scrollLeft = grid.scrollLeft;
+          const scrollWidth = grid.scrollWidth;
+          const clientWidth = grid.clientWidth;
+
+          prevButton.disabled = scrollLeft === 0;
+          nextButton.disabled = scrollLeft + clientWidth >= scrollWidth - 1;
+        };
+
+        prevButton.addEventListener('click', () => {
+          if (cards.length === 0) return;
+          const cardWidth = cards[0]?.offsetWidth || 0;
+          const gap = 24;
+          grid.scrollBy({ left: -(cardWidth + gap), behavior: 'smooth' });
+        });
+
+        nextButton.addEventListener('click', () => {
+          if (cards.length === 0) return;
+          const cardWidth = cards[0]?.offsetWidth || 0;
+          const gap = 24;
+          grid.scrollBy({ left: cardWidth + gap, behavior: 'smooth' });
+        });
+
+        grid.addEventListener('scroll', () => {
+          updateButtons();
+          updateActiveDot();
+        });
+        
+        window.addEventListener('resize', () => {
+          updateButtons();
+          createDots();
+        });
+        
+        // Initialize
+        createDots();
+        updateButtons();
+      }
+    });
+
+    document.querySelectorAll(".abstract-toggle").forEach(toggle => {
+      toggle.addEventListener("click", e => {
+        e.preventDefault();
+        const targetId = toggle.dataset.target;
+        const content = document.getElementById(targetId);
+        content.classList.toggle("is-hidden");
+      });
+    });
+  </script>
+
+
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        © 2025 Abinitha Gourabathina –
+        <a href="mailto:abinitha@mit.edu">abinitha@mit.edu</a> |
+        <a href="https://github.com/abinithago">GitHub</a> |
+        <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en"
+          >Google Scholar</a
+        > |
+      </p>
+    </div>
+  </footer>
+
+  <!-- Burger menu script -->
+  <script>
+    // Simple burger menu functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const burger = document.querySelector('.navbar-burger');
+      const menu = document.querySelector('.navbar-menu');
+      
+      burger.addEventListener('click', () => {
+        burger.classList.toggle('is-active');
+        menu.classList.toggle('is-active');
+      });
+    });
+  </script>
+</body>
+</html>
