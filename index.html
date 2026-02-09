@@ -884,6 +884,34 @@
           <div class="card research-card">
             <div class="card-content">
               <p class="title is-5">
+                Robustness Beyond Known Groups with Low-rank Adaptation
+              </p>
+              <div class="research-card-content-wrapper">
+                <img src="assets/files/leia-thumb.png" alt="LEIA" class="research-thumbnail">
+                <div class="research-card-text">
+                  <ul class="pub-list">
+                <li>
+                  <strong>Abinitha Gourabathina</strong>, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz, 2026. arXiv preprint arXiv:2602.06924.<br>
+                  [<a href="#" class="abstract-toggle" data-target="abstract0">Abstract</a>]
+                  [<a href="https://arxiv.org/abs/2602.06924" target="_blank">Paper</a>]
+                  [<a href="https://github.com/abinithago/LEIA" target="_blank">Code</a>]
+                </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="abstract0" class="content abstract-text is-hidden">
+                <p>
+                  Deep learning models trained to optimize average accuracy often exhibit systematic failures on particular subpopulations. In real world settings, the subpopulations most affected by such disparities are frequently unlabeled or unknown, thereby motivating the development of methods that are performant on sensitive subgroups without being pre-specified. However, existing group-robust methods typically assume prior knowledge of relevant subgroups, using group annotations for training or model selection. We propose Low-rank Error Informed Adaptation (LEIA), a simple two-stage method that improves group robustness by identifying a low-dimensional subspace in the representation space where model errors concentrate. LEIA restricts adaptation to this error-informed subspace via a low-rank adjustment to the classifier logits, directly targeting latent failure modes without modifying the backbone or requiring group labels. Using five real-world datasets, we analyze group robustness under three settings: (1) truly no knowledge of subgroup relevance, (2) partial knowledge of subgroup relevance, and (3) full knowledge of subgroup relevance. Across all settings, LEIA consistently improves worst-group performance while remaining fast, parameter-efficient, and robust to hyperparameter choice.                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Research Card -->
+        <div class="research-grid-item">
+          <div class="card research-card">
+            <div class="card-content">
+              <p class="title is-5">
                 The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making
               </p>
               <div class="research-card-content-wrapper">
