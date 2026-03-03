@@ -59,6 +59,16 @@
       background: var(--paper);
       transition: background-color 0.18s ease, color 0.18s ease;
     }
+    body.preload {
+      opacity: 0;
+    }
+    body.fade-in {
+      animation: pageFadeIn 900ms ease-out forwards;
+    }
+    @keyframes pageFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
     a {
       color: var(--accent);
@@ -424,7 +434,7 @@
   }
   </script>
 </head>
-<body>
+<body class="preload">
   <header class="page-header">
     <div class="page-header-inner">
       <a href="#" class="logo">Abinitha G</a>
@@ -626,6 +636,23 @@
 
   <script>
     (function() {
+      var firstVisitKey = 'abinitha-first-visit';
+      var body = document.body;
+      if (body) {
+        var hasVisited = false;
+        try { hasVisited = sessionStorage.getItem(firstVisitKey) === '1'; } catch (e) {}
+        if (!hasVisited) {
+          body.classList.add('fade-in');
+          try { sessionStorage.setItem(firstVisitKey, '1'); } catch (e) {}
+        } else {
+          body.classList.remove('preload');
+        }
+        body.addEventListener('animationend', function() {
+          body.classList.remove('preload');
+          body.classList.remove('fade-in');
+        }, { once: true });
+      }
+
       var navToggle = document.querySelector('.nav-toggle');
       var navLinks = document.querySelector('.nav-links');
       if (navToggle && navLinks) {
