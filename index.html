@@ -275,7 +275,8 @@
     /* ----- Research ----- */
     .research-wrap {
       position: relative;
-      margin: 0 calc(-1 * clamp(1rem, 4vw, 2rem));
+      margin: 0;
+      overflow: visible;
     }
     .research-track {
       display: flex;
@@ -283,7 +284,7 @@
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
-      padding: 0.5rem clamp(1rem, 4vw, 2rem);
+      padding: 0.5rem 0;
       scrollbar-width: none;
     }
     .research-track::-webkit-scrollbar { display: none; }
@@ -344,7 +345,7 @@
       padding-top: 0;
     }
     .abstract.is-open {
-      max-height: 600px;
+      max-height: 3000px;
       padding-top: 0.75rem;
     }
     .research-nav {
@@ -367,8 +368,12 @@
     }
     .research-nav:hover { background: var(--accent); color: var(--paper); }
     .research-nav:disabled { opacity: 0.4; cursor: not-allowed; }
-    .research-nav.prev { left: 0.5rem; }
-    .research-nav.next { right: 0.5rem; }
+    .research-nav.prev { left: -2.75rem; }
+    .research-nav.next { right: -2.75rem; }
+    @media (max-width: 900px) {
+      .research-nav.prev { left: 0.25rem; }
+      .research-nav.next { right: 0.25rem; }
+    }
     .research-dots {
       display: flex;
       justify-content: center;
