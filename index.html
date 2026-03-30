@@ -24,110 +24,211 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Manrope:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Sora:wght@400;500;600;700&family=Nunito:wght@400;600;700&family=Cinzel:wght@400;600;700&family=Libre+Bodoni:ital,wght@0,400;0,600;0,700;1,400&family=Unbounded:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --ink: #0f0e0c;
-      --ink-muted: #44403c;
-      --paper: #ebe7df;
-      --paper-warm: #e0dad0;
-      --accent: #b55239;
-      --accent-hover: #954332;
-      --border: #b8afa3;
-      --card-bg: #f4f0e9;
-      /* UI headings (nav, small headings) */
-      --font-head: 'Figtree', sans-serif;
-      /* Display headings (your name + section titles). Try:
-         'Nunito' (rounded, friendly) | 'Cinzel' (classic) | 'Libre Bodoni' (high fashion) | 'Unbounded' (bold modern) */
-      --font-display: 'Nunito', sans-serif;
-      /* Body text */
-      --font-body: 'Figtree', sans-serif;
-      --space: clamp(1rem, 3vw, 2rem);
+      /* Marbled page background: white base + diffused teal/blue blobs */
+      --bg:
+        radial-gradient(760px 500px at 24% 72%, rgba(139, 92, 246, 0.10) 0%, rgba(139, 92, 246, 0) 60%),
+        radial-gradient(920px 560px at 55% 18%, rgba(168, 85, 247, 0.12) 0%, rgba(168, 85, 247, 0) 60%),
+        radial-gradient(1200px 760px at 8% 5%, rgba(34, 197, 94, 0.20) 0%, rgba(34, 197, 94, 0) 60%),
+        radial-gradient(980px 640px at 92% 10%, rgba(59, 130, 246, 0.18) 0%, rgba(59, 130, 246, 0) 55%),
+        radial-gradient(860px 580px at 70% 86%, rgba(34, 211, 238, 0.18) 0%, rgba(34, 211, 238, 0) 60%),
+        radial-gradient(720px 520px at 16% 78%, rgba(16, 185, 129, 0.16) 0%, rgba(16, 185, 129, 0) 58%),
+        radial-gradient(660px 520px at 44% 42%, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 55%),
+        radial-gradient(420px 320px at 32% 28%, rgba(34, 197, 94, 0.14) 0%, rgba(34, 197, 94, 0) 60%),
+        radial-gradient(520px 380px at 78% 34%, rgba(34, 211, 238, 0.12) 0%, rgba(34, 211, 238, 0) 60%),
+        linear-gradient(180deg, #fcfdff 0%, #f0f7fb 55%, #eef8f3 100%);
+      --bg-secondary: rgba(255, 255, 255, 0.62);
+      --panel-surface: #fbfdff;
+      --panel-border: #cfe5f1;
+      --panel-shadow: none;
+      --text: #1a102a;
+      --text-muted: #4b5563;
+      /* Teal/blue only (no purple palette) */
+      --accent: #0ea5e9;
+      --accent-hover: #10b981;
+      --accent-rgb: 14,165,233;
+      --border: #d7f4ff;
+      --card-bg: #ffffff;
+      --card-shadow: 0 1px 3px rgba(2, 6, 23, 0.06), 0 1px 2px rgba(2, 6, 23, 0.04);
+      --card-shadow-hover: 0 18px 40px rgba(2, 6, 23, 0.10), 0 6px 16px rgba(2, 6, 23, 0.06);
+      --header-bg: rgba(251,249,255,0.78);
+      --header-bg-scrolled: rgba(196, 186, 226, 0.72);
+      --font: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --space: clamp(0.85rem, 2.5vw, 1.55rem);
       --wrap: min(94vw, 900px);
       --radius: 12px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html.dark {
+      /* Same as light mode, only very slightly darker */
+      --bg:
+        radial-gradient(760px 500px at 24% 72%, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0) 60%),
+        radial-gradient(920px 560px at 55% 18%, rgba(168, 85, 247, 0.10) 0%, rgba(168, 85, 247, 0) 60%),
+        radial-gradient(1200px 760px at 8% 5%, rgba(34, 197, 94, 0.14) 0%, rgba(34, 197, 94, 0) 60%),
+        radial-gradient(980px 640px at 92% 10%, rgba(59, 130, 246, 0.12) 0%, rgba(59, 130, 246, 0) 55%),
+        radial-gradient(860px 580px at 70% 86%, rgba(34, 211, 238, 0.12) 0%, rgba(34, 211, 238, 0) 60%),
+        radial-gradient(720px 520px at 16% 78%, rgba(16, 185, 129, 0.10) 0%, rgba(16, 185, 129, 0) 58%),
+        radial-gradient(660px 520px at 44% 42%, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0) 55%),
+        radial-gradient(420px 320px at 32% 28%, rgba(34, 197, 94, 0.10) 0%, rgba(34, 197, 94, 0) 60%),
+        radial-gradient(520px 380px at 78% 34%, rgba(34, 211, 238, 0.08) 0%, rgba(34, 211, 238, 0) 60%),
+        linear-gradient(180deg, #dce7ef 0%, #d8e2eb 55%, #d7e5dd 100%);
+      --bg-secondary: rgba(219, 229, 238, 0.72);
+      --panel-surface: #f5f9fc;
+      --panel-border: #afcfdb;
+      --panel-shadow: none;
+      --text: #0f172a;
+      --text-muted: #334155;
+      --accent: #097fb0;
+      --accent-hover: #0b7e5d;
+      --accent-rgb: 9,127,176;
+      --border: #afcfdb;
+      --card-bg: #e8f0f5;
+      --card-shadow: 0 1px 3px rgba(2, 6, 23, 0.12), 0 1px 2px rgba(2, 6, 23, 0.08);
+      --card-shadow-hover: 0 18px 40px rgba(2, 6, 23, 0.16), 0 6px 16px rgba(2, 6, 23, 0.11);
+      --header-bg: rgba(219,229,238,0.86);
+      --header-bg-scrolled: rgba(196, 186, 226, 0.76);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: var(--font-body);
-      font-size: clamp(1rem, 0.95rem + 0.25vw, 1.1rem);
-      line-height: 1.6;
-      color: var(--ink);
-      background: var(--paper);
-      transition: background-color 0.18s ease, color 0.18s ease;
+      font-family: var(--font);
+      font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
+      line-height: 1.62;
+      color: var(--text);
+      background: var(--bg);
+      transition: background var(--transition), color var(--transition);
+      -webkit-font-smoothing: antialiased;
     }
-    body.preload {
-      opacity: 0;
-    }
-    body.fade-in {
-      animation: pageFadeIn 900ms ease-out forwards;
-    }
-    @keyframes pageFadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    body.preload { opacity: 0; }
+    body.fade-in { animation: pageFadeIn 800ms ease-out forwards; }
+    @keyframes pageFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
     a {
       color: var(--accent);
       text-decoration: none;
-      transition: color 0.18s ease;
+      transition: color var(--transition);
     }
     a:hover { color: var(--accent-hover); }
 
-    /* ----- Page header / Nav ----- */
+    /* ----- Header ----- */
     .page-header {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(235, 231, 223, 0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 2px solid var(--border);
-      transition: background-color 0.18s ease, border-color 0.18s ease;
+      background-color: rgba(0,0,0,0);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom: none;
+      transition: background-color 220ms ease;
+    }
+    .page-header.is-scrolled {
+      background-color: var(--header-bg-scrolled);
     }
     .page-header-inner {
       max-width: var(--wrap);
       margin: 0 auto;
-      padding: clamp(0.5rem, 1.5vw, 0.85rem) var(--space) clamp(0.5rem, 1.5vw, 0.85rem) 0;
+      padding: 0.75rem 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
     }
-    .page-header .logo {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.25rem;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      transition: color 0.18s ease;
+    .logo {
+      font-weight: 600;
+      font-size: 1.22rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      transition: color var(--transition);
+      white-space: nowrap;
     }
-    .page-header .logo:hover { color: var(--ink); }
+    .logo:hover { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; position: relative; }
     .nav-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
       margin: 0;
       padding: 0;
+      transition: opacity var(--transition), transform var(--transition);
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+    }
+    .page-header.is-scrolled .nav-links {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
     .nav-links a {
-      font-family: var(--font-head);
       font-weight: 500;
-      font-size: 0.95rem;
-      color: var(--ink-muted);
-      transition: color 0.18s ease;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
     }
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover { color: var(--text); }
+    .theme-toggle {
+      position: relative;
+      width: 3.05rem;
+      height: 1.7rem;
+      padding: 0;
+      border: 1px solid rgba(var(--accent-rgb), 0.35);
+      border-radius: 999px;
+      background:
+        linear-gradient(180deg, rgba(var(--accent-rgb), 0.10), rgba(var(--accent-rgb), 0.04));
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: border-color var(--transition), background var(--transition);
+      overflow: hidden;
+    }
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0.22rem;
+      transform: translateY(-50%);
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: 999px;
+      background: var(--card-bg);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      transition: left var(--transition), box-shadow var(--transition);
+      z-index: 1;
+    }
+    html.dark .theme-toggle::after { left: 1.58rem; }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.78rem;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .theme-toggle .icon-sun { left: 0.55rem; }
+    .theme-toggle .icon-moon { right: 0.55rem; }
+
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: inline; }
+    html.dark .theme-toggle .icon-sun { display: inline; }
+    html.dark .theme-toggle .icon-moon { display: none; }
+
+    .theme-toggle:hover { border-color: rgba(var(--accent-rgb), 0.65); }
     .nav-toggle {
       display: none;
       background: none;
       border: none;
       padding: 0.5rem;
       cursor: pointer;
-      color: var(--ink);
-      font-size: 1.25rem;
+      color: var(--text);
+      font-size: 1.15rem;
     }
     @media (max-width: 520px) {
       .nav-toggle { display: block; }
@@ -135,292 +236,394 @@
         display: none;
         position: absolute;
         top: 100%;
-        left: 0;
         right: 0;
+        width: 200px;
         flex-direction: column;
-        padding: var(--space);
+        padding: 1rem 1.25rem;
         background: var(--card-bg);
-        border-bottom: 1px solid var(--border);
+        border: 1px solid var(--border);
+        border-radius: 0 0 var(--radius) var(--radius);
+        box-shadow: var(--card-shadow-hover);
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
       }
       .nav-links.is-open { display: flex; }
+      .nav-links a { opacity: 1; }
     }
 
     /* ----- Hero ----- */
     .hero {
-      padding: clamp(0.9rem, 3vw, 1.35rem) var(--space);
-      text-align: center;
-      background: linear-gradient(165deg, #f8f6f2 0%, #f2efe8 50%);
-      border-bottom: 2px solid var(--border);
-      transition: background 0.18s ease, border-color 0.18s ease;
+      padding: clamp(1.25rem, 4vw, 2rem) var(--space);
+      text-align: left;
+      background:
+        radial-gradient(900px 260px at 18% 0%, rgba(var(--accent-rgb), 0.16), transparent 58%),
+        linear-gradient(180deg, rgba(var(--accent-rgb), 0.08), transparent 60%);
+      transition: background var(--transition);
     }
     .hero-inner {
       max-width: var(--wrap);
       margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(1rem, 3vw, 1.5rem);
+    }
+    .hero-brand { flex: 0 0 auto; }
+    .hero-content {
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
     }
     .hero-avatar {
-      width: clamp(88px, 20vw, 118px);
-      height: clamp(88px, 20vw, 118px);
+      width: clamp(84px, 16vw, 112px);
+      height: clamp(84px, 16vw, 112px);
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid var(--border);
-      margin-top: 0.95rem;
-      margin-bottom: 0.25rem;
-      transition: border-color 0.18s ease;
+      border: none;
+      margin: 0;
+      transition: border-color var(--transition);
     }
     .hero h1 {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: clamp(1.65rem, 5vw, 2.4rem);
-      letter-spacing: -0.02em;
+      font-weight: 700;
+      font-size: clamp(1.55rem, 4.4vw, 2.2rem);
+      letter-spacing: -0.03em;
       margin: 0 0 0.1em;
-      color: var(--ink);
-      transition: color 0.18s ease;
+      color: var(--text);
+      transition: color var(--transition);
     }
     .hero .subtitle {
-      font-family: var(--font-head);
       font-weight: 500;
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: var(--ink-muted);
-      margin: 0 0 0.55rem;
-      transition: color 0.18s ease;
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--text-muted);
+      margin: 0 0 0.5rem;
+      transition: color var(--transition);
     }
     .hero .tagline {
-      max-width: 36em;
-      margin: 0 auto 1rem;
-      font-size: clamp(0.95rem, 1rem + 0.2vw, 1.05rem);
-      color: var(--ink-muted);
-      transition: color 0.18s ease;
+      max-width: 40em;
+      margin: 0 0 1rem;
+      line-height: 1.42;
+      color: var(--text-muted);
+      transition: color var(--transition);
     }
     .hero-links {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+      justify-content: flex-start;
+      gap: 0.75rem;
     }
     .hero-links a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
-      background: var(--ink);
-      color: var(--paper);
-      transition: transform 0.2s ease, background 0.18s ease, color 0.18s ease;
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 8px;
+      border: 1px solid var(--panel-border);
+      /* Match News section surface color */
+      background: var(--panel-surface);
+      box-shadow: var(--panel-shadow);
+      color: var(--text-muted);
+      transition: all var(--transition);
     }
     .hero-links a:hover {
-      background: var(--accent);
-      color: var(--paper);
-      transform: translateY(-2px);
+      color: var(--text);
+      background: var(--panel-surface);
+      transform: translateY(-1px);
+      box-shadow: var(--card-shadow);
     }
 
     /* ----- Sections ----- */
-    section {
-      padding: clamp(2rem, 6vw, 3.5rem) var(--space);
-    }
-    .section-inner {
-      max-width: var(--wrap);
-      margin: 0 auto;
-    }
+    section { padding: clamp(1.6rem, 5vw, 2.6rem) var(--space); }
+    section + section { border-top: none; }
+    #about { scroll-margin-top: 5.2rem; }
+    .section-inner { max-width: var(--wrap); margin: 0 auto; }
     .section-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(1.35rem, 3vw, 1.6rem);
-      letter-spacing: -0.02em;
-      margin: 0 0 1.25rem;
-      color: var(--ink);
-      transition: color 0.18s ease;
+      font-weight: 600;
+      font-size: clamp(1.32rem, 3.1vw, 1.68rem);
+      letter-spacing: -0.025em;
+      margin: 0 0 1.05rem;
+      color: var(--text);
+      transition: color var(--transition);
+      position: relative;
+      padding-bottom: 0.55rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 56px;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-hover), var(--accent), transparent);
+      opacity: 0.95;
+    }
+
+    @media (max-width: 720px) {
+      .hero { text-align: center; }
+      .hero-inner {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-content {
+        align-items: center;
+      }
+      .hero-avatar {
+        margin-bottom: 0.75rem;
+      }
+      .hero .tagline { margin-bottom: 1.25rem; }
+      .hero-links { justify-content: center; }
     }
 
     /* ----- About + News ----- */
-    .about-news {
-      display: flex;
-      flex-wrap: wrap;
-      gap: clamp(1.5rem, 4vw, 2.5rem);
-      align-items: start;
+    .about-news { display: flex; flex-wrap: wrap; gap: clamp(1.5rem, 4vw, 2.5rem); align-items: start; }
+    .about-block { flex: 1 1 min(60%, 100%); min-width: min(280px, 100%); }
+    .about-block p {
+      margin: 0 0 1rem;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      line-height: 1.68;
+      transition: color var(--transition);
     }
-    .about-block {
-      flex: 1 1 min(65%, 100%);
-      min-width: min(280px, 100%);
-    }
-    .about-block p { margin: 0 0 1rem; }
     .about-block p:last-of-type { margin-bottom: 0; }
     .news-block {
       flex: 1 1 min(30%, 100%);
       min-width: min(240px, 100%);
+      position: relative;
+      top: -0.35rem;
+    }
+    @media (max-width: 720px) {
+      .news-block { top: 0; }
     }
     .news-list {
       list-style: none;
       margin: 0;
-      padding: 0;
+      padding: 1rem;
       max-height: 380px;
       overflow-y: auto;
-      padding-right: 0.5rem;
-      border: 2px dashed var(--border);
+      border: 1px solid var(--panel-border);
       border-radius: var(--radius);
-      padding: 1rem;
-      transition: border-color 0.18s ease;
+      background: var(--panel-surface);
+      box-shadow: var(--panel-shadow);
+      transition: border-color var(--transition), background var(--transition);
     }
-    .news-list::-webkit-scrollbar { width: 6px; }
-    .news-list::-webkit-scrollbar-track { background: var(--paper-warm); border-radius: 3px; }
-    .news-list::-webkit-scrollbar-thumb { background: var(--accent); opacity: 0.5; border-radius: 3px; }
+    .news-list::-webkit-scrollbar { width: 4px; }
+    .news-list::-webkit-scrollbar-track { background: transparent; }
+    .news-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
     .news-list li {
       padding: 0.4rem 0;
       border-bottom: 1px solid var(--border);
-      font-size: clamp(0.88rem, 0.85rem + 0.2vw, 0.95rem);
-      transition: border-color 0.18s ease, color 0.18s ease;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      transition: border-color var(--transition), color var(--transition);
     }
     .news-list li:last-child { border-bottom: none; }
 
     /* ----- Research ----- */
-    .research-wrap {
-      position: relative;
-      margin: 0;
-      overflow: visible;
-    }
+    .research-wrap { position: relative; overflow: visible; }
     .research-track {
       display: flex;
-      gap: 1.25rem;
+      gap: 1rem;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       padding: 0.5rem 0;
-      scrollbar-width: none;
+      scrollbar-width: auto;
     }
-    .research-track::-webkit-scrollbar { display: none; }
+    .research-track::-webkit-scrollbar { height: 6px; display: block; }
+    .research-track::-webkit-scrollbar-track { background: var(--bg-secondary); border-radius: 3px; }
+    .research-track::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
     .research-card {
-      flex: 0 0 min(85%, 320px);
+      flex: 0 0 min(85%, 340px);
       min-width: 0;
       scroll-snap-align: start;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
+      background: var(--panel-surface);
+      border: 1px solid var(--panel-border);
       border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(15, 14, 12, 0.06);
-      transition: box-shadow 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+      box-shadow: var(--panel-shadow);
+      transition: all var(--transition);
+      position: relative;
     }
     .research-card:hover {
-      box-shadow: 0 8px 24px rgba(15, 14, 12, 0.12);
-      border-color: var(--accent);
+      box-shadow: var(--card-shadow-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-2px);
     }
-    .research-card-inner { padding: 1.25rem; }
+    .research-card-inner {
+      padding: 1.25rem;
+      position: relative;
+      min-height: 405px;
+    }
     .research-card h4 {
-      font-family: var(--font-head);
       font-weight: 600;
-      font-size: clamp(1rem, 1rem + 0.3vw, 1.1rem);
-      line-height: 1.35;
-      margin: 0 0 0.85rem;
-      color: var(--ink);
-      transition: color 0.18s ease;
+      font-size: clamp(1rem, 1rem + 0.22vw, 1.1rem);
+      line-height: 1.34;
+      margin: 0 0 0.75rem;
+      color: var(--text);
+      transition: color var(--transition);
     }
     .research-card-media {
       width: 100%;
-      height: 140px;
+      height: 150px;
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 0.75rem;
     }
     .research-card-meta {
-      font-size: clamp(0.82rem, 0.8rem + 0.2vw, 0.9rem);
-      color: var(--ink-muted);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--text-muted);
       margin-bottom: 0.5rem;
-      transition: color 0.18s ease;
+      transition: color var(--transition);
     }
-    .research-card-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      margin-top: 0.5rem;
-    }
-    .research-card-links a { font-size: 0.9rem; }
+    .research-card-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 0.5rem; }
+    .research-card-links a { font-size: 0.875rem; font-weight: 500; }
     .abstract {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, color 0.18s ease, border-color 0.18s ease;
+      position: absolute;
+      inset: 0;
+      padding: 1.25rem 1.6rem 1.25rem 1.25rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      background: var(--panel-surface);
+      z-index: 2;
+      line-height: 1.55;
       font-style: italic;
-      font-size: 0.9rem;
-      color: var(--ink-muted);
-      border-top: 1px solid var(--border);
-      margin-top: 0.75rem;
-      padding-top: 0;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s ease;
+      scrollbar-width: auto;
     }
-    .abstract.is-open {
-      max-height: 3000px;
-      padding-top: 0.75rem;
+    .abstract::-webkit-scrollbar { width: 6px; }
+    .abstract::-webkit-scrollbar-track { background: transparent; }
+    .abstract::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .research-card.is-flipped .abstract {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .research-card.is-flipped h4,
+    .research-card.is-flipped .research-card-media,
+    .research-card.is-flipped .research-card-meta,
+    .research-card.is-flipped .research-card-links {
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      pointer-events: none;
+    }
+    .abstract-close {
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      font-style: normal;
+      line-height: 1.2;
     }
     .research-nav {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 2.5rem;
-      height: 2.5rem;
-      border: none;
-      border-radius: 50%;
+      width: 2.25rem;
+      height: 2.25rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       background: var(--card-bg);
-      color: var(--ink);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      color: var(--text-muted);
+      box-shadow: var(--card-shadow);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 2;
-      transition: background 0.2s ease, color 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+      transition: all var(--transition);
     }
-    .research-nav:hover { background: var(--accent); color: var(--paper); }
-    .research-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+    .research-nav:hover { border-color: var(--accent-hover); color: var(--accent-hover); }
+    .research-nav:disabled { opacity: 0.3; cursor: not-allowed; }
     .research-nav.prev { left: -2.75rem; }
     .research-nav.next { right: -2.75rem; }
     @media (max-width: 900px) {
       .research-nav.prev { left: 0.25rem; }
       .research-nav.next { right: 0.25rem; }
     }
-    .research-dots {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
+    .research-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
     .research-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      border: none;
-      background: var(--border);
-      cursor: pointer;
-      padding: 0;
-      transition: background 0.18s ease, transform 0.2s ease;
+      width: 6px; height: 6px; border-radius: 50%;
+      border: none; background: var(--border); cursor: pointer; padding: 0;
+      transition: all var(--transition);
     }
-    .research-dot.active { background: var(--accent); transform: scale(1.2); }
+    .research-dot.active { background: var(--accent); transform: scale(1.4); }
 
     /* ----- Publications ----- */
-    .pub-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+    .pub-list { list-style: none; margin: 0; padding: 0; }
     .pub-list li {
-      padding: 0.6rem 0 0.6rem 1rem;
-      border-left: 3px solid transparent;
-      margin-bottom: 0.25rem;
-      transition: border-color 0.18s ease, padding-left 0.2s ease, color 0.18s ease;
+      padding: 0.65rem 0;
+      border-top: 1px solid var(--border);
     }
-    .pub-list li:hover {
-      border-left-color: var(--accent);
-      padding-left: 1.25rem;
+    .pub-list li:first-child { border-top: none; }
+
+    .pub-main {
+      font-size: 0.9rem;
+      line-height: 1.62;
+      color: var(--text);
     }
-    .pub-list a { font-size: 0.95rem; }
+    .pub-main strong { font-weight: 700; }
+
+    .pub-links {
+      margin-top: 0.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      align-items: center;
+    }
+    .pub-link {
+      font-size: 0.8rem;
+      font-weight: 650;
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+      transition: color var(--transition);
+    }
+    .pub-link:hover { color: var(--accent-hover); }
+
+    #publications .section-inner {
+      position: relative;
+      padding: 1rem;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(to right, rgba(var(--accent-rgb), 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(var(--accent-rgb), 0.05) 1px, transparent 1px),
+        var(--panel-surface);
+      background-size: 22px 22px, 22px 22px, auto;
+      border: 1px solid var(--panel-border);
+    }
 
     /* ----- Footer ----- */
     footer {
-      background: var(--ink);
-      color: var(--paper);
-      padding: clamp(1.25rem, 3vw, 1.75rem) var(--space);
+      border-top: none;
+      background: var(--header-bg-scrolled);
+      padding: clamp(1.5rem, 3vw, 2rem) var(--space);
       text-align: center;
-      transition: background-color 0.18s ease, color 0.18s ease;
+      transition: border-color var(--transition), background var(--transition);
     }
-    footer a { color: #c4b5a0; }
-    footer a:hover { color: var(--paper); }
-    footer p { margin: 0; font-size: 0.9rem; }
+    footer p { margin: 0; font-size: 0.85rem; color: var(--text-muted); transition: color var(--transition); }
+    footer a { color: var(--text-muted); }
+    footer a:hover { color: var(--accent); }
   </style>
 
   <script type="application/ld+json">
@@ -442,15 +645,24 @@
 <body class="preload">
   <header class="page-header">
     <div class="page-header-inner">
-      <a href="#" class="logo">Abinitha G</a>
+      <a href="#" class="logo">Abinitha Gourabathina</a>
       <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
         <i class="fas fa-bars"></i>
       </button>
-      <nav>
+      <nav class="nav-right">
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#research">Research</a></li>
+          <li><a href="#publications">Papers</a></li>
         </ul>
+        <button
+          type="button"
+          class="theme-toggle"
+          role="switch"
+          aria-label="Toggle theme"
+          aria-checked="false">
+          <span class="icon-sun" aria-hidden="true"><i class="fas fa-sun"></i></span>
+          <span class="icon-moon" aria-hidden="true"><i class="fas fa-moon"></i></span>
+        </button>
       </nav>
     </div>
   </header>
@@ -458,19 +670,22 @@
   <main>
     <section class="hero">
       <div class="hero-inner">
-        <img class="hero-avatar" src="assets/files/profile2.png" alt="Abinitha Gourabathina" />
-        <h1>Abinitha Gourabathina</h1>
-        <p class="subtitle">PhD Student @ MIT EECS</p>
-        <p class="tagline">
-          My research focuses on model robustness and AI safety, particularly in
-          sensitive domains such as healthcare.
-        </p>
-        <div class="hero-links">
-          <a href="https://github.com/abinithago" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-          <a href="assets/files/CV.pdf" target="_blank" aria-label="CV"><i class="fas fa-file-alt"></i></a>
-          <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
-          <a href="https://www.linkedin.com/in/abinithag" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="mailto:abinitha@mit.edu" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <div class="hero-brand">
+          <img class="hero-avatar" src="assets/files/profile2.png" alt="Abinitha Gourabathina" />
+        </div>
+        <div class="hero-content">
+          <p class="subtitle">PhD Student @ MIT EECS</p>
+          <p class="tagline">
+            My research focuses on model robustness and AI safety, particularly in
+            sensitive domains such as healthcare.
+          </p>
+          <div class="hero-links">
+            <a href="https://github.com/abinithago" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="assets/files/CV.pdf" target="_blank" aria-label="CV"><i class="fas fa-file-alt"></i></a>
+            <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+            <a href="https://www.linkedin.com/in/abinithag" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:abinitha@mit.edu" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          </div>
         </div>
       </div>
     </section>
@@ -567,7 +782,7 @@
               <div class="research-card-inner">
                 <h4>The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs</h4>
                 <img src="assets/files/medium-message-thumb.png" alt="The Medium is the Message" class="research-card-media" />
-                <p class="research-card-meta">Abinitha Gourabathina, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (FAccT '25). Association for Computing Machinery, New York, NY, USA, 1805-1828. https://doi.org/10.1145/3715275.3732121</p>
+                <p class="research-card-meta">Abinitha Gourabathina, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (FAccT '25).</p>
                 <div class="research-card-links">
                   <a href="#" class="abstract-toggle" data-target="abs2">Abstract</a>
                   <a href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank" rel="noopener">Paper</a>
@@ -582,7 +797,7 @@
               <div class="research-card-inner">
                 <h4>PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model</h4>
                 <img src="assets/files/panda-thumb.png" alt="PanDa Game" class="research-card-media" />
-                <p class="research-card-meta">Abinitha Gourabathina, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. In IEEE Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817, Oct. 2023, doi: 10.1109/TNB.2023.3284092.</p>
+                <p class="research-card-meta">Abinitha Gourabathina, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. In IEEE Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817.</p>
                 <div class="research-card-links">
                   <a href="#" class="abstract-toggle" data-target="abs3">Abstract</a>
                   <a href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank" rel="noopener">Paper</a>
@@ -618,45 +833,115 @@
       <div class="section-inner">
         <h2 class="section-title">Papers</h2>
         <ul class="pub-list">
-          <li><strong>Abinitha Gourabathina</strong>, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz, 2026. Robustness Beyond Known Groups with Low-rank Adaptation. arXiv preprint arXiv:2602.06924. (<strong>Preprint</strong>).<br>
-          [<a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a>] [<a href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a>]</li>
-          <li><strong>Abinitha Gourabathina</strong>, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi, 2025. The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making. arXiv preprint arXiv:2506.17163. (<strong>Preprint</strong>).<br>
-          [<a href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a>] [<a href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">Website</a>] [<a href="https://github.com/abinithago/MedPerturb" target="_blank" rel="noopener">Code</a>]</li>
-          <li><strong>Abinitha Gourabathina</strong>, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (<strong>FAccT '25</strong>).<br>
-          [<a href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank" rel="noopener">Paper</a>] [<a href="https://github.com/abinithago/medium-is-message" target="_blank" rel="noopener">Code</a>]</li>
-          <li><strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model. In <strong>IEEE</strong> Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817, Oct. 2023.<br>
-          [<a href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank" rel="noopener">Paper</a>] [<a href="https://github.com/zhywan/covid19-privacy-game" target="_blank" rel="noopener">Code</a>]</li>
-          <li><strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2022. PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model. In Proceedings of the 2022 <strong>IEEE</strong> International Conference on Bioinformatics and Biomedicine (BIBM), Las Vegas, NV, USA, 2022, pp. 961-968.<br>
-          [<a href="https://ieeexplore.ieee.org/abstract/document/9995513" target="_blank" rel="noopener">Paper</a>]</li>
-          <li><strong>Abinitha Gourabathina</strong> (Senior thesis, Princeton University). What seems to be the problem? Stigmatizing language in patient medical notes. Princeton DataSpace. http://arks.princeton.edu/ark:/88435/dsp01cv43p110t<br>
-          [<a href="assets/files/senior_thesis.pdf" target="_blank">Paper</a>]</li>
+          <li>
+            <div class="pub-main">
+              <strong>Abinitha Gourabathina</strong>, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz, 2026. Robustness Beyond Known Groups with Low-rank Adaptation. arXiv preprint arXiv:2602.06924. (<strong>Preprint</strong>).
+            </div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a>
+              <a class="pub-link" href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a>
+            </div>
+          </li>
+          <li>
+            <div class="pub-main">
+              <strong>Abinitha Gourabathina</strong>, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi, 2025. The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making. arXiv preprint arXiv:2506.17163. (<strong>Preprint</strong>).
+            </div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a>
+              <a class="pub-link" href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">Website</a>
+              <a class="pub-link" href="https://github.com/abinithago/MedPerturb" target="_blank" rel="noopener">Code</a>
+            </div>
+          </li>
+          <li>
+            <div class="pub-main">
+              <strong>Abinitha Gourabathina</strong>, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (<strong>FAccT '25</strong>).
+            </div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank" rel="noopener">Paper</a>
+              <a class="pub-link" href="https://github.com/abinithago/medium-is-message" target="_blank" rel="noopener">Code</a>
+            </div>
+          </li>
+          <li>
+            <div class="pub-main">
+              <strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model. In <strong>IEEE</strong> Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817, Oct. 2023.
+            </div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank" rel="noopener">Paper</a>
+              <a class="pub-link" href="https://github.com/zhywan/covid19-privacy-game" target="_blank" rel="noopener">Code</a>
+            </div>
+          </li>
+          <li>
+            <div class="pub-main">
+              <strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2022. PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model. In Proceedings of the 2022 <strong>IEEE</strong> International Conference on Bioinformatics and Biomedicine (BIBM), Las Vegas, NV, USA, 2022, pp. 961-968.
+            </div>
+            <div class="pub-links">
+              <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9995513" target="_blank" rel="noopener">Paper</a>
+            </div>
+          </li>
+          <li>
+            <div class="pub-main">
+              <strong>Abinitha Gourabathina</strong> (Senior thesis, Princeton University). What seems to be the problem? Stigmatizing language in patient medical notes. Princeton DataSpace. http://arks.princeton.edu/ark:/88435/dsp01cv43p110t
+            </div>
+            <div class="pub-links">
+              <a class="pub-link" href="assets/files/senior_thesis.pdf" target="_blank" rel="noopener">Paper</a>
+            </div>
+          </li>
         </ul>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 Abinitha Gourabathina – <a href="mailto:abinitha@mit.edu">abinitha@mit.edu</a> | <a href="https://github.com/abinithago" target="_blank" rel="noopener">GitHub</a> | <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></p>
+    <p>&copy; 2025 Abinitha Gourabathina &mdash; <a href="mailto:abinitha@mit.edu">abinitha@mit.edu</a> &middot; <a href="https://github.com/abinithago" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></p>
   </footer>
 
   <script>
     (function() {
+      var themeKey = 'abinitha-theme';
+      function getStored() { try { return localStorage.getItem(themeKey); } catch(e) { return null; } }
+      function setStored(v) { try { localStorage.setItem(themeKey, v); } catch(e) {} }
+      function isDark() { return document.documentElement.classList.contains('dark'); }
+      function setDark(on) {
+        document.documentElement.classList.toggle('dark', on);
+        setStored(on ? 'dark' : 'light');
+        var tb = document.querySelector('.theme-toggle');
+        if (tb) tb.setAttribute('aria-checked', on ? 'true' : 'false');
+      }
+      function initTheme() {
+        var s = getStored();
+        if (s === 'dark') setDark(true);
+        else if (s === 'light') setDark(false);
+        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setDark(true);
+      }
+      initTheme();
+      if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) { if (!getStored()) setDark(e.matches); });
+      var tb = document.querySelector('.theme-toggle');
+      if (tb) tb.addEventListener('click', function() { setDark(!isDark()); });
+
+      // Quadrillion-like header: keep it visually blended at the top,
+      // then switch to a distinct sticky bar after the first scroll.
+      var header = document.querySelector('.page-header');
+      var headerIsScrolled = false;
+      function syncHeaderState() {
+        if (!header) return;
+        var y = window.scrollY;
+        // Hysteresis prevents flicker/jumpiness near the top.
+        if (!headerIsScrolled && y > 24) headerIsScrolled = true;
+        if (headerIsScrolled && y < 8) headerIsScrolled = false;
+        header.classList.toggle('is-scrolled', headerIsScrolled);
+      }
+      syncHeaderState();
+      window.addEventListener('scroll', syncHeaderState, { passive: true });
+
       var firstVisitKey = 'abinitha-first-visit';
       var body = document.body;
-      if (body) {
-        var hasVisited = false;
-        try { hasVisited = sessionStorage.getItem(firstVisitKey) === '1'; } catch (e) {}
-        if (!hasVisited) {
-          body.classList.add('fade-in');
-          try { sessionStorage.setItem(firstVisitKey, '1'); } catch (e) {}
-        } else {
-          body.classList.remove('preload');
-        }
-        body.addEventListener('animationend', function() {
-          body.classList.remove('preload');
-          body.classList.remove('fade-in');
-        }, { once: true });
-      }
+      var hasVisited = false;
+      try { hasVisited = sessionStorage.getItem(firstVisitKey) === '1'; } catch(e) {}
+      if (!hasVisited) {
+        body.classList.add('fade-in');
+        try { sessionStorage.setItem(firstVisitKey, '1'); } catch(e) {}
+      } else { body.classList.remove('preload'); }
+      body.addEventListener('animationend', function() { body.classList.remove('preload', 'fade-in'); }, { once: true });
 
       var navToggle = document.querySelector('.nav-toggle');
       var navLinks = document.querySelector('.nav-links');
@@ -664,16 +949,30 @@
         navToggle.addEventListener('click', function() {
           var open = navLinks.classList.toggle('is-open');
           navToggle.setAttribute('aria-expanded', open);
-          navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         });
       }
+
+      document.querySelectorAll('.abstract').forEach(function(abs) {
+        if (!abs.querySelector('.abstract-close')) {
+          var closeLink = document.createElement('a');
+          closeLink.href = '#';
+          closeLink.className = 'abstract-close';
+          closeLink.textContent = 'Back';
+          closeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            var card = abs.closest('.research-card');
+            if (card) card.classList.remove('is-flipped');
+          });
+          abs.insertBefore(closeLink, abs.firstChild);
+        }
+      });
 
       document.querySelectorAll('.abstract-toggle').forEach(function(btn) {
         btn.addEventListener('click', function(e) {
           e.preventDefault();
-          var id = btn.getAttribute('data-target');
-          var el = document.getElementById(id);
-          if (el) el.classList.toggle('is-open');
+          var card = btn.closest('.research-card');
+          if (!card) return;
+          card.classList.toggle('is-flipped');
         });
       });
 
@@ -683,62 +982,38 @@
       var dotsEl = document.getElementById('researchDots');
       if (track && prevBtn && nextBtn) {
         var cards = track.querySelectorAll('.research-card');
-        var cardWidth = cards[0] ? cards[0].offsetWidth + 20 : 340;
-        var dots = [];
-        var totalPages = 1;
-
+        var cardWidth = cards[0] ? cards[0].offsetWidth + 16 : 356;
+        var dots = [], totalPages = 1;
         function createDots() {
           if (!dotsEl) return;
-          dotsEl.innerHTML = '';
-          dots = [];
+          dotsEl.innerHTML = ''; dots = [];
           var maxScroll = track.scrollWidth - track.clientWidth;
-          totalPages = Math.max(1, Math.floor(maxScroll / cardWidth) + 1);
+          totalPages = Math.max(1, Math.round(maxScroll / cardWidth) + 1);
           for (var i = 0; i < totalPages; i++) {
             var dot = document.createElement('button');
             dot.type = 'button';
             dot.className = 'research-dot' + (i === 0 ? ' active' : '');
             dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-            (function(idx) {
-              dot.addEventListener('click', function() {
-                track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
-              });
-            })(i);
-            dotsEl.appendChild(dot);
-            dots.push(dot);
+            (function(idx) { dot.addEventListener('click', function() { track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' }); }); })(i);
+            dotsEl.appendChild(dot); dots.push(dot);
           }
         }
-
-        function updateActiveDot() {
+        function updateDot() {
           if (!dots.length) return;
-          var page = Math.round(track.scrollLeft / cardWidth);
-          page = Math.max(0, Math.min(page, totalPages - 1));
-          dots.forEach(function(d, i) { d.classList.toggle('active', i === page); });
+          var p = Math.round(track.scrollLeft / cardWidth);
+          p = Math.max(0, Math.min(p, totalPages - 1));
+          dots.forEach(function(d, i) { d.classList.toggle('active', i === p); });
         }
-
         function updateNav() {
-          var scrollLeft = track.scrollLeft;
-          var maxScroll = track.scrollWidth - track.clientWidth;
-          prevBtn.disabled = scrollLeft <= 0;
-          nextBtn.disabled = maxScroll <= 0 || scrollLeft >= maxScroll - 2;
+          var sl = track.scrollLeft, mx = track.scrollWidth - track.clientWidth;
+          prevBtn.disabled = sl <= 0;
+          nextBtn.disabled = mx <= 0 || sl >= mx - 2;
         }
-        function go(dir) {
-          track.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
-        }
-        prevBtn.addEventListener('click', function() { go(-1); });
-        nextBtn.addEventListener('click', function() { go(1); });
-        track.addEventListener('scroll', function() {
-          updateNav();
-          updateActiveDot();
-        });
-        window.addEventListener('resize', function() {
-          cardWidth = cards[0] ? cards[0].offsetWidth + 20 : 340;
-          createDots();
-          updateActiveDot();
-          updateNav();
-        });
-        createDots();
-        updateNav();
-        updateActiveDot();
+        prevBtn.addEventListener('click', function() { track.scrollBy({ left: -cardWidth, behavior: 'smooth' }); });
+        nextBtn.addEventListener('click', function() { track.scrollBy({ left: cardWidth, behavior: 'smooth' }); });
+        track.addEventListener('scroll', function() { updateNav(); updateDot(); });
+        window.addEventListener('resize', function() { cardWidth = cards[0] ? cards[0].offsetWidth + 16 : 356; createDots(); updateDot(); updateNav(); });
+        createDots(); updateNav(); updateDot();
       }
     })();
   </script>
