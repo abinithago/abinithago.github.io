@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Birding Log · Abinitha Gourabathina</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f1f0e8;
+      --panel: #e5e1da;
+      --blue-light: #b3c8cf;
+      --blue-mid: #89a8b2;
+      --text: #243038;
+      --text-muted: #3d5a6a;
+      --accent: #6a9648;
+      --rose: #c37b89;
+      --border: #b3c8cf;
+      --font: 'DM Sans', -apple-system, sans-serif;
+      --font-heading: 'Raleway', sans-serif;
+      --radius: 10px;
+      --tr: 0.18s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: var(--font); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+
+    /* ---- Header ---- */
+    .pg-header {
+      height: 52px; display: flex; align-items: center; gap: 1rem;
+      padding: 0 1.25rem; border-bottom: 1px solid var(--border);
+      background: var(--bg); position: sticky; top: 0; z-index: 300;
+    }
+    .back-link {
+      display: flex; align-items: center; gap: 0.35rem;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+      transition: color var(--tr);
+    }
+    .back-link:hover { color: var(--accent); }
+    .pg-header h1 {
+      font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--text);
+    }
+    .hdr-stats {
+      margin-left: auto; display: flex; gap: 1.25rem;
+      font-size: 0.78rem; color: var(--text-muted);
+    }
+    .hdr-stats strong { color: var(--text); }
+
+    /* ---- Layout ---- */
+    .app { display: flex; height: calc(100vh - 52px); }
+    .map-pane { flex: 1 1 auto; position: relative; }
+    #map { width: 100%; height: 100%; }
+
+    /* ---- Sidebar ---- */
+    .sidebar {
+      flex: 0 0 340px; display: flex; flex-direction: column;
+      border-left: 1px solid var(--border); background: var(--bg); overflow: hidden;
+    }
+    .search-wrap { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .search-wrap input {
+      width: 100%; padding: 0.38rem 0.75rem;
+      border: 1px solid var(--border); border-radius: 20px;
+      background: var(--panel); color: var(--text);
+      font-family: var(--font); font-size: 0.84rem; outline: none;
+      transition: border-color var(--tr);
+    }
+    .search-wrap input:focus { border-color: var(--blue-mid); }
+    .search-wrap input::placeholder { color: var(--text-muted); }
+
+    .species-list {
+      flex: 1 1 auto; overflow-y: auto; padding: 0.35rem 0;
+    }
+    .species-list::-webkit-scrollbar { width: 5px; }
+    .species-list::-webkit-scrollbar-track { background: transparent; }
+    .species-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ---- Species card ---- */
+    .species-card {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.5rem 0.85rem; cursor: pointer;
+      transition: background var(--tr); border-left: 3px solid transparent;
+    }
+    .species-card:hover { background: var(--panel); }
+    .species-card.active { background: var(--panel); border-left-color: var(--accent); }
+
+    .sp-photo {
+      width: 50px; height: 50px; border-radius: 8px; object-fit: cover;
+      flex-shrink: 0; border: 1px solid var(--border); display: block;
+    }
+    .sp-placeholder {
+      width: 50px; height: 50px; border-radius: 8px; flex-shrink: 0;
+      border: 1px solid var(--border); background: var(--panel);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--blue-mid); font-size: 1.1rem;
+    }
+    .sp-info { min-width: 0; flex: 1; }
+    .sp-name {
+      font-size: 0.86rem; font-weight: 600; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .sp-sci {
+      font-size: 0.7rem; font-style: italic; color: var(--text-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .sp-meta { font-size: 0.68rem; color: var(--blue-mid); margin-top: 0.1rem; }
+
+    /* ---- Map controls ---- */
+    .map-reset {
+      position: absolute; top: 12px; right: 12px; z-index: 500;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.32rem 0.7rem; font-family: var(--font); font-size: 0.7rem;
+      font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--text-muted); cursor: pointer; display: none; transition: all var(--tr);
+    }
+    .map-reset:hover { color: var(--text); border-color: var(--blue-mid); }
+    .map-reset.visible { display: block; }
+
+    /* ---- Legend ---- */
+    .map-legend {
+      background: rgba(241,240,232,0.92); border: 1px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 0.7rem;
+      font-family: var(--font); font-size: 0.68rem; backdrop-filter: blur(4px);
+    }
+    .legend-title {
+      font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 0.3rem;
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; padding: 0.1rem 0; color: var(--text-muted); }
+    .legend-dot {
+      width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+      border: 1.5px solid rgba(255,255,255,0.6);
+    }
+
+    /* ---- Leaflet tooltip (hover) ---- */
+    .leaflet-tooltip {
+      background: #f1f0e8 !important;
+      border: 1px solid #b3c8cf !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 18px rgba(35,50,55,0.16) !important;
+      padding: 8px 13px !important;
+      pointer-events: none !important;
+      transition: opacity 0.15s ease !important;
+    }
+    .leaflet-tooltip::before { border-top-color: #b3c8cf !important; }
+    .tip-name { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.88rem; color: #243038; }
+    .tip-sci  { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-style: italic; color: #3d5a6a; }
+    .tip-loc  { font-family: 'DM Sans', sans-serif; font-size: 0.69rem; color: #89a8b2; margin-top: 0.2rem; }
+
+    .empty { padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.84rem; }
+
+    /* ---- Attribution ---- */
+    .map-attribution {
+      position: absolute; bottom: 28px; left: 10px; z-index: 500;
+      background: rgba(241,240,232,0.88); backdrop-filter: blur(4px);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.3rem 0.6rem; font-size: 0.62rem; color: var(--text-muted);
+      line-height: 1.5; pointer-events: auto;
+    }
+    .map-attribution a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
+    .map-attribution a:hover { color: var(--accent); }
+
+    @media (max-width: 680px) {
+      .app { flex-direction: column; }
+      .map-pane { flex: 0 0 42vh; }
+      .sidebar { flex: 1 1 auto; border-left: none; border-top: 1px solid var(--border); width: 100%; }
+      .hdr-stats { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="pg-header">
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Abinitha</a>
+    <h1>Birding Log</h1>
+    <div class="hdr-stats">
+      <span><strong id="stat-sp">—</strong> species</span>
+    </div>
+  </header>
+
+  <div class="app">
+    <div class="map-pane">
+      <div id="map"></div>
+      <button class="map-reset" id="mapReset">Show all</button>
+      <div class="map-attribution">
+        IDs via <a href="https://merlin.allaboutbirds.org/" target="_blank" rel="noopener">Merlin Bird ID</a> &middot;
+        Photos from <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>
+      </div>
+    </div>
+    <aside class="sidebar">
+      <div class="search-wrap">
+        <input type="search" id="searchInput" placeholder="Search…" autocomplete="off">
+      </div>
+      <div class="species-list" id="speciesList"></div>
+    </aside>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+  const OBS = [
+    {id:"S346652877",name:"Graylag Goose",sci:"Anser anser",lat:42.353611,lon:-71.11013,loc:"Memorial Drive",region:"US-MA"},
+    {id:"S337932338",name:"Canada Goose",sci:"Branta canadensis",lat:42.316,lon:-71.227646,loc:"Hemlock Gorge",region:"US-MA"},
+    {id:"S341964510",name:"Blue-winged Teal",sci:"Spatula discors",lat:51.438626,lon:-105.241271,loc:"Last Mountain Lake",region:"CA-SK"},
+    {id:"S341954852",name:"Northern Shoveler",sci:"Spatula clypeata",lat:50.446477,lon:-104.510512,loc:"SK Trail",region:"CA-SK"},
+    {id:"S341941396",name:"Gadwall",sci:"Mareca strepera",lat:51.503275,lon:-105.408384,loc:"Looking Point",region:"CA-SK"},
+    {id:"S342316015",name:"Mallard",sci:"Anas platyrhynchos",lat:51.503548,lon:-105.747236,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S341980316",name:"Lesser Scaup",sci:"Aythya affinis",lat:51.211964,lon:-104.727812,loc:"Last Mountain Lake",region:"CA-SK"},
+    {id:"S342036024",name:"Ruddy Duck",sci:"Oxyura jamaicensis",lat:51.070848,lon:-105.254612,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S343087507",name:"Ruffed Grouse",sci:"Bonasa umbellus",lat:53.896395,lon:-106.092695,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S346668043",name:"Rock Pigeon",sci:"Columba livia",lat:42.387459,lon:-71.118935,loc:"Porter Square",region:"US-MA"},
+    {id:"S339010609",name:"Mourning Dove",sci:"Zenaida macroura",lat:42.36306,lon:-71.09295,loc:"Stata Center",region:"US-MA"},
+    {id:"S337424652",name:"Mourning Dove",sci:"Zenaida macroura",lat:42.36056,lon:-71.08915,loc:"Stata Center",region:"US-MA"},
+    {id:"S336317778",name:"Chimney Swift",sci:"Chaetura pelagica",lat:42.36236,lon:-71.08845,loc:"Stata Center",region:"US-MA"},
+    {id:"S342040542",name:"Sora",sci:"Porzana carolina",lat:51.44536,lon:-105.238903,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S341354951",name:"American Coot",sci:"Fulica americana",lat:50.432806,lon:-104.593843,loc:"Science Center",region:"CA-SK"},
+    {id:"S341941495",name:"American Avocet",sci:"Recurvirostra americana",lat:51.503275,lon:-105.408384,loc:"Looking Point",region:"CA-SK"},
+    {id:"S341941756",name:"Killdeer",sci:"Charadrius vociferus",lat:51.503275,lon:-105.408384,loc:"Looking Point",region:"CA-SK"},
+    {id:"S342047863",name:"Upland Sandpiper",sci:"Bartramia longicauda",lat:51.070848,lon:-105.254612,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S342037523",name:"Marbled Godwit",sci:"Limosa fedoa",lat:51.070848,lon:-105.254612,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S341964749",name:"Long-billed Dowitcher",sci:"Limnodromus scolopaceus",lat:51.43711,lon:-105.241277,loc:"Last Mountain Lake",region:"CA-SK"},
+    {id:"S342057915",name:"Wilson's Snipe",sci:"Gallinago delicata",lat:51.50365,lon:-105.3151,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S341977601",name:"Wilson's Phalarope",sci:"Phalaropus tricolor",lat:51.416427,lon:-105.2333,loc:"Last Mountain Lake",region:"CA-SK"},
+    {id:"S342972540",name:"Spotted Sandpiper",sci:"Actitis macularius",lat:53.876425,lon:-105.978598,loc:"Stargazing Lake",region:"CA-SK"},
+    {id:"S342053093",name:"Solitary Sandpiper",sci:"Tringa solitaria",lat:51.493427,lon:-105.241287,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S341965006",name:"Lesser Yellowlegs",sci:"Tringa flavipes",lat:51.432835,lon:-105.241287,loc:"Last Mountain Lake",region:"CA-SK"},
+    {id:"S341940308",name:"Willet",sci:"Tringa semipalmata",lat:51.503275,lon:-105.408384,loc:"Looking Point",region:"CA-SK"},
+    {id:"S341941966",name:"Least Sandpiper",sci:"Calidris minutilla",lat:51.50383,lon:-105.406827,loc:"Looking Point",region:"CA-SK"},
+    {id:"S343160056",name:"Bonaparte's Gull",sci:"Chroicocephalus philadelphia",lat:53.207743,lon:-105.758734,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S343159821",name:"Franklin's Gull",sci:"Leucophaeus pipixcan",lat:53.20747,lon:-105.76244,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S340014742",name:"Ring-billed Gull",sci:"Larus delawarensis",lat:43.643193,lon:-79.386302,loc:"Rogers Centre",region:"CA-ON"},
+    {id:"S341958600",name:"California Gull",sci:"Larus californicus",lat:51.484514,lon:-105.241263,loc:"SK Trail",region:"CA-SK"},
+    {id:"S342533118",name:"Black Tern",sci:"Chlidonias niger",lat:52.224146,lon:-106.596396,loc:"Trail",region:"CA-SK"},
+    {id:"S342037249",name:"Forster's Tern",sci:"Sterna forsteri",lat:51.445353,lon:-105.211261,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S342036774",name:"Pied-billed Grebe",sci:"Podilymbus podiceps",lat:51.445422,lon:-105.199653,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S342057081",name:"Horned Grebe",sci:"Podiceps auritus",lat:52.132415,lon:-106.660492,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S341979126",name:"Red-necked Grebe",sci:"Podiceps grisegena",lat:51.211964,lon:-104.727812,loc:"Last Mountain Lake",region:"CA-SK"},
+    {id:"S341940152",name:"Eared Grebe",sci:"Podiceps nigricollis",lat:51.503275,lon:-105.408384,loc:"Looking Point",region:"CA-SK"},
+    {id:"S342011273",name:"Western Grebe",sci:"Aechmophorus occidentalis",lat:51.401202,lon:-105.232067,loc:"Last Mountain Lake",region:"CA-SK"},
+    {id:"S342534898",name:"Common Loon",sci:"Gavia immer",lat:52.223363,lon:-106.597853,loc:"Trail",region:"CA-SK"},
+    {id:"S340015193",name:"Double-crested Cormorant",sci:"Nannopterum auritum",lat:43.643193,lon:-79.386302,loc:"Rogers Centre",region:"CA-ON"},
+    {id:"S342038217",name:"American Bittern",sci:"Botaurus lentiginosus",lat:51.445634,lon:-105.219825,loc:"Last Mountain Lake",region:"CA-SK"},
+    {id:"S343062412",name:"Great Blue Heron",sci:"Ardea herodias",lat:53.716052,lon:-105.941271,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S343086739",name:"American White Pelican",sci:"Pelecanus erythrorhynchos",lat:53.895788,lon:-106.082436,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S337936690",name:"Osprey",sci:"Pandion haliaetus",lat:42.314826,lon:-71.227015,loc:"Hemlock Gorge",region:"US-MA"},
+    {id:"S343021813",name:"Golden Eagle",sci:"Aquila chrysaetos",lat:53.900439,lon:-106.151611,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S342064806",name:"Cooper's Hawk",sci:"Astur cooperii",lat:52.132415,lon:-106.660492,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S337936264",name:"Red-tailed Hawk",sci:"Buteo jamaicensis",lat:42.314826,lon:-71.227015,loc:"Hemlock Gorge",region:"US-MA"},
+    {id:"S343008080",name:"Yellow-bellied Sapsucker",sci:"Sphyrapicus varius",lat:53.716052,lon:-105.941271,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S344172242",name:"Red-bellied Woodpecker",sci:"Melanerpes carolinus",lat:42.35956,lon:-71.09245,loc:"Stata Center",region:"US-MA"},
+    {id:"S336318519",name:"Downy Woodpecker",sci:"Dryobates pubescens",lat:42.36376,lon:-71.09015,loc:"Stata Center",region:"US-MA"},
+    {id:"S337936864",name:"Hairy Woodpecker",sci:"Leuconotopicus villosus",lat:42.314826,lon:-71.227015,loc:"Hemlock Gorge",region:"US-MA"},
+    {id:"S337939112",name:"Pileated Woodpecker",sci:"Dryocopus pileatus",lat:42.314946,lon:-71.224555,loc:"Hemlock Gorge",region:"US-MA"},
+    {id:"S341298150",name:"Least Flycatcher",sci:"Empidonax minimus",lat:50.463891,lon:-104.600177,loc:"Regina Floral Conservatory",region:"CA-SK"},
+    {id:"S343016041",name:"Eastern Phoebe",sci:"Sayornis phoebe",lat:53.716052,lon:-105.941271,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S347388674",name:"Eastern Kingbird",sci:"Tyrannus tyrannus",lat:42.36106,lon:-71.09375,loc:"Stata Center",region:"US-MA"},
+    {id:"S346668626",name:"Eastern Warbling Vireo",sci:"Vireo gilvus",lat:42.355984,lon:-71.114336,loc:"Magazine Beach",region:"US-MA"},
+    {id:"S337186140",name:"Blue Jay",sci:"Cyanocitta cristata",lat:42.363623,lon:-71.08985,loc:"Stata",region:"US-MA"},
+    {id:"S347924143",name:"California Scrub-Jay",sci:"Aphelocoma californica",lat:36.618043,lon:-121.902854,loc:"Monterey Bay",region:"US-CA"},
+    {id:"S342443355",name:"Black-billed Magpie",sci:"Pica hudsonia",lat:52.12175,lon:-106.674178,loc:"Saskatchewan River",region:"CA-SK"},
+    {id:"S340362629",name:"American Crow",sci:"Corvus brachyrhynchos",lat:50.449131,lon:-104.610911,loc:"Regina Airport",region:"CA-SK"},
+    {id:"S343160148",name:"Common Raven",sci:"Corvus corax",lat:53.207743,lon:-105.758734,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S341452659",name:"Black-capped Chickadee",sci:"Poecile atricapillus",lat:50.446477,lon:-104.510512,loc:"SK Trail",region:"CA-SK"},
+    {id:"S337938419",name:"Tufted Titmouse",sci:"Baeolophus bicolor",lat:42.330449,lon:-71.192641,loc:"Hemlock Grove Exit",region:"US-MA"},
+    {id:"S342057539",name:"Horned Lark",sci:"Eremophila alpestris",lat:51.503616,lon:-105.293842,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S342041358",name:"Tree Swallow",sci:"Tachycineta bicolor",lat:51.448409,lon:-105.241233,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S342317254",name:"Barn Swallow",sci:"Hirundo rustica",lat:51.448409,lon:-105.241233,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S343159961",name:"Ruby-crowned Kinglet",sci:"Corthylio calendula",lat:53.207743,lon:-105.758734,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S341343142",name:"Red-breasted Nuthatch",sci:"Sitta canadensis",lat:50.432297,lon:-104.595332,loc:"National Saskatchewan Museum",region:"CA-SK"},
+    {id:"S354169514",name:"Northern House Wren",sci:"Troglodytes aedon",lat:42.375109,lon:-71.145162,loc:"Mount Auburn Cemetery",region:"US-MA"},
+    {id:"S343159747",name:"Winter Wren",sci:"Troglodytes hiemalis",lat:53.20747,lon:-105.76244,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S339989887",name:"European Starling",sci:"Sturnus vulgaris",lat:43.643193,lon:-79.386302,loc:"Rogers Centre",region:"CA-ON"},
+    {id:"S346624508",name:"Gray Catbird",sci:"Dumetella carolinensis",lat:42.358195,lon:-71.091789,loc:"Memorial Drive",region:"US-MA"},
+    {id:"S338250201",name:"Gray Catbird",sci:"Dumetella carolinensis",lat:42.361684,lon:-71.090601,loc:"Stata",region:"US-MA"},
+    {id:"S341342257",name:"Brown Thrasher",sci:"Toxostoma rufum",lat:50.432823,lon:-104.596582,loc:"Saskatchewan Science Center",region:"CA-SK"},
+    {id:"S356287028",name:"Northern Mockingbird",sci:"Mimus polyglottos",lat:42.36336,lon:-71.09145,loc:"Stata Center",region:"US-MA"},
+    {id:"S341989283",name:"Swainson's Thrush",sci:"Catharus ustulatus",lat:51.037862,lon:-105.277911,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S342100900",name:"Hermit Thrush",sci:"Catharus guttatus",lat:50.449032,lon:-104.610133,loc:"Regina",region:"CA-SK"},
+    {id:"S336852500",name:"American Robin",sci:"Turdus migratorius",lat:42.35906,lon:-71.08995,loc:"Stata Center",region:"US-MA"},
+    {id:"S336318000",name:"House Sparrow",sci:"Passer domesticus",lat:42.36206,lon:-71.08875,loc:"Stata Center",region:"US-MA"},
+    {id:"S337925771",name:"House Finch",sci:"Haemorhous mexicanus",lat:42.314946,lon:-71.224555,loc:"Hemlock Gorge",region:"US-MA"},
+    {id:"S337430032",name:"American Goldfinch",sci:"Spinus tristis",lat:42.35976,lon:-71.09175,loc:"Stata Center",region:"US-MA"},
+    {id:"S341343285",name:"Chipping Sparrow",sci:"Spizella passerina",lat:50.432297,lon:-104.595332,loc:"National Saskatchewan Museum",region:"CA-SK"},
+    {id:"S342037028",name:"Clay-colored Sparrow",sci:"Spizella pallida",lat:50.432297,lon:-104.595332,loc:"National Saskatchewan Museum",region:"CA-SK"},
+    {id:"S342533380",name:"Dark-eyed Junco",sci:"Junco hyemalis",lat:51.503548,lon:-105.747236,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S342041945",name:"White-crowned Sparrow",sci:"Zonotrichia leucophrys",lat:50.432297,lon:-104.595332,loc:"National Saskatchewan Museum",region:"CA-SK"},
+    {id:"S341343041",name:"White-throated Sparrow",sci:"Zonotrichia albicollis",lat:50.432297,lon:-104.595332,loc:"National Saskatchewan Museum",region:"CA-SK"},
+    {id:"S341946088",name:"Vesper Sparrow",sci:"Pooecetes gramineus",lat:51.50363,lon:-105.33971,loc:"Second Looking Point",region:"CA-SK"},
+    {id:"S341344507",name:"Savannah Sparrow",sci:"Passerculus sandwichensis",lat:50.432829,lon:-104.59463,loc:"Saskatchewan Science Center",region:"CA-SK"},
+    {id:"S336853347",name:"Song Sparrow",sci:"Melospiza melodia",lat:42.36276,lon:-71.09245,loc:"Stata Center",region:"US-MA"},
+    {id:"S343005678",name:"Swamp Sparrow",sci:"Melospiza georgiana",lat:53.904774,lon:-106.154611,loc:"Prince Albert",region:"CA-SK"},
+    {id:"S341946348",name:"Yellow-headed Blackbird",sci:"Xanthocephalus xanthocephalus",lat:51.50365,lon:-105.3151,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S341344118",name:"Western Meadowlark",sci:"Sturnella neglecta",lat:50.432829,lon:-104.59463,loc:"Saskatchewan Science Center",region:"CA-SK"},
+    {id:"S337936163",name:"Baltimore Oriole",sci:"Icterus galbula",lat:42.314826,lon:-71.227015,loc:"Hemlock Gorge",region:"US-MA"},
+    {id:"S341111949",name:"Red-winged Blackbird",sci:"Agelaius phoeniceus",lat:50.413562,lon:-105.510087,loc:"Moose Jaw",region:"CA-SK"},
+    {id:"S341944983",name:"Brown-headed Cowbird",sci:"Molothrus ater",lat:51.503606,lon:-105.348288,loc:"Second Looking Point",region:"CA-SK"},
+    {id:"S341111172",name:"Brewer's Blackbird",sci:"Euphagus cyanocephalus",lat:50.413562,lon:-105.510087,loc:"Moose Jaw",region:"CA-SK"},
+    {id:"S336323792",name:"Common Grackle",sci:"Quiscalus quiscula",lat:42.36076,lon:-71.08815,loc:"Stata Center",region:"US-MA"},
+    {id:"S343269907",name:"Ovenbird",sci:"Seiurus aurocapilla",lat:50.449032,lon:-104.610133,loc:"Regina",region:"CA-SK"},
+    {id:"S340012517",name:"Northern Waterthrush",sci:"Parkesia noveboracensis",lat:43.643193,lon:-79.386302,loc:"Rogers Centre",region:"CA-ON"},
+    {id:"S341997984",name:"Tennessee Warbler",sci:"Leiothlypis peregrina",lat:51.037862,lon:-105.277911,loc:"Bird Sanctuary",region:"CA-SK"},
+    {id:"S341452696",name:"Northern Yellow Warbler",sci:"Setophaga aestiva",lat:50.446477,lon:-104.510512,loc:"SK Trail",region:"CA-SK"},
+    {id:"S346668983",name:"Blackpoll Warbler",sci:"Setophaga striata",lat:42.355984,lon:-71.114336,loc:"Magazine Beach",region:"US-MA"},
+    {id:"S341342347",name:"Yellow-rumped Warbler",sci:"Setophaga coronata",lat:50.432823,lon:-104.596582,loc:"Saskatchewan Science Center",region:"CA-SK"},
+    {id:"S336318215",name:"Northern Cardinal",sci:"Cardinalis cardinalis",lat:42.36406,lon:-71.09215,loc:"Stata Center",region:"US-MA"},
+  ];
+
+  const REGION_COLORS = {
+    'US-MA': '#6a9648',
+    'CA-SK': '#4a80a0',
+    'CA-MB': '#c37b89',
+    'CA-ON': '#a07840',
+    'US-CA': '#8060a8'
+  };
+  const REGION_LABELS = {
+    'US-MA': 'Massachusetts',
+    'CA-SK': 'Saskatchewan',
+    'CA-MB': 'Manitoba',
+    'CA-ON': 'Ontario',
+    'US-CA': 'California'
+  };
+
+  // Build species index
+  const speciesMap = new Map();
+  OBS.forEach(o => {
+    if (!speciesMap.has(o.name)) speciesMap.set(o.name, {name: o.name, sci: o.sci, obs: []});
+    speciesMap.get(o.name).obs.push(o);
+  });
+  const allSpecies = [...speciesMap.values()].sort((a, b) => a.name.localeCompare(b.name));
+
+  // Stats
+  document.getElementById('stat-sp').textContent = allSpecies.length;
+
+  // Map
+  const map = L.map('map', {zoomControl: true});
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    maxZoom: 18
+  }).addTo(map);
+
+  // Legend
+  const legend = L.control({position: 'bottomright'});
+  legend.onAdd = () => {
+    const div = L.DomUtil.create('div', 'map-legend');
+    const regions = [...new Set(OBS.map(o => o.region))];
+    div.innerHTML = '<div class="legend-title">Region</div>' +
+      regions.map(r => `<div class="legend-item"><span class="legend-dot" style="background:${REGION_COLORS[r]||'#89a8b2'}"></span>${REGION_LABELS[r]||r}</div>`).join('');
+    return div;
+  };
+  legend.addTo(map);
+
+  // Markers
+  let activeSpecies = null;
+  const markerData = {}; // id -> {marker, obs}
+  const markerGroup = L.featureGroup().addTo(map);
+
+  OBS.forEach(o => {
+    const color = REGION_COLORS[o.region] || '#89a8b2';
+    const m = L.circleMarker([o.lat, o.lon], {
+      radius: 6, fillColor: color, color: '#fff',
+      weight: 1.5, fillOpacity: 0.85, pane: 'markerPane'
+    });
+    m.bindTooltip(`
+      <div class="tip-name">${o.name}</div>
+      <div class="tip-sci">${o.sci}</div>
+      <div class="tip-loc">${o.loc}</div>
+    `, {direction: 'top', offset: [0, -7], opacity: 1, sticky: false});
+    m.on('click', () => selectSpecies(o.name, true));
+    markerData[o.id] = {marker: m, obs: o};
+    m.addTo(markerGroup);
+  });
+
+  map.fitBounds(markerGroup.getBounds().pad(0.08));
+
+  function selectSpecies(name, scrollSidebar = true) {
+    activeSpecies = name;
+    Object.values(markerData).forEach(({marker, obs}) => {
+      if (obs.name === name) {
+        marker.setStyle({fillOpacity: 1, radius: 9, weight: 2.5, color: '#fff'});
+        marker.setZIndexOffset(500);
+      } else {
+        marker.setStyle({fillOpacity: 0.12, radius: 5, weight: 1, fillColor: '#b3c8cf', color: '#fff'});
+        marker.setZIndexOffset(0);
+      }
+    });
+    const sel = Object.values(markerData).filter(d => d.obs.name === name).map(d => d.marker);
+    if (sel.length) {
+      const g = L.featureGroup(sel);
+      const b = g.getBounds();
+      const ne = b.getNorthEast(), sw = b.getSouthWest();
+      if (Math.abs(ne.lat - sw.lat) < 0.001 && Math.abs(ne.lng - sw.lng) < 0.001) {
+        map.setView(b.getCenter(), 14);
+      } else {
+        map.fitBounds(b.pad(0.5), {maxZoom: 14});
+      }
+    }
+    document.getElementById('mapReset').classList.add('visible');
+    document.querySelectorAll('.species-card').forEach(c => c.classList.toggle('active', c.dataset.name === name));
+    if (scrollSidebar) {
+      setTimeout(() => {
+        const card = document.querySelector(`.species-card[data-name="${CSS.escape(name)}"]`);
+        const list = document.getElementById('speciesList');
+        if (card && list) {
+          const cardRect = card.getBoundingClientRect();
+          const listRect = list.getBoundingClientRect();
+          const target = list.scrollTop + cardRect.top - listRect.top - (list.clientHeight - card.offsetHeight) / 2;
+          list.scrollTo({top: Math.max(0, target), behavior: 'smooth'});
+        }
+      }, 100);
+    }
+  }
+
+  function resetAll() {
+    activeSpecies = null;
+    Object.values(markerData).forEach(({marker, obs}) => {
+      marker.setStyle({fillColor: REGION_COLORS[obs.region]||'#89a8b2', fillOpacity: 0.85, radius: 6, weight: 1.5, color: '#fff'});
+      marker.setZIndexOffset(0);
+    });
+    map.fitBounds(markerGroup.getBounds().pad(0.08));
+    document.getElementById('mapReset').classList.remove('visible');
+    document.querySelectorAll('.species-card').forEach(c => c.classList.remove('active'));
+  }
+  document.getElementById('mapReset').addEventListener('click', resetAll);
+
+  // Photo cache
+  const photoCache = new Map();
+  const photoElMap = new Map(); // name -> current DOM element
+
+  function buildSpeciesList(filter) {
+    const q = (filter || '').toLowerCase();
+    const list = document.getElementById('speciesList');
+    list.innerHTML = '';
+    const filtered = allSpecies.filter(s =>
+      s.name.toLowerCase().includes(q) || s.sci.toLowerCase().includes(q)
+    );
+    if (!filtered.length) {
+      list.innerHTML = '<div class="empty">No species found.</div>';
+      return;
+    }
+    filtered.forEach(s => {
+      const regions = [...new Set(s.obs.map(o => o.region))];
+      const card = document.createElement('div');
+      card.className = 'species-card' + (activeSpecies === s.name ? ' active' : '');
+      card.dataset.name = s.name;
+
+      let photoEl;
+      if (photoCache.has(s.name)) {
+        photoEl = document.createElement('img');
+        photoEl.className = 'sp-photo';
+        photoEl.src = photoCache.get(s.name);
+        photoEl.alt = s.name;
+      } else {
+        photoEl = document.createElement('div');
+        photoEl.className = 'sp-placeholder';
+        photoEl.innerHTML = '<i class="fas fa-feather-alt"></i>';
+      }
+      photoElMap.set(s.name, photoEl);
+
+      const info = document.createElement('div');
+      info.className = 'sp-info';
+      info.innerHTML = `
+        <div class="sp-name">${s.name}</div>
+        <div class="sp-sci">${s.sci}</div>
+        <div class="sp-meta">${regions.join(', ')}</div>
+      `;
+      card.appendChild(photoEl);
+      card.appendChild(info);
+      card.addEventListener('click', () => {
+        if (activeSpecies === s.name) resetAll();
+        else selectSpecies(s.name, false);
+      });
+      list.appendChild(card);
+    });
+  }
+
+  buildSpeciesList('');
+
+  document.getElementById('searchInput').addEventListener('input', function() {
+    buildSpeciesList(this.value);
+  });
+
+  // Wikipedia photos
+  async function loadPhotos() {
+    const names = allSpecies.map(s => s.name);
+    const BATCH = 20;
+    for (let i = 0; i < names.length; i += BATCH) {
+      const batch = names.slice(i, i + BATCH);
+      const queryToOrig = {};
+      batch.forEach(n => {
+        queryToOrig[n.replace(/ /g, '_')] = n;
+        queryToOrig[n] = n;
+      });
+      try {
+        const titles = batch.map(n => n.replace(/ /g, '_')).join('|');
+        const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(titles)}&prop=pageimages&pithumbsize=120&format=json&origin=*&redirects=`;
+        const resp = await fetch(url);
+        const data = await resp.json();
+        const q = data.query;
+        const finalToOrig = {...queryToOrig};
+        (q.normalized || []).forEach(({from, to}) => {
+          const orig = finalToOrig[from];
+          if (orig) finalToOrig[to] = orig;
+        });
+        (q.redirects || []).forEach(({from, to}) => {
+          const orig = finalToOrig[from];
+          if (orig) finalToOrig[to] = orig;
+        });
+        Object.values(q.pages || {}).forEach(page => {
+          if (!page.thumbnail) return;
+          const orig = finalToOrig[page.title];
+          if (!orig) return;
+          photoCache.set(orig, page.thumbnail.source);
+          const el = photoElMap.get(orig);
+          if (!el || !el.parentNode) return;
+          const img = document.createElement('img');
+          img.className = 'sp-photo';
+          img.src = page.thumbnail.source;
+          img.alt = orig;
+          img.onerror = () => {};
+          img.onload = () => {
+            if (el.parentNode) { el.replaceWith(img); photoElMap.set(orig, img); }
+          };
+        });
+      } catch(e) {}
+      if (i + BATCH < names.length) await new Promise(r => setTimeout(r, 150));
+    }
+  }
+  loadPhotos();
+  </script>
+</body>
+</html>
