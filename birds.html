@@ -377,11 +377,12 @@
   function selectSpecies(name, scrollSidebar = true) {
     activeSpecies = name;
     Object.values(markerData).forEach(({marker, obs}) => {
+      const regionColor = REGION_COLORS[obs.region] || '#89a8b2';
       if (obs.name === name) {
-        marker.setStyle({fillOpacity: 1, radius: 9, weight: 2.5, color: '#fff'});
+        marker.setStyle({fillColor: regionColor, fillOpacity: 1, radius: 9, weight: 2.5, color: '#fff'});
         marker.setZIndexOffset(500);
       } else {
-        marker.setStyle({fillOpacity: 0.12, radius: 5, weight: 1, fillColor: '#b3c8cf', color: '#fff'});
+        marker.setStyle({fillColor: regionColor, fillOpacity: 0.85, radius: 6, weight: 1.5, color: '#fff'});
         marker.setZIndexOffset(0);
       }
     });
