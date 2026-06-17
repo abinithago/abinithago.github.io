@@ -28,21 +28,24 @@
 
   <style>
     :root {
-      --bg: #f5f0e8;
-      --bg-secondary: #ede8dc;
-      --panel-surface: #fdfaf4;
-      --panel-border: #dedad0;
-      --panel-shadow: 0 1px 4px rgba(40,20,0,0.07);
-      --text: #2d1a06;
-      --text-muted: #4e3220;
-      --accent: #1898a8;
-      --accent-hover: #20aab8;
-      --accent-rgb: 24,152,168;
-      --border: #dedad0;
-      --card-bg: #fdfaf4;
-      --card-shadow: 0 1px 4px rgba(40,20,0,0.08), 0 1px 2px rgba(40,20,0,0.05);
-      --card-shadow-hover: 0 12px 32px rgba(40,20,0,0.12), 0 4px 12px rgba(40,20,0,0.07);
-      --header-bg-scrolled: rgba(245,240,232,0.95);
+      /* colorhunt.co/palette/89a8b2b3c8cfe5e1daf1f0e8
+         #f1f0e8 page bg, #e5e1da panels, #b3c8cf borders, #89a8b2 structure
+         + sage green accent for links */
+      --bg: #f1f0e8;
+      --bg-secondary: #e5e1da;
+      --panel-surface: #e5e1da;
+      --panel-border: #b3c8cf;
+      --panel-shadow: 0 1px 4px rgba(35,50,55,0.10);
+      --text: #243038;
+      --text-muted: #3d5a6a;
+      --accent: #6a9648;
+      --accent-hover: #c37b89;
+      --accent-rgb: 106,150,72;
+      --border: #b3c8cf;
+      --card-bg: #e5e1da;
+      --card-shadow: 0 1px 4px rgba(35,50,55,0.10), 0 1px 2px rgba(35,50,55,0.06);
+      --card-shadow-hover: 0 12px 32px rgba(35,50,55,0.14), 0 4px 12px rgba(35,50,55,0.08);
+      --header-bg-scrolled: rgba(241,240,232,0.96);
       --font: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-heading: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --space: clamp(0.85rem, 2.5vw, 1.55rem);
@@ -71,7 +74,7 @@
       position: fixed;
       top: 0; left: 0; right: 0;
       height: 3px;
-      background: linear-gradient(90deg, #c44010, #e8920a, #d04080, #2090a8, #38b878);
+      background: linear-gradient(90deg, #89a8b2, #6a9648, #b3c8cf, #6a9648, #89a8b2);
       z-index: 999;
       pointer-events: none;
     }
@@ -91,6 +94,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
+      padding: 0 var(--space);
       background-color: rgba(0,0,0,0);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
@@ -173,7 +177,7 @@
 
     /* ----- Hero ----- */
     .hero {
-      padding: clamp(1.5rem, 3.5vw, 2.25rem) var(--space) clamp(0.75rem, 2.5vw, 1.25rem);
+      padding: clamp(2rem, 4vw, 3rem) var(--space) clamp(1.25rem, 3vw, 2rem);
       text-align: left;
     }
     .hero-inner {
@@ -219,46 +223,48 @@
       font-size: 0.72rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: #3d7060;
       margin: 0 0 0.45rem;
       transition: color var(--transition);
     }
     .hero .tagline {
       max-width: 38em;
-      margin: 0 0 0.85rem;
-      font-size: clamp(0.9rem, 1.5vw, 0.98rem);
+      margin: 0 0 0.5rem;
+      font-size: clamp(0.98rem, 1.8vw, 1.08rem);
       line-height: 1.55;
       color: var(--text-muted);
       transition: color var(--transition);
     }
     .hero-links {
-      display: flex;
+      display: inline-flex;
       flex-wrap: wrap;
       justify-content: flex-start;
-      gap: 0.75rem;
+      gap: 0.4rem;
+      background: #2a3c48;
+      padding: 0.45rem 0.6rem;
+      border-radius: var(--radius);
     }
     .hero-links a {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 2.1rem;
-      height: 2.1rem;
-      border-radius: 50%;
+      height: 1.7rem;
+      padding: 0 0.6rem;
+      border-radius: 20px;
       border: 1.5px solid var(--border);
       background: transparent;
-      color: var(--text-muted);
+      color: var(--border);
+      font-size: 0.82rem;
       transition: all var(--transition);
     }
     .hero-links a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      border-color: #c37b89;
+      color: #c37b89;
       background: transparent;
     }
     .hero-links a.hero-link-cv {
-      border-radius: var(--radius);
-      width: auto;
-      padding: 0 0.7rem;
-      font-size: 0.67rem;
+      padding: 0 0.65rem;
+      font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.09em;
       text-transform: uppercase;
@@ -266,21 +272,21 @@
     }
 
     /* ----- Sections ----- */
-    section { padding: clamp(1.5rem, 4vw, 2.25rem) var(--space); }
+    section { padding: clamp(2.25rem, 5vw, 3.5rem) var(--space); }
     section + section { border-top: none; }
     #about { scroll-margin-top: 5.2rem; }
     .section-inner { max-width: var(--wrap); margin: 0 auto; }
     .section-title {
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
+      font-size: 0.74rem;
+      letter-spacing: 0.11em;
       text-transform: uppercase;
-      margin: 0 0 0.9rem;
+      margin: 0 0 1.1rem;
       color: var(--text-muted);
       transition: color var(--transition);
       position: relative;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.55rem;
     }
     .section-title::after {
       content: '';
@@ -309,8 +315,15 @@
     }
 
     /* ----- About + News ----- */
-    .about-news { display: flex; flex-wrap: wrap; gap: clamp(1.5rem, 4vw, 2.5rem); align-items: start; }
-    .about-block { flex: 1 1 min(60%, 100%); min-width: min(280px, 100%); }
+    .about-news {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: clamp(2rem, 5vw, 3.5rem);
+      align-items: start;
+    }
+    @media (max-width: 620px) {
+      .about-news { grid-template-columns: 1fr; }
+    }
     .about-block p {
       margin: 0 0 1rem;
       color: var(--text-muted);
@@ -319,36 +332,27 @@
       transition: color var(--transition);
     }
     .about-block p:last-of-type { margin-bottom: 0; }
-    .news-block {
-      flex: 1 1 min(30%, 100%);
-      min-width: min(240px, 100%);
-    }
-    .news-scroll-outer {
+    .news-list {
+      list-style: none;
+      margin: 0;
+      padding: 0.85rem 1rem;
+      max-height: 360px;
+      overflow-y: auto;
       border: 1px solid var(--panel-border);
       border-radius: var(--radius);
       background: var(--panel-surface);
       box-shadow: var(--panel-shadow);
-      overflow: visible;
-      transition: border-color var(--transition);
+      scrollbar-gutter: stable;
     }
-    .news-list {
-      list-style: none;
-      margin: 0;
-      padding: 1rem;
-      padding-right: 0.65rem;
-      margin-right: -10px;
-      max-height: 380px;
-      overflow-y: auto;
-    }
-    .news-list::-webkit-scrollbar { width: 6px; }
-    .news-list::-webkit-scrollbar-track { background: var(--bg-secondary); border-radius: 3px; margin: 8px 0; }
+    .news-list::-webkit-scrollbar { width: 5px; }
+    .news-list::-webkit-scrollbar-track { background: transparent; }
     .news-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
     .news-list li {
-      padding: 0.4rem 0;
+      padding: 0.38rem 0;
       border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
+      font-size: 0.875rem;
+      line-height: 1.55;
       color: var(--text-muted);
-      transition: border-color var(--transition), color var(--transition);
     }
     .news-list li:last-child { border-bottom: none; }
 
@@ -401,7 +405,6 @@
     .research-card-inner {
       padding: 1.25rem;
       position: relative;
-      min-height: 405px;
     }
     .research-card h4 {
       font-family: var(--font-heading);
@@ -428,55 +431,6 @@
     }
     .research-card-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 0.5rem; }
     .research-card-links a { font-size: 0.875rem; font-weight: 500; }
-    .abstract {
-      position: absolute;
-      inset: 0;
-      padding: 1.25rem 1.6rem 1.25rem 1.25rem;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      background: var(--panel-surface);
-      z-index: 2;
-      line-height: 1.55;
-      font-style: italic;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transform: translateY(4px);
-      transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s ease;
-      scrollbar-width: auto;
-    }
-    .abstract::-webkit-scrollbar { width: 6px; }
-    .abstract::-webkit-scrollbar-track { background: transparent; }
-    .abstract::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    .research-card.is-flipped .abstract {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-    .research-card.is-flipped h4,
-    .research-card.is-flipped .research-card-media,
-    .research-card.is-flipped .research-card-meta,
-    .research-card.is-flipped .research-card-links {
-      opacity: 0;
-      transition: opacity 0.18s ease;
-      pointer-events: none;
-    }
-    .abstract-close {
-      display: inline-block;
-      margin-bottom: 0.4rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      cursor: pointer;
-      font-style: normal;
-      line-height: 1.2;
-    }
     .research-nav {
       position: absolute;
       top: 50%;
@@ -495,14 +449,7 @@
       z-index: 2;
       transition: all var(--transition);
     }
-    .research-nav:hover { border-color: var(--accent-hover); color: var(--accent-hover); }
-    .research-nav:disabled { opacity: 0.3; cursor: not-allowed; }
-    .research-nav.prev { left: -2.75rem; }
-    .research-nav.next { right: -2.75rem; }
-    @media (max-width: 900px) {
-      .research-nav.prev { left: 0.25rem; }
-      .research-nav.next { right: 0.25rem; }
-    }
+    .research-nav { display: none; }
     .research-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
     .research-dot {
       width: 6px; height: 6px; border-radius: 50%;
@@ -514,23 +461,31 @@
     /* ----- Publications ----- */
     .pub-list { list-style: none; margin: 0; padding: 0; }
     .pub-list li {
-      padding: 0.85rem 0;
+      padding: 1rem 0;
       border-top: 1px solid var(--border);
     }
     .pub-list li:first-child { border-top: none; }
 
-    .pub-main {
-      font-size: 0.9rem;
-      line-height: 1.62;
+    .pub-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.45;
       color: var(--text);
+      margin-bottom: 0.22rem;
     }
-    .pub-main strong { font-weight: 700; }
+    .pub-citation {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+    .pub-citation strong { font-weight: 600; }
 
     .pub-links {
-      margin-top: 0.35rem;
+      margin-top: 0.45rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.55rem;
+      gap: 0.45rem;
       align-items: center;
     }
     .pub-link {
@@ -563,9 +518,9 @@
     }
 
     /* ----- Section accent overrides ----- */
-    #about .section-title::after    { background: #1a5fc8; }
-    #research .section-title::after { background: #28a840; }
-    #publications .section-title::after { background: #6929b8; }
+    #about .section-title::after    { background: #6a9648; }
+    #research .section-title::after { background: #89a8b2; }
+    #publications .section-title::after { background: #6a9648; }
 
     /* ----- Per-card rainbow stripes ----- */
     .research-card:nth-child(1)::before { background: #c44010; }
@@ -577,13 +532,13 @@
 
     /* ----- Footer ----- */
     footer {
-      background: #1a0e04;
-      padding: clamp(1.25rem, 2.5vw, 1.75rem) var(--space);
+      background: #1e2c36;
+      padding: clamp(1.5rem, 3vw, 2rem) var(--space);
       text-align: center;
     }
-    footer p { margin: 0; font-size: 0.78rem; letter-spacing: 0.03em; color: #7a5040; }
-    footer a { color: #7a5040; }
-    footer a:hover { color: #d96918; }
+    footer p { margin: 0; font-size: 0.8rem; letter-spacing: 0.02em; color: #89a8b2; }
+    footer a { color: #89a8b2; }
+    footer a:hover { color: #b3c8cf; }
   </style>
 
   <script type="application/ld+json">
@@ -613,6 +568,7 @@
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#publications">Papers</a></li>
+          <li><a href="birds.html">Birding</a></li>
         </ul>
       </nav>
     </div>
@@ -625,7 +581,7 @@
           <img class="hero-avatar" src="assets/files/profile2.png" alt="Abinitha Gourabathina" />
         </div>
         <div class="hero-content">
-          <p class="subtitle">PhD Student @ MIT EECS</p>
+          <p class="subtitle">PhD Student &middot; MIT EECS</p>
           <p class="tagline">
             Building methods for reliable and controllable ML models
           </p>
@@ -650,19 +606,19 @@
               <a href="https://lids.mit.edu/" target="_blank" rel="noopener">MIT LIDS</a>, lucky to be co-advised by Professors
               <a href="https://healthyml.org/" target="_blank" rel="noopener">Marzyeh Ghassemi</a> and
               <a href="https://cb.mit.edu/" target="_blank" rel="noopener">Collin Stultz</a>.
-              Prior to my PhD, I received my B.S.E. from Princeton University in 2023. 
+              Prior to my PhD, I received my B.S.E. from Princeton University in 2023, where my senior thesis was supervised by the incredible Professor
+              <a href="https://www.cs.princeton.edu/~fellbaum/" target="_blank" rel="noopener">Christiane Fellbaum</a>.
             </p>
             <p>
-              My research focuses on reliable and controllable machine learning with the goal of building models that behave predictably across diverse conditions and generate safe outputs. My work spans robustness to subpopulation shifts, controlled generation and abstention in large language models, and understanding the failure modes of LLMs in high-stakes clinical settings. I enjoy drawing on tools from optimization, probability, and statistics.
+              My research focuses on reliable and controllable machine learning with the goal of building models that behave predictably across diverse conditions and generate safe outputs. I enjoy drawing on tools from optimization, probability, and statistics.
             </p>
             <p>
-              Outside of research, I enjoy reading and have recently gotten into birding! 
+              Outside of research, I love to read and have recently gotten into <a href="birds.html">birding</a>!
             </p>
             <p>You can reach me at <a href="mailto:abinitha@mit.edu">abinitha@mit.edu</a>. I'd love to hear from you!</p>
           </div>
           <div class="news-block">
             <h2 class="section-title">News</h2>
-            <div class="news-scroll-outer">
             <ul class="news-list">
               <li><strong>Apr 2026:</strong> Trace Inversion is accepted @ ACL Main Conference!</li>
               <li><strong>Apr 2026:</strong> Our <a href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">paper</a> Trace Inversion is up on arXiv!</li>
@@ -680,7 +636,6 @@
               <li><strong>April 2025:</strong> Presented @ the MIT <a href="https://imes.mit.edu/" target="_blank" rel="noopener">IMES</a> Seminar Series.</li>
               <li><strong>Aug 2024:</strong> Started my PhD at MIT!</li>
             </ul>
-            </div>
           </div>
         </div>
       </div>
@@ -698,12 +653,9 @@
                 <img src="assets/files/trace-thumb.png" alt="Trace Inversion" class="research-card-media" />
                 <p class="research-card-meta">Abinitha Gourabathina, Inkit Padhi, Manish Nagireddy, Subhajit Chaudhury, and Prasanna Sattigeri, 2026. arXiv:2604.02230.</p>
                 <div class="research-card-links">
-                  <a href="#" class="abstract-toggle" data-target="abs-trace">Abstract</a>
                   <a href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">Paper</a>
                   <a href="https://github.com/abinithago/trace-inversion" target="_blank" rel="noopener">Code</a>
                 </div>
-                <div id="abs-trace" class="abstract">
-                  For Large Language Models (LLMs) to be reliably deployed, models must effectively know when not to answer: abstain. Reasoning models, in particular, have gained attention for impressive performance on complex tasks. However, reasoning models have been shown to have worse abstention abilities. Taking the vulnerabilities of reasoning models into account, we propose our Query Misalignment Framework. Hallucinations resulting in failed abstention can be reinterpreted as LLMs answering the wrong question (rather than answering a question incorrectly). Based on this framework, we develop a new class of state-of-the-art abstention methods called Trace Inversion. First, we generate the reasoning trace of a model. Based on only the trace, we then reconstruct the most likely query that the model responded to. Finally, we compare the initial query with the reconstructed query. Low similarity score between the initial query and reconstructed query suggests that the model likely answered the question incorrectly and is flagged to abstain. Extensive experiments demonstrate that Trace Inversion effectively boosts abstention performance in four frontier LLMs across nine abstention QA datasets, beating competitive baselines in 33 out of 36 settings.   </div>
               </div>
             </article>
             <article class="research-card">
@@ -712,12 +664,8 @@
                 <img src="assets/files/leia_thumb.png" alt="LEIA" class="research-card-media" />
                 <p class="research-card-meta">Abinitha Gourabathina, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz, 2026. arXiv preprint arXiv:2602.06924.</p>
                 <div class="research-card-links">
-                  <a href="#" class="abstract-toggle" data-target="abs-leia">Abstract</a>
                   <a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a>
                   <a href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a>
-                </div>
-                <div id="abs-leia" class="abstract">
-                  Deep learning models trained to optimize average accuracy often exhibit systematic failures on particular subpopulations. In real world settings, the subpopulations most affected by such disparities are frequently unlabeled or unknown, thereby motivating the development of methods that are performant on sensitive subgroups without being pre-specified. However, existing group-robust methods typically assume prior knowledge of relevant subgroups, using group annotations for training or model selection. We propose Low-rank Error Informed Adaptation (LEIA), a simple two-stage method that improves group robustness by identifying a low-dimensional subspace in the representation space where model errors concentrate. LEIA restricts adaptation to this error-informed subspace via a low-rank adjustment to the classifier logits, directly targeting latent failure modes without modifying the backbone or requiring group labels. Using five real-world datasets, we analyze group robustness under three settings: (1) truly no knowledge of subgroup relevance, (2) partial knowledge of subgroup relevance, and (3) full knowledge of subgroup relevance. Across all settings, LEIA consistently improves worst-group performance while remaining fast, parameter-efficient, and robust to hyperparameter choice.
                 </div>
               </div>
             </article>
@@ -727,13 +675,9 @@
                 <img src="assets/files/medperturb-thumb.png" alt="MedPerturb" class="research-card-media" />
                 <p class="research-card-meta">Abinitha Gourabathina, Yuexing Hao, Walter Gerych, Marzyeh Ghassemi, 2025. arXiv:2506.17163.</p>
                 <div class="research-card-links">
-                  <a href="#" class="abstract-toggle" data-target="abs1">Abstract</a>
                   <a href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">Website</a>
                   <a href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a>
                   <a href="https://github.com/abinithago/MedPerturb" target="_blank" rel="noopener">Code</a>
-                </div>
-                <div id="abs1" class="abstract">
-                  Clinical robustness is critical to the safe deployment of medical Large Language Models (LLMs), but key questions remain about how LLMs and humans may differ in response to the real-world variability typified by clinical settings. To address this, we introduce MedPerturb, a dataset designed to systematically evaluate medical LLMs under controlled perturbations of clinical input. MedPerturb consists of clinical vignettes spanning a range of pathologies, each transformed along three axes: (1) gender modifications; (2) style variation; and (3) format changes. With MedPerturb, we release a dataset of 800 clinical contexts grounded in realistic input variability, outputs from four LLMs, and three human expert reads per clinical context. We use MedPerturb in two case studies to reveal how shifts in gender identity cues, language style, or format reflect diverging treatment selections between humans and LLMs.
                 </div>
               </div>
             </article>
@@ -743,12 +687,8 @@
                 <img src="assets/files/medium-message-thumb.png" alt="The Medium is the Message" class="research-card-media" />
                 <p class="research-card-meta">Abinitha Gourabathina, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (FAccT '25).</p>
                 <div class="research-card-links">
-                  <a href="#" class="abstract-toggle" data-target="abs2">Abstract</a>
                   <a href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank" rel="noopener">Paper</a>
                   <a href="https://github.com/abinithago/medium-is-message" target="_blank" rel="noopener">Code</a>
-                </div>
-                <div id="abs2" class="abstract">
-                  The integration of large language models (LLMs) into clinical diagnostics necessitates a careful understanding of how clinically irrelevant aspects of user inputs directly influence generated treatment recommendations and, consequently, clinical outcomes for end-users. Building on prior research that examines the impact of demographic attributes on clinical LLM reasoning, this study explores how non-clinically relevant attributes shape clinical decision-making by LLMs. Through the perturbation of patient messages, we evaluate whether LLM behavior remains consistent, accurate, and unbiased when non-clinical information is altered. These perturbations assess the brittleness of clinical LLM reasoning by replicating structural errors that may occur during electronic data processing patient questions and simulating interactions between patient-AI systems in diverse, vulnerable patient groups. Our findings reveal notable inconsistencies in LLM treatment recommendations and significant degradation of clinical accuracy in ways that reduce care allocation to patients. Additionally, there are significant disparities in treatment recommendations between gender subgroups as well as between model-inferred gender subgroups. We also apply our perturbation framework to a conversational clinical dataset to find that even in conversation, LLM clinical accuracy decreases post-perturbation, and disparities exist in how perturbations impact gender subgroups. By analyzing LLM outputs in response to realistic yet modified clinical contexts, our work deepens understanding of the sensitivity, inaccuracy, and biases inherent in medical LLMs, offering critical insights for the deployment of patient-AI systems.
                 </div>
               </div>
             </article>
@@ -758,12 +698,8 @@
                 <img src="assets/files/panda-thumb.png" alt="PanDa Game" class="research-card-media" />
                 <p class="research-card-meta">Abinitha Gourabathina, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. In IEEE Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817.</p>
                 <div class="research-card-links">
-                  <a href="#" class="abstract-toggle" data-target="abs3">Abstract</a>
                   <a href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank" rel="noopener">Paper</a>
                   <a href="https://github.com/zhywan/covid19-privacy-game" target="_blank" rel="noopener">Code</a>
-                </div>
-                <div id="abs3" class="abstract">
-                  Sharing individual-level pandemic data is essential for accelerating the understanding of a disease. For example, COVID-19 data have been widely collected to support public health surveillance and research. In the United States, these data are typically de-identified before publication to protect the privacy of the corresponding individuals. However, current data publishing approaches for this type of data, such as those adopted by the U.S. Centers for Disease Control and Prevention (CDC), have not flexed over time to account for the dynamic nature of infection rates. Thus, the policies generated by these strategies have the potential to both raise privacy risks or overprotect the data and impair the data utility (or usability). To optimize the tradeoff between privacy risk and data utility, we introduce a game theoretic model that adaptively generates policies for the publication of individual-level COVID-19 data according to infection dynamics. We model the data publishing process as a two-player Stackelberg game between a data publisher and a data recipient and then search for the best strategy for the publisher. In this game, we consider 1) average performance of predicting future case counts; and 2) mutual information between the original data and the released data. We use COVID-19 case data from Vanderbilt University Medical Center from March 2020 to December 2021 to demonstrate the effectiveness of the new model. The results indicate that the game theoretic model outperforms all state-of-the-art baseline approaches, including those adopted by CDC, while maintaining low privacy risk. We further perform an extensive sensitivity analyses to show that our findings are robust to order-of-magnitude parameter fluctuations.
                 </div>
               </div>
             </article>
@@ -773,11 +709,7 @@
                 <img src="assets/files/stigma-thumb.png" alt="Stigmatizing language" class="research-card-media" />
                 <p class="research-card-meta"><strong>Abinitha Gourabathina</strong> (Senior thesis, Princeton University). Princeton DataSpace. http://arks.princeton.edu/ark:/88435/dsp01cv43p110t</p>
                 <div class="research-card-links">
-                  <a href="#" class="abstract-toggle" data-target="abs4">Abstract</a>
                   <a href="assets/files/senior_thesis.pdf" target="_blank">Paper</a>
-                </div>
-                <div id="abs4" class="abstract">
-                  Stigmatizing language in medical notes can prevent a patient from acquiring proper treatment. Reading medical notes containing biased language can influence subsequent clinicians' perception of a patient, further compounding a patient's inability to receive adequate care. Thus, there is a clear need to correct patient notes to eliminate stigmatizing language. Prior work involving stigmatizing language in medical notes has largely remained qualitative where clinicians and researchers manually analyzed notes for stigmatizing keywords. Our work utilized a computational approach to obtain a more robust set of stigmatizing keywords. We created contextual word embeddings from BERT-based and BioBERT-based models that are trained on free-text patient-oriented clinical data. These state-of-the-art models allowed us to develop word vector representations, from which we identified 30 new stigmatizing keywords. We then complete a thorough analysis to build a grammar structure that categorizes stigmatizing keywords according to the ways they induce stigma and better understand the syntactical environments in which these keywords occur. Following our analysis, we developed a model called MedStiLE (Medical note Stigmatizing Language Editor) that utilizes the grammar structure and constituency parsing to edit notes containing the stigmatizing keywords to be non-stigmatizing. We conducted an evaluation to test the efficacy of MedStiLE using human raters and found that it significantly reduced stigma in notes. This research provides various novel insights in terms of methodology and results that can help shape future works involving the intersection of language and healthcare.
                 </div>
               </div>
             </article>
@@ -793,27 +725,24 @@
         <h2 class="section-title">Papers</h2>
         <ul class="pub-list">
           <li>
-            <div class="pub-main">
-              <strong>Abinitha Gourabathina</strong>, Inkit Padhi, Manish Nagireddy, Subhajit Chaudhury, and Prasanna Sattigeri, 2026. Answering the Wrong Question: Reasoning Trace Inversion for Abstention in LLMs. arXiv preprint arXiv:2604.02230. (<strong>ACL '26</strong>).
-            </div>
+            <div class="pub-title">Answering the Wrong Question: Reasoning Trace Inversion for Abstention in LLMs</div>
+            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Inkit Padhi, Manish Nagireddy, Subhajit Chaudhury, and Prasanna Sattigeri &mdash; <em>ACL 2026</em></div>
             <div class="pub-links">
               <a class="pub-link" href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">Paper</a>
               <a class="pub-link" href="https://github.com/abinithago/trace-inversion" target="_blank" rel="noopener">Code</a>
             </div>
           </li>
           <li>
-            <div class="pub-main">
-              <strong>Abinitha Gourabathina</strong>, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz, 2026. Robustness Beyond Known Groups with Low-rank Adaptation. arXiv preprint arXiv:2602.06924. (<strong>Preprint</strong>).
-            </div>
+            <div class="pub-title">Robustness Beyond Known Groups with Low-rank Adaptation</div>
+            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz &mdash; <em>Preprint, 2026</em></div>
             <div class="pub-links">
               <a class="pub-link" href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a>
               <a class="pub-link" href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a>
             </div>
           </li>
           <li>
-            <div class="pub-main">
-              <strong>Abinitha Gourabathina</strong>, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi, 2025. The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making. arXiv preprint arXiv:2506.17163. (<strong>Preprint</strong>).
-            </div>
+            <div class="pub-title">The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making</div>
+            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi &mdash; <em>Preprint, 2025</em></div>
             <div class="pub-links">
               <a class="pub-link" href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a>
               <a class="pub-link" href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">Website</a>
@@ -821,35 +750,31 @@
             </div>
           </li>
           <li>
-            <div class="pub-main">
-              <strong>Abinitha Gourabathina</strong>, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (<strong>FAccT '25</strong>).
-            </div>
+            <div class="pub-title">The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs</div>
+            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi &mdash; <em>FAccT 2025</em></div>
             <div class="pub-links">
               <a class="pub-link" href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank" rel="noopener">Paper</a>
               <a class="pub-link" href="https://github.com/abinithago/medium-is-message" target="_blank" rel="noopener">Code</a>
             </div>
           </li>
           <li>
-            <div class="pub-main">
-              <strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model. In <strong>IEEE</strong> Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817, Oct. 2023.
-            </div>
+            <div class="pub-title">PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model</div>
+            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, and Bradley A. Malin &mdash; <em>IEEE Transactions on NanoBioscience, 2023</em></div>
             <div class="pub-links">
               <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank" rel="noopener">Paper</a>
               <a class="pub-link" href="https://github.com/zhywan/covid19-privacy-game" target="_blank" rel="noopener">Code</a>
             </div>
           </li>
           <li>
-            <div class="pub-main">
-              <strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2022. PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model. In Proceedings of the 2022 <strong>IEEE</strong> International Conference on Bioinformatics and Biomedicine (BIBM), Las Vegas, NV, USA, 2022, pp. 961-968.
-            </div>
+            <div class="pub-title">PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model</div>
+            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, and Bradley A. Malin &mdash; <em>IEEE BIBM 2022</em></div>
             <div class="pub-links">
               <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9995513" target="_blank" rel="noopener">Paper</a>
             </div>
           </li>
           <li>
-            <div class="pub-main">
-              <strong>Abinitha Gourabathina</strong> (Senior thesis, Princeton University). What seems to be the problem? Stigmatizing language in patient medical notes. Princeton DataSpace. http://arks.princeton.edu/ark:/88435/dsp01cv43p110t
-            </div>
+            <div class="pub-title">What seems to be the problem? Stigmatizing language in patient medical notes</div>
+            <div class="pub-citation"><strong>Abinitha Gourabathina</strong> &mdash; <em>Princeton University Senior Thesis, 2023</em></div>
             <div class="pub-links">
               <a class="pub-link" href="assets/files/senior_thesis.pdf" target="_blank" rel="noopener">Paper</a>
             </div>
@@ -919,30 +844,6 @@
           navToggle.setAttribute('aria-expanded', open);
         });
       }
-
-      document.querySelectorAll('.abstract').forEach(function(abs) {
-        if (!abs.querySelector('.abstract-close')) {
-          var closeLink = document.createElement('a');
-          closeLink.href = '#';
-          closeLink.className = 'abstract-close';
-          closeLink.textContent = 'Back';
-          closeLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            var card = abs.closest('.research-card');
-            if (card) card.classList.remove('is-flipped');
-          });
-          abs.insertBefore(closeLink, abs.firstChild);
-        }
-      });
-
-      document.querySelectorAll('.abstract-toggle').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          var card = btn.closest('.research-card');
-          if (!card) return;
-          card.classList.toggle('is-flipped');
-        });
-      });
 
       var track = document.getElementById('researchTrack');
       var prevBtn = document.querySelector('.research-nav.prev');
