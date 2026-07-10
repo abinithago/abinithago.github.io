@@ -8,24 +8,24 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #f1f0e8;
-      --panel: #e5e1da;
-      --blue-light: #b3c8cf;
-      --blue-mid: #89a8b2;
-      --text: #243038;
-      --text-muted: #3d5a6a;
-      --accent: #6a9648;
-      --rose: #c37b89;
-      --border: #b3c8cf;
-      --font: 'DM Sans', -apple-system, sans-serif;
-      --font-heading: 'Raleway', sans-serif;
-      --radius: 10px;
-      --tr: 0.18s ease;
+      --bg: #ffffff;
+      --panel: #f5f6f5;
+      --blue-light: #e3e5e8;
+      --blue-mid: #90969d;
+      --text: #15181c;
+      --text-muted: #5c636b;
+      --accent: #2f6b46;
+      --border: #e3e5e8;
+      --font: 'Inter', -apple-system, sans-serif;
+      --font-heading: 'IBM Plex Mono', ui-monospace, monospace;
+      --radius: 6px;
+      --tr: 0.15s ease;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 14.5px; }
     html, body { height: 100%; font-family: var(--font); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 
     /* ---- Header ---- */
@@ -37,17 +37,17 @@
     .back-link {
       display: flex; align-items: center; gap: 0.35rem;
       color: var(--text-muted); text-decoration: none;
-      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
       transition: color var(--tr);
     }
     .back-link:hover { color: var(--accent); }
     .pg-header h1 {
-      font-family: var(--font-heading); font-size: 0.95rem; font-weight: 800;
-      letter-spacing: 0.06em; text-transform: uppercase; color: var(--text);
+      font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.04em; text-transform: uppercase; color: var(--text);
     }
     .hdr-stats {
       margin-left: auto; display: flex; gap: 1.25rem;
-      font-size: 0.78rem; color: var(--text-muted);
+      font-family: var(--font-heading); font-size: 0.7rem; color: var(--text-muted);
     }
     .hdr-stats strong { color: var(--text); }
 
@@ -63,10 +63,10 @@
     }
     .search-wrap { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); flex-shrink: 0; }
     .search-wrap input {
-      width: 100%; padding: 0.38rem 0.75rem;
-      border: 1px solid var(--border); border-radius: 20px;
+      width: 100%; padding: 0.36rem 0.7rem;
+      border: 1px solid var(--border); border-radius: var(--radius);
       background: var(--panel); color: var(--text);
-      font-family: var(--font); font-size: 0.84rem; outline: none;
+      font-family: var(--font); font-size: 0.8rem; outline: none;
       transition: border-color var(--tr);
     }
     .search-wrap input:focus { border-color: var(--blue-mid); }
@@ -100,34 +100,34 @@
     }
     .sp-info { min-width: 0; flex: 1; }
     .sp-name {
-      font-size: 0.86rem; font-weight: 600; color: var(--text);
+      font-size: 0.82rem; font-weight: 600; color: var(--text);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .sp-sci {
-      font-size: 0.7rem; font-style: italic; color: var(--text-muted);
+      font-size: 0.67rem; font-style: italic; color: var(--text-muted);
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-    .sp-meta { font-size: 0.68rem; color: var(--blue-mid); margin-top: 0.1rem; }
+    .sp-meta { font-family: var(--font-heading); font-size: 0.62rem; color: var(--blue-mid); margin-top: 0.15rem; }
 
     /* ---- Map controls ---- */
     .map-reset {
       position: absolute; top: 12px; right: 12px; z-index: 500;
-      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
-      padding: 0.32rem 0.7rem; font-family: var(--font); font-size: 0.7rem;
-      font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 0.3rem 0.65rem; font-family: var(--font-heading); font-size: 0.65rem;
+      font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
       color: var(--text-muted); cursor: pointer; display: none; transition: all var(--tr);
     }
-    .map-reset:hover { color: var(--text); border-color: var(--blue-mid); }
+    .map-reset:hover { color: var(--accent); border-color: var(--accent); }
     .map-reset.visible { display: block; }
 
     /* ---- Legend ---- */
     .map-legend {
-      background: rgba(241,240,232,0.92); border: 1px solid var(--border);
-      border-radius: 8px; padding: 0.5rem 0.7rem;
-      font-family: var(--font); font-size: 0.68rem; backdrop-filter: blur(4px);
+      background: rgba(255,255,255,0.92); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 0.5rem 0.7rem;
+      font-family: var(--font); font-size: 0.66rem; backdrop-filter: blur(4px);
     }
     .legend-title {
-      font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+      font-family: var(--font-heading); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
       color: var(--text-muted); margin-bottom: 0.3rem;
     }
     .legend-item { display: flex; align-items: center; gap: 0.4rem; padding: 0.1rem 0; color: var(--text-muted); }
@@ -138,27 +138,27 @@
 
     /* ---- Leaflet tooltip (hover) ---- */
     .leaflet-tooltip {
-      background: #f1f0e8 !important;
-      border: 1px solid #b3c8cf !important;
-      border-radius: 8px !important;
-      box-shadow: 0 4px 18px rgba(35,50,55,0.16) !important;
-      padding: 8px 13px !important;
+      background: #ffffff !important;
+      border: 1px solid #e3e5e8 !important;
+      border-radius: 6px !important;
+      box-shadow: 0 4px 16px rgba(21,24,28,0.12) !important;
+      padding: 7px 11px !important;
       pointer-events: none !important;
       transition: opacity 0.15s ease !important;
     }
-    .leaflet-tooltip::before { border-top-color: #b3c8cf !important; }
-    .tip-name { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.88rem; color: #243038; }
-    .tip-sci  { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-style: italic; color: #3d5a6a; }
-    .tip-loc  { font-family: 'DM Sans', sans-serif; font-size: 0.69rem; color: #89a8b2; margin-top: 0.2rem; }
+    .leaflet-tooltip::before { border-top-color: #e3e5e8 !important; }
+    .tip-name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.84rem; color: #15181c; }
+    .tip-sci  { font-family: 'Inter', sans-serif; font-size: 0.67rem; font-style: italic; color: #5c636b; }
+    .tip-loc  { font-family: 'IBM Plex Mono', monospace; font-size: 0.64rem; color: #90969d; margin-top: 0.2rem; }
 
-    .empty { padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.84rem; }
+    .empty { padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
 
     /* ---- Attribution ---- */
     .map-attribution {
       position: absolute; bottom: 28px; left: 10px; z-index: 500;
-      background: rgba(241,240,232,0.88); backdrop-filter: blur(4px);
-      border: 1px solid var(--border); border-radius: 6px;
-      padding: 0.3rem 0.6rem; font-size: 0.62rem; color: var(--text-muted);
+      background: rgba(255,255,255,0.88); backdrop-filter: blur(4px);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 0.28rem 0.55rem; font-family: var(--font-heading); font-size: 0.6rem; color: var(--text-muted);
       line-height: 1.5; pointer-events: auto;
     }
     .map-attribution a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
@@ -308,7 +308,7 @@
   ];
 
   const REGION_COLORS = {
-    'US-MA': '#6a9648',
+    'US-MA': '#2f6b46',
     'CA-SK': '#4a80a0',
     'CA-MB': '#c37b89',
     'CA-ON': '#a07840',
@@ -346,7 +346,7 @@
     const div = L.DomUtil.create('div', 'map-legend');
     const regions = [...new Set(OBS.map(o => o.region))];
     div.innerHTML = '<div class="legend-title">Region</div>' +
-      regions.map(r => `<div class="legend-item"><span class="legend-dot" style="background:${REGION_COLORS[r]||'#89a8b2'}"></span>${REGION_LABELS[r]||r}</div>`).join('');
+      regions.map(r => `<div class="legend-item"><span class="legend-dot" style="background:${REGION_COLORS[r]||'#90969d'}"></span>${REGION_LABELS[r]||r}</div>`).join('');
     return div;
   };
   legend.addTo(map);
@@ -357,7 +357,7 @@
   const markerGroup = L.featureGroup().addTo(map);
 
   OBS.forEach(o => {
-    const color = REGION_COLORS[o.region] || '#89a8b2';
+    const color = REGION_COLORS[o.region] || '#90969d';
     const m = L.circleMarker([o.lat, o.lon], {
       radius: 6, fillColor: color, color: '#fff',
       weight: 1.5, fillOpacity: 0.85, pane: 'markerPane'
@@ -377,7 +377,7 @@
   function selectSpecies(name, scrollSidebar = true) {
     activeSpecies = name;
     Object.values(markerData).forEach(({marker, obs}) => {
-      const regionColor = REGION_COLORS[obs.region] || '#89a8b2';
+      const regionColor = REGION_COLORS[obs.region] || '#90969d';
       if (obs.name === name) {
         marker.setStyle({fillColor: regionColor, fillOpacity: 1, radius: 9, weight: 2.5, color: '#fff'});
         marker.setZIndexOffset(500);
@@ -416,7 +416,7 @@
   function resetAll() {
     activeSpecies = null;
     Object.values(markerData).forEach(({marker, obs}) => {
-      marker.setStyle({fillColor: REGION_COLORS[obs.region]||'#89a8b2', fillOpacity: 0.85, radius: 6, weight: 1.5, color: '#fff'});
+      marker.setStyle({fillColor: REGION_COLORS[obs.region]||'#90969d', fillOpacity: 0.85, radius: 6, weight: 1.5, color: '#fff'});
       marker.setZIndexOffset(0);
     });
     map.fitBounds(markerGroup.getBounds().pad(0.08));

@@ -21,124 +21,95 @@
   <link rel="canonical" href="https://abinithago.github.io/" />
   <link rel="sitemap" type="application/xml" href="https://abinithago.github.io/sitemap.xml" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Raleway:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      /* colorhunt.co/palette/89a8b2b3c8cfe5e1daf1f0e8
-         #f1f0e8 page bg, #e5e1da panels, #b3c8cf borders, #89a8b2 structure
-         + sage green accent for links */
-      --bg: #f1f0e8;
-      --bg-secondary: #e5e1da;
-      --panel-surface: #e5e1da;
-      --panel-border: #b3c8cf;
-      --panel-shadow: 0 1px 4px rgba(35,50,55,0.10);
-      --text: #243038;
-      --text-muted: #3d5a6a;
-      --accent: #6a9648;
-      --accent-hover: #c37b89;
-      --accent-rgb: 106,150,72;
-      --border: #b3c8cf;
-      --card-bg: #e5e1da;
-      --card-shadow: 0 1px 4px rgba(35,50,55,0.10), 0 1px 2px rgba(35,50,55,0.06);
-      --card-shadow-hover: 0 12px 32px rgba(35,50,55,0.14), 0 4px 12px rgba(35,50,55,0.08);
-      --header-bg-scrolled: rgba(241,240,232,0.96);
-      --font: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --font-heading: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --space: clamp(0.85rem, 2.5vw, 1.55rem);
-      --wrap: min(94vw, 900px);
-      --radius: 10px;
-      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg: #ffffff;
+      --text: #15181c;
+      --text-muted: #5c636b;
+      --text-faint: #90969d;
+      --border: #e3e5e8;
+      --accent: #2f6b46;
+      --accent-soft: #eef3ef;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --wrap: 820px;
+      --space: clamp(1.25rem, 4vw, 2rem);
+      --transition: 0.15s ease;
     }
 
-
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; font-size: 14.5px; }
 
     body {
       margin: 0;
       font-family: var(--font);
-      font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.05rem);
-      font-weight: 450;
-      line-height: 1.62;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
       color: var(--text);
       background-color: var(--bg);
-      transition: background-color var(--transition), color var(--transition);
       -webkit-font-smoothing: antialiased;
     }
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #89a8b2, #6a9648, #b3c8cf, #6a9648, #89a8b2);
-      z-index: 999;
-      pointer-events: none;
-    }
     body.preload { opacity: 0; }
-    body.fade-in { animation: pageFadeIn 800ms ease-out forwards; }
-    @keyframes pageFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    body.fade-in { animation: pageFadeIn 400ms ease-out forwards; }
+    @keyframes pageFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-    a {
+    a { color: inherit; text-decoration: none; }
+
+    ::selection { background: var(--accent-soft); color: var(--accent); }
+
+    @keyframes blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+    .cursor {
+      display: inline-block;
       color: var(--accent);
-      text-decoration: none;
-      transition: color var(--transition);
+      animation: blink 1.1s step-end infinite;
     }
-    a:hover { color: var(--accent-hover); }
 
     /* ----- Header ----- */
     .page-header {
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: 0 var(--space);
-      background-color: rgba(0,0,0,0);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border-bottom: none;
-      transition: background-color 220ms ease;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background-color var(--transition), border-color var(--transition);
     }
     .page-header.is-scrolled {
-      background-color: var(--header-bg-scrolled);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom-color: var(--border);
     }
     .page-header-inner {
       max-width: var(--wrap);
       margin: 0 auto;
-      padding: 0.75rem 0;
+      padding: 0.65rem var(--space);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 1rem;
     }
     .logo {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 0.95rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      font-family: var(--mono);
+      font-weight: 600;
+      font-size: 0.74rem;
+      letter-spacing: 0.02em;
       color: var(--text);
-      transition: color var(--transition);
-      white-space: nowrap;
     }
-    .logo:hover { color: var(--accent); }
-    .nav-right { display: flex; align-items: center; gap: 1.5rem; position: relative; }
+    .nav-right { position: relative; }
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 1.25rem;
       list-style: none;
       margin: 0;
       padding: 0;
     }
     .nav-links a {
-      font-weight: 600;
-      font-size: 0.75rem;
-      letter-spacing: 0.07em;
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       color: var(--text-muted);
       transition: color var(--transition);
@@ -148,10 +119,13 @@
       display: none;
       background: none;
       border: none;
-      padding: 0.5rem;
+      padding: 0.25rem;
       cursor: pointer;
       color: var(--text);
-      font-size: 1.15rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
     @media (max-width: 520px) {
       .nav-toggle { display: block; }
@@ -160,385 +134,203 @@
         position: absolute;
         top: 100%;
         right: 0;
-        width: 200px;
+        min-width: 160px;
         flex-direction: column;
-        padding: 1rem 1.25rem;
-        background: var(--card-bg);
+        gap: 0.9rem;
+        padding: 1rem 1.1rem;
+        background: var(--bg);
         border: 1px solid var(--border);
-        border-radius: 0 0 var(--radius) var(--radius);
-        box-shadow: var(--card-shadow-hover);
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
       }
       .nav-links.is-open { display: flex; }
-      .nav-links a { opacity: 1; }
     }
 
     /* ----- Hero ----- */
     .hero {
-      padding: clamp(2rem, 4vw, 3rem) var(--space) clamp(1.25rem, 3vw, 2rem);
-      text-align: left;
-    }
-    .hero-inner {
+      padding: clamp(1.4rem, 4vw, 2rem) var(--space) clamp(0.85rem, 2.5vw, 1.15rem);
       max-width: var(--wrap);
       margin: 0 auto;
+    }
+    .hero-top {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: clamp(1rem, 3vw, 1.5rem);
-    }
-    .hero-brand { flex: 0 0 auto; }
-    .hero-content {
-      flex: 1 1 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      min-width: 0;
+      gap: 0.65rem;
+      margin-bottom: 0.85rem;
     }
     .hero-avatar {
-      width: clamp(90px, 16vw, 120px);
-      height: clamp(90px, 16vw, 120px);
-      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      border-radius: 5px;
       object-fit: cover;
-      border: none;
-      margin: 0;
-      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
-      transition: box-shadow var(--transition);
+      flex-shrink: 0;
     }
-    .hero-avatar:hover {
-      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent-hover);
+    .hero-role {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
     }
     .hero h1 {
-      font-family: var(--font-heading);
-      font-weight: 700;
-      font-size: clamp(1.3rem, 3vw, 1.7rem);
-      letter-spacing: 0.01em;
-      margin: 0 0 0.15em;
-      color: var(--text);
-      transition: color var(--transition);
-    }
-    .hero .subtitle {
       font-weight: 600;
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #3d7060;
-      margin: 0 0 0.45rem;
-      transition: color var(--transition);
+      font-size: clamp(1.15rem, 2.4vw, 1.35rem);
+      letter-spacing: -0.005em;
+      line-height: 1.3;
+      margin: 0 0 0.4rem;
+      color: var(--text);
     }
     .hero .tagline {
-      max-width: 38em;
-      margin: 0 0 0.5rem;
-      font-size: clamp(0.98rem, 1.8vw, 1.08rem);
+      max-width: 42em;
+      margin: 0 0 0.9rem;
+      font-size: 0.92rem;
       line-height: 1.55;
       color: var(--text-muted);
-      transition: color var(--transition);
     }
     .hero-links {
-      display: inline-flex;
+      display: flex;
       flex-wrap: wrap;
-      justify-content: flex-start;
-      gap: 0.4rem;
-      background: #2a3c48;
-      padding: 0.45rem 0.6rem;
-      border-radius: var(--radius);
+      gap: 0 1.1rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
     }
     .hero-links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      height: 1.3rem;
-      padding: 0 0.3rem;
-      border-radius: 20px;
-      border: 1.5px solid var(--border);
-      background: transparent;
-      color: var(--border);
-      font-size: 0.82rem;
-      transition: all var(--transition);
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color var(--transition), border-color var(--transition);
     }
-    .hero-links a:hover {
-      border-color: #c37b89;
-      color: #c37b89;
-      background: transparent;
-    }
-    .hero-links a.hero-link-cv {
-      padding: 0 0.65rem;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      text-decoration: none;
-    }
+    .hero-links a:hover { color: var(--accent); border-color: var(--accent); }
 
     /* ----- Sections ----- */
-    section { padding: clamp(2.25rem, 5vw, 3.5rem) var(--space); }
-    section + section { border-top: none; }
-    #about { scroll-margin-top: 5.2rem; }
-    .section-inner { max-width: var(--wrap); margin: 0 auto; }
-    .section-title {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      font-size: 0.74rem;
-      letter-spacing: 0.11em;
+    main { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--space); }
+    section { padding: clamp(1.4rem, 3vw, 1.9rem) 0; border-top: 1px solid var(--border); }
+    #about { scroll-margin-top: 3rem; }
+    #publications { scroll-margin-top: 3rem; }
+
+    .section-label {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      margin: 0 0 1.1rem;
-      color: var(--text-muted);
-      transition: color var(--transition);
-      position: relative;
-      padding-bottom: 0.55rem;
+      color: var(--text-faint);
+      margin: 0 0 0.9rem;
     }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 20px;
-      height: 2px;
-      background: var(--accent);
-    }
+    .section-label .num { color: var(--accent); }
+    .section-label .num::before { content: '// '; }
 
-    @media (max-width: 720px) {
-      .hero { text-align: center; }
-      .hero-inner {
-        flex-direction: column;
-        align-items: center;
-      }
-      .hero-content {
-        align-items: center;
-      }
-      .hero-avatar {
-        margin-bottom: 0.75rem;
-      }
-      .hero .tagline { margin-bottom: 1.25rem; }
-      .hero-links { justify-content: center; }
-    }
-
-    /* ----- About + News ----- */
-    .about-news {
+    /* ----- About + Now ----- */
+    .about-grid {
       display: grid;
       grid-template-columns: 3fr 2fr;
-      gap: clamp(2rem, 5vw, 3.5rem);
+      gap: clamp(1.5rem, 4vw, 2.25rem);
       align-items: start;
     }
-    @media (max-width: 620px) {l
-      .about-news { grid-template-columns: 1fr; }
+    @media (max-width: 680px) {
+      .about-grid { grid-template-columns: 1fr; }
     }
     .about-block p {
-      margin: 0 0 1rem;
+      margin: 0 0 0.65rem;
       color: var(--text-muted);
-      font-size: 0.98rem;
-      line-height: 1.72;
-      transition: color var(--transition);
+      font-size: 0.86rem;
+      line-height: 1.55;
     }
     .about-block p:last-of-type { margin-bottom: 0; }
-    .news-list {
+    .about-block a {
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      transition: color var(--transition), border-color var(--transition);
+    }
+    .about-block a:hover { color: var(--accent); border-color: var(--accent); }
+
+    .side-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin: 0 0 0.6rem;
+    }
+    .now-list {
       list-style: none;
       margin: 0;
-      padding: 0.85rem 1rem;
-      max-height: 360px;
+      padding: 0;
+      max-height: 300px;
       overflow-y: auto;
-      border: 1px solid var(--panel-border);
-      border-radius: var(--radius);
-      background: var(--panel-surface);
-      box-shadow: var(--panel-shadow);
-      scrollbar-gutter: stable;
     }
-    .news-list::-webkit-scrollbar { width: 5px; }
-    .news-list::-webkit-scrollbar-track { background: transparent; }
-    .news-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-    .news-list li {
-      padding: 0.38rem 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.875rem;
-      line-height: 1.55;
+    .now-list::-webkit-scrollbar { width: 4px; }
+    .now-list::-webkit-scrollbar-track { background: transparent; }
+    .now-list::-webkit-scrollbar-thumb { background: var(--border); }
+    .now-list li {
+      padding: 0.32rem 0;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      line-height: 1.45;
       color: var(--text-muted);
     }
-    .news-list li:last-child { border-bottom: none; }
-
-    /* ----- Research ----- */
-    .research-wrap { position: relative; overflow: visible; }
-    .research-track {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      padding: 0.5rem 0;
-      scrollbar-width: auto;
+    .now-list li:first-child { border-top: none; }
+    .now-list time {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--text-faint);
+      margin-bottom: 0.1rem;
     }
-    .research-track::-webkit-scrollbar { height: 6px; display: block; }
-    .research-track::-webkit-scrollbar-track { background: var(--bg-secondary); border-radius: 3px; }
-    .research-track::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 3px;
-    }
-    .research-card {
-      flex: 0 0 min(85%, 340px);
-      min-width: 0;
-      scroll-snap-align: start;
-      background: var(--panel-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-      transition: all var(--transition);
-      position: relative;
-    }
-    .research-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-      opacity: 0.35;
-      transition: opacity var(--transition);
-    }
-    .research-card:hover {
-      box-shadow: var(--card-shadow-hover);
-      border-color: var(--border);
-      transform: translateY(-3px);
-    }
-    .research-card:hover::before {
-      opacity: 1;
-    }
-    .research-card-inner {
-      padding: 1.25rem;
-      position: relative;
-    }
-    .research-card h4 {
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: clamp(1rem, 1rem + 0.22vw, 1.1rem);
-      line-height: 1.34;
-      margin: 0 0 0.75rem;
-      color: var(--text);
-      transition: color var(--transition);
-    }
-    .research-card-media {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 0.75rem;
-    }
-    .research-card-meta {
-      font-size: 0.82rem;
-      line-height: 1.5;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-      transition: color var(--transition);
-    }
-    .research-card-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-top: 0.5rem; }
-    .research-card-links a { font-size: 0.875rem; font-weight: 500; }
-    .research-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 2.25rem;
-      height: 2.25rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--card-bg);
-      color: var(--text-muted);
-      box-shadow: var(--card-shadow);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      transition: all var(--transition);
-    }
-    .research-nav { display: none; }
-    .research-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
-    .research-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      border: none; background: var(--border); cursor: pointer; padding: 0;
-      transition: all var(--transition);
-    }
-    .research-dot.active { background: var(--accent); transform: scale(1.4); }
+    .now-list a { color: var(--text); border-bottom: 1px solid var(--border); }
+    .now-list a:hover { color: var(--accent); border-color: var(--accent); }
 
     /* ----- Publications ----- */
     .pub-list { list-style: none; margin: 0; padding: 0; }
-    .pub-list li {
-      padding: 1rem 0;
-      border-top: 1px solid var(--border);
-    }
-    .pub-list li:first-child { border-top: none; }
+    .pub-list li { padding: 0.8rem 0; border-top: 1px solid var(--border); }
+    .pub-list li:first-child { padding-top: 0; border-top: none; }
 
     .pub-title {
-      font-size: 0.95rem;
+      font-size: 0.86rem;
       font-weight: 600;
-      line-height: 1.45;
+      line-height: 1.4;
       color: var(--text);
-      margin-bottom: 0.22rem;
+      margin-bottom: 0.25rem;
     }
     .pub-citation {
-      font-size: 0.8rem;
-      line-height: 1.5;
+      font-size: 0.74rem;
+      line-height: 1.45;
       color: var(--text-muted);
-      margin-bottom: 0;
     }
-    .pub-citation strong { font-weight: 600; }
+    .pub-citation .venue { color: var(--accent); }
 
     .pub-links {
-      margin-top: 0.45rem;
+      margin-top: 0.4rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
-      align-items: center;
-    }
-    .pub-link {
-      display: inline-flex;
-      align-items: center;
-      padding: 0.18rem 0.6rem 0.2rem;
-      border-radius: 4px;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.045em;
+      gap: 0 0.85rem;
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      letter-spacing: 0.03em;
       text-transform: uppercase;
-      text-decoration: none;
-      color: #fff;
-      background: var(--accent);
-      transition: opacity var(--transition);
     }
-    .pub-link:hover { opacity: 0.8; color: #fff; }
-    .pub-list li:nth-child(1) .pub-link { background: #b82870; }
-    .pub-list li:nth-child(2) .pub-link { background: #9a7c0a; }
-    .pub-list li:nth-child(3) .pub-link { background: #1e46a8; }
-    .pub-list li:nth-child(4) .pub-link { background: #b84214; }
-    .pub-list li:nth-child(5) .pub-link { background: #1a8a28; }
-    .pub-list li:nth-child(6) .pub-link { background: #561898; }
-    .pub-list li:nth-child(7) .pub-link { background: #a01818; }
-
-    #publications .section-inner {
-      padding: 0;
-      background: none;
-      border: none;
+    .pub-links a {
+      color: var(--text-faint);
+      border-bottom: 1px solid var(--border);
+      transition: color var(--transition), border-color var(--transition);
     }
-
-    /* ----- Section accent overrides ----- */
-    #about .section-title::after    { background: #6a9648; }
-    #research .section-title::after { background: #89a8b2; }
-    #publications .section-title::after { background: #6a9648; }
-
-    /* ----- Per-card rainbow stripes ----- */
-    .research-card:nth-child(1)::before { background: #c44010; }
-    .research-card:nth-child(2)::before { background: #1a5fc8; }
-    .research-card:nth-child(3)::before { background: #1898a8; }
-    .research-card:nth-child(4)::before { background: #28a840; }
-    .research-card:nth-child(5)::before { background: #6929b8; }
-    .research-card:nth-child(6)::before { background: #c82878; }
+    .pub-links a:hover { color: var(--accent); border-color: var(--accent); }
 
     /* ----- Footer ----- */
     footer {
-      background: #1e2c36;
-      padding: clamp(1.5rem, 3vw, 2rem) var(--space);
-      text-align: center;
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: 1.4rem var(--space) 2.25rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.64rem;
+      color: var(--text-faint);
     }
-    footer p { margin: 0; font-size: 0.8rem; letter-spacing: 0.02em; color: #89a8b2; }
-    footer a { color: #89a8b2; }
-    footer a:hover { color: #b3c8cf; }
+    footer a { border-bottom: 1px solid var(--border); }
+    footer a:hover { color: var(--accent); border-color: var(--accent); }
   </style>
 
   <script type="application/ld+json">
@@ -560,265 +352,154 @@
 <body class="preload">
   <header class="page-header">
     <div class="page-header-inner">
-      <a href="#" class="logo">Abinitha Gourabathina</a>
-      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-        <i class="fas fa-bars"></i>
-      </button>
+      <a href="#" class="logo">AG<span class="cursor">_</span></a>
+      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">Menu</button>
       <nav class="nav-right">
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
-          <li><a href="#publications">Papers</a></li>
-          <li><a href="birds.html">Birding</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="birds.html">Birding 🐦</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <div class="hero">
+    <div class="hero-top">
+      <img class="hero-avatar" src="assets/files/profile2.png" alt="Abinitha Gourabathina" />
+      <p class="hero-role">PhD Student — MIT EECS</p>
+    </div>
+    <h1>Abinitha Gourabathina</h1>
+    <p class="tagline">
+      Building methods for reliable and controllable ML
+    </p>
+    <div class="hero-links">
+      <a href="mailto:abinitha@mit.edu">Email</a>
+      <a href="assets/files/CV.pdf" target="_blank" rel="noopener">CV</a>
+      <a href="https://github.com/abinithago" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+      <a href="https://www.linkedin.com/in/abinithag" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+
   <main>
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-brand">
-          <img class="hero-avatar" src="assets/files/profile2.png" alt="Abinitha Gourabathina" />
-        </div>
-        <div class="hero-content">
-          <p class="subtitle">PhD Student &middot; MIT EECS</p>
-          <p class="tagline">
-            Building methods for reliable and controllable ML models
-          </p>
-          <div class="hero-links">
-            <a href="https://github.com/abinithago" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="assets/files/CV.pdf" target="_blank" rel="noopener" class="hero-link-cv" aria-label="CV (PDF)">CV</a>
-            <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
-            <a href="https://www.linkedin.com/in/abinithag" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:abinitha@mit.edu" aria-label="Email"><i class="fas fa-envelope"></i></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="about">
-      <div class="section-inner">
-        <div class="about-news">
-          <div class="about-block">
-            <h2 class="section-title">About Me</h2>
-            <p>
-              Hello! I am a PhD student in
-              <a href="https://lids.mit.edu/" target="_blank" rel="noopener">MIT LIDS</a>, co-advised by Professors
-              <a href="https://healthyml.org/" target="_blank" rel="noopener">Marzyeh Ghassemi</a> and
-              <a href="https://cb.mit.edu/" target="_blank" rel="noopener">Collin Stultz</a>.
-              Prior to my PhD, I received my B.S.E. from Princeton University in 2023, where my senior thesis was supervised by the incredible Professor
-              <a href="https://www.cs.princeton.edu/~fellbaum/" target="_blank" rel="noopener">Christiane Fellbaum</a>.
-            </p>
-            <p>
-              My research focuses on reliable and controllable machine learning with the goal of building models that behave predictably across diverse conditions. In particular, I find value in working on high-stakes domains like healthcare. I also enjoy drawing on tools from optimization, probability, and statistics in my work.
-            </p>
-            <p>
-              Outside of research, I love to read and have recently gotten into <a href="birds.html">birding</a>!
-            </p>
-            <p><i>You can reach me at <a href="mailto:abinitha@mit.edu">abinitha@mit.edu</a>. I'd love to hear from you!</i></p>
-          </div>
-          <div class="news-block">
-            <h2 class="section-title">News</h2>
-            <ul class="news-list">
-              <li><strong>Apr 2026:</strong> Trace Inversion is accepted @ ACL Main Conference!</li>
-              <li><strong>Apr 2026:</strong> Our <a href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">paper</a> Trace Inversion is up on arXiv!</li>
-              <li><strong>Feb 2026:</strong> Our <a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">paper</a> LEIA is released on arXiv!</li>
-              <li><strong>Oct 2025:</strong> Presented an <a href="https://www.csail.mit.edu/taxonomy/term/417" target="_blank" rel="noopener">ML Tea Talk</a> on trace inversion.</li>
-              <li><strong>Sept 2025:</strong> Excited to serve as Program Chair of the <a href="https://lidsconf.mit.edu/2026/" target="_blank" rel="noopener">2026 LIDS Student Conference</a>!</li>
-              <li><strong>Aug 2025:</strong> Completed my summer internship at IBM Research!</li>
-              <li><strong>June 2025:</strong> Our work is covered by <a href="https://news.mit.edu/2025/llms-factor-unrelated-information-when-recommending-medical-treatments-0623" target="_blank" rel="noopener">MIT News</a> and other <a href="https://www.usnews.com/news/health-news/articles/2025-06-26/typos-slang-trip-up-ai-medical-assessments" target="_blank" rel="noopener">press</a>.</li>
-              <li><strong>June 2025:</strong> Presented at FAccT '25!</li>
-              <li><strong>June 2025:</strong> <a href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a> released on arXiv!</li>
-              <li><strong>May 2025:</strong> Excited to join the AIES PC!</li>
-              <li><strong>May 2025:</strong> MedPerturb project <a href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">website</a> online!</li>
-              <li><strong>April 2025:</strong> Presented @ the MIT EECS Town Hall for <a href="https://computing.mit.edu/cross-cutting/social-and-ethical-responsibilities-of-computing/SERC" target="_blank" rel="noopener">SERC</a>.</li>
-              <li><strong>April 2025:</strong> Paper accepted to FAccT '25!</li>
-              <li><strong>April 2025:</strong> Presented @ the MIT <a href="https://imes.mit.edu/" target="_blank" rel="noopener">IMES</a> Seminar Series.</li>
-              <li><strong>Aug 2024:</strong> Started my PhD at MIT!</li>
-            </ul>
-          </div>
+      <p class="section-label"><span class="num">01</span> About</p>
+      <div class="about-grid">
+        <div class="about-block">
+          <p>
+            Hello! I am a PhD student in
+            <a href="https://lids.mit.edu/" target="_blank" rel="noopener">MIT LIDS</a>, co-advised by Professors
+            <a href="https://healthyml.org/" target="_blank" rel="noopener">Marzyeh Ghassemi</a> and
+            <a href="https://cb.mit.edu/" target="_blank" rel="noopener">Collin Stultz</a>.
+            Prior to my PhD, I received my B.S.E. from Princeton University in 2023, where my senior thesis was supervised by the incredible Professor
+            <a href="https://www.cs.princeton.edu/~fellbaum/" target="_blank" rel="noopener">Christiane Fellbaum</a>.
+          </p>
+          <p>
+            My research focuses on reliable and controllable machine learning with the goal of building models that behave predictably across diverse conditions. In particular, I find value in working on high-stakes domains like healthcare. I also enjoy drawing on tools from optimization, probability, and statistics in my work.
+          </p>
+          <p>
+            Outside of research, I love to read and have recently gotten into <a href="birds.html">birding</a>.
+          </p>
+          <p>You can reach me at <a href="mailto:abinitha@mit.edu">abinitha@mit.edu</a> — I'd love to hear from you.</p>
         </div>
-      </div>
-    </section>
-
-    <section id="research">
-      <div class="section-inner">
-        <h2 class="section-title">Research Highlights</h2>
-        <div class="research-wrap">
-          <button type="button" class="research-nav prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
-          <div class="research-track" id="researchTrack">
-            <article class="research-card">
-              <div class="research-card-inner">
-                <h4>Answering the Wrong Question: Reasoning Trace Inversion for Abstention in LLMs</h4>
-                <img src="assets/files/trace-thumb.png" alt="Trace Inversion" class="research-card-media" />
-                <p class="research-card-meta">Abinitha Gourabathina, Inkit Padhi, Manish Nagireddy, Subhajit Chaudhury, and Prasanna Sattigeri, 2026. arXiv:2604.02230.</p>
-                <div class="research-card-links">
-                  <a href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">Paper</a>
-                  <a href="https://github.com/abinithago/trace-inversion" target="_blank" rel="noopener">Code</a>
-                </div>
-              </div>
-            </article>
-            <article class="research-card">
-              <div class="research-card-inner">
-                <h4>Robustness Beyond Known Groups with Low-rank Adaptation</h4>
-                <img src="assets/files/leia_thumb.png" alt="LEIA" class="research-card-media" />
-                <p class="research-card-meta">Abinitha Gourabathina, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz, 2026. arXiv preprint arXiv:2602.06924.</p>
-                <div class="research-card-links">
-                  <a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a>
-                  <a href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a>
-                </div>
-              </div>
-            </article>
-            <article class="research-card">
-              <div class="research-card-inner">
-                <h4>The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making</h4>
-                <img src="assets/files/medperturb-thumb.png" alt="MedPerturb" class="research-card-media" />
-                <p class="research-card-meta">Abinitha Gourabathina, Yuexing Hao, Walter Gerych, Marzyeh Ghassemi, 2025. arXiv:2506.17163.</p>
-                <div class="research-card-links">
-                  <a href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">Website</a>
-                  <a href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a>
-                  <a href="https://github.com/abinithago/MedPerturb" target="_blank" rel="noopener">Code</a>
-                </div>
-              </div>
-            </article>
-            <article class="research-card">
-              <div class="research-card-inner">
-                <h4>The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs</h4>
-                <img src="assets/files/medium-message-thumb.png" alt="The Medium is the Message" class="research-card-media" />
-                <p class="research-card-meta">Abinitha Gourabathina, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. 2025. In Proceedings of the 2025 ACM Conference on Fairness, Accountability, and Transparency (FAccT '25).</p>
-                <div class="research-card-links">
-                  <a href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank" rel="noopener">Paper</a>
-                  <a href="https://github.com/abinithago/medium-is-message" target="_blank" rel="noopener">Code</a>
-                </div>
-              </div>
-            </article>
-            <article class="research-card">
-              <div class="research-card-inner">
-                <h4>PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model</h4>
-                <img src="assets/files/panda-thumb.png" alt="PanDa Game" class="research-card-media" />
-                <p class="research-card-meta">Abinitha Gourabathina, Zhiyu Wan, J. Thomas Brown, Chao Yan, Bradley A. Malin, 2023. In IEEE Transactions on NanoBioscience, vol. 22, no. 4, pp. 808-817.</p>
-                <div class="research-card-links">
-                  <a href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank" rel="noopener">Paper</a>
-                  <a href="https://github.com/zhywan/covid19-privacy-game" target="_blank" rel="noopener">Code</a>
-                </div>
-              </div>
-            </article>
-            <article class="research-card">
-              <div class="research-card-inner">
-                <h4>What seems to be the problem? Stigmatizing language in patient medical notes</h4>
-                <img src="assets/files/stigma-thumb.png" alt="Stigmatizing language" class="research-card-media" />
-                <p class="research-card-meta"><strong>Abinitha Gourabathina</strong> (Senior thesis, Princeton University). Princeton DataSpace. http://arks.princeton.edu/ark:/88435/dsp01cv43p110t</p>
-                <div class="research-card-links">
-                  <a href="assets/files/senior_thesis.pdf" target="_blank">Paper</a>
-                </div>
-              </div>
-            </article>
-          </div>
-          <button type="button" class="research-nav next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="research-dots" id="researchDots"></div>
+        <aside class="now-block">
+          <p class="side-label">News</p>
+          <ul class="now-list">
+            <li><time>Apr 2026</time><span>Trace Inversion is accepted @ ACL Main Conference!</span></li>
+            <li><time>Apr 2026</time><span>Our <a href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">paper</a> Trace Inversion is up on arXiv!</span></li>
+            <li><time>Feb 2026</time><span>Our <a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">paper</a> LEIA is released on arXiv!</span></li>
+            <li><time>Oct 2025</time><span>Presented an <a href="https://www.csail.mit.edu/taxonomy/term/417" target="_blank" rel="noopener">ML Tea Talk</a> on trace inversion.</span></li>
+            <li><time>Sept 2025</time><span>Excited to serve as Program Chair of the <a href="https://lidsconf.mit.edu/2026/" target="_blank" rel="noopener">2026 LIDS Student Conference</a>!</span></li>
+            <li><time>Aug 2025</time><span>Completed my summer internship at IBM Research!</span></li>
+            <li><time>June 2025</time><span>Our work is covered by <a href="https://news.mit.edu/2025/llms-factor-unrelated-information-when-recommending-medical-treatments-0623" target="_blank" rel="noopener">MIT News</a> and other <a href="https://www.usnews.com/news/health-news/articles/2025-06-26/typos-slang-trip-up-ai-medical-assessments" target="_blank" rel="noopener">press</a>.</span></li>
+            <li><time>June 2025</time><span>Presented at FAccT '25!</span></li>
+            <li><time>June 2025</time><span><a href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a> released on arXiv!</span></li>
+            <li><time>May 2025</time><span>Excited to join the AIES PC!</span></li>
+            <li><time>May 2025</time><span>MedPerturb project <a href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">website</a> online!</span></li>
+            <li><time>Apr 2025</time><span>Presented @ the MIT EECS Town Hall for <a href="https://computing.mit.edu/cross-cutting/social-and-ethical-responsibilities-of-computing/SERC" target="_blank" rel="noopener">SERC</a>.</span></li>
+            <li><time>Apr 2025</time><span>Paper accepted to FAccT '25!</span></li>
+            <li><time>Apr 2025</time><span>Presented @ the MIT <a href="https://imes.mit.edu/" target="_blank" rel="noopener">IMES</a> Seminar Series.</span></li>
+            <li><time>Aug 2024</time><span>Started my PhD at MIT!</span></li>
+          </ul>
+        </aside>
       </div>
     </section>
 
     <section id="publications">
-      <div class="section-inner">
-        <h2 class="section-title">Papers</h2>
-        <ul class="pub-list">
-          <li>
-            <div class="pub-title">Answering the Wrong Question: Reasoning Trace Inversion for Abstention in LLMs</div>
-            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Inkit Padhi, Manish Nagireddy, Subhajit Chaudhury, and Prasanna Sattigeri &mdash; <em>ACL 2026</em></div>
-            <div class="pub-links">
-              <a class="pub-link" href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">Paper</a>
-              <a class="pub-link" href="https://github.com/abinithago/trace-inversion" target="_blank" rel="noopener">Code</a>
-            </div>
-          </li>
-          <li>
-            <div class="pub-title">Robustness Beyond Known Groups with Low-rank Adaptation</div>
-            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz &mdash; <em>Preprint, 2026</em></div>
-            <div class="pub-links">
-              <a class="pub-link" href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a>
-              <a class="pub-link" href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a>
-            </div>
-          </li>
-          <li>
-            <div class="pub-title">The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making</div>
-            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi &mdash; <em>Preprint, 2025</em></div>
-            <div class="pub-links">
-              <a class="pub-link" href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a>
-              <a class="pub-link" href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">Website</a>
-              <a class="pub-link" href="https://github.com/abinithago/MedPerturb" target="_blank" rel="noopener">Code</a>
-            </div>
-          </li>
-          <li>
-            <div class="pub-title">The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs</div>
-            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi &mdash; <em>FAccT 2025</em></div>
-            <div class="pub-links">
-              <a class="pub-link" href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank" rel="noopener">Paper</a>
-              <a class="pub-link" href="https://github.com/abinithago/medium-is-message" target="_blank" rel="noopener">Code</a>
-            </div>
-          </li>
-          <li>
-            <div class="pub-title">PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model</div>
-            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, and Bradley A. Malin &mdash; <em>IEEE Transactions on NanoBioscience, 2023</em></div>
-            <div class="pub-links">
-              <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank" rel="noopener">Paper</a>
-              <a class="pub-link" href="https://github.com/zhywan/covid19-privacy-game" target="_blank" rel="noopener">Code</a>
-            </div>
-          </li>
-          <li>
-            <div class="pub-title">PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model</div>
-            <div class="pub-citation"><strong>Abinitha Gourabathina</strong>, Zhiyu Wan, J. Thomas Brown, Chao Yan, and Bradley A. Malin &mdash; <em>IEEE BIBM 2022</em></div>
-            <div class="pub-links">
-              <a class="pub-link" href="https://ieeexplore.ieee.org/abstract/document/9995513" target="_blank" rel="noopener">Paper</a>
-            </div>
-          </li>
-          <li>
-            <div class="pub-title">What seems to be the problem? Stigmatizing language in patient medical notes</div>
-            <div class="pub-citation"><strong>Abinitha Gourabathina</strong> &mdash; <em>Princeton University Senior Thesis, 2023</em></div>
-            <div class="pub-links">
-              <a class="pub-link" href="assets/files/senior_thesis.pdf" target="_blank" rel="noopener">Paper</a>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <p class="section-label"><span class="num">02</span> Publications</p>
+      <ul class="pub-list">
+        <li>
+          <div class="pub-title">Answering the Wrong Question: Reasoning Trace Inversion for Abstention in LLMs</div>
+          <div class="pub-citation">Abinitha Gourabathina, Inkit Padhi, Manish Nagireddy, Subhajit Chaudhury, and Prasanna Sattigeri. <span class="venue">ACL Main 2026 (Oral)</span>.</div>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">Paper</a>
+            <a href="https://github.com/abinithago/trace-inversion" target="_blank" rel="noopener">Code</a>
+          </div>
+        </li>
+        <li>
+          <div class="pub-title">Robustness Beyond Known Groups with Low-rank Adaptation</div>
+          <div class="pub-citation">Abinitha Gourabathina, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz. <span class="venue">Preprint, 2026</span>.</div>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a>
+            <a href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a>
+          </div>
+        </li>
+        <li>
+          <div class="pub-title">The MedPerturb Dataset: What Non-Content Perturbations Reveal About Human and Clinical LLM Decision Making</div>
+          <div class="pub-citation">Abinitha Gourabathina, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi. <span class="venue">Preprint, 2025</span>.</div>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2506.17163" target="_blank" rel="noopener">Paper</a>
+            <a href="https://medperturb.csail.mit.edu/" target="_blank" rel="noopener">Website</a>
+            <a href="https://github.com/abinithago/MedPerturb" target="_blank" rel="noopener">Code</a>
+          </div>
+        </li>
+        <li>
+          <div class="pub-title">The Medium is the Message: How Non-Clinical Information Shapes Clinical Decisions in LLMs</div>
+          <div class="pub-citation">Abinitha Gourabathina, Walter Gerych, Eileen Pan, and Marzyeh Ghassemi. <span class="venue">FAccT 2025 (Oral)</span>.</div>
+          <div class="pub-links">
+            <a href="https://dl.acm.org/doi/10.1145/3715275.3732121" target="_blank" rel="noopener">Paper</a>
+            <a href="https://github.com/abinithago/medium-is-message" target="_blank" rel="noopener">Code</a>
+          </div>
+        </li>
+        <li>
+          <div class="pub-title">PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model</div>
+          <div class="pub-citation">Abinitha Gourabathina, Zhiyu Wan, J. Thomas Brown, Chao Yan, and Bradley A. Malin. <span class="venue">IEEE Transactions on NanoBioscience, 2023</span>.</div>
+          <div class="pub-links">
+            <a href="https://ieeexplore.ieee.org/abstract/document/10146322" target="_blank" rel="noopener">Paper</a>
+            <a href="https://github.com/zhywan/covid19-privacy-game" target="_blank" rel="noopener">Code</a>
+          </div>
+        </li>
+        <li>
+          <div class="pub-title">PanDa Game: Optimized Privacy-Preserving Publishing of Individual-Level Pandemic Data Based on a Game Theoretic Model</div>
+          <div class="pub-citation">Abinitha Gourabathina, Zhiyu Wan, J. Thomas Brown, Chao Yan, and Bradley A. Malin. <span class="venue">IEEE BIBM 2022</span>.</div>
+          <div class="pub-links">
+            <a href="https://ieeexplore.ieee.org/abstract/document/9995513" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </li>
+        <li>
+          <div class="pub-title">What seems to be the problem? Stigmatizing language in patient medical notes</div>
+          <div class="pub-citation">Abinitha Gourabathina. <span class="venue">Princeton University Senior Thesis, 2023</span>.</div>
+          <div class="pub-links">
+            <a href="assets/files/senior_thesis.pdf" target="_blank" rel="noopener">Paper</a>
+          </div>
+        </li>
+      </ul>
     </section>
   </main>
 
   <footer>
-    <p>&copy; 2026 Abinitha Gourabathina &mdash; <a href="mailto:abinitha@mit.edu">abinitha@mit.edu</a> &middot; <a href="https://github.com/abinithago" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></p>
+    <span>&copy; 2026 Abinitha Gourabathina</span>
+    <span><a href="mailto:abinitha@mit.edu">abinitha@mit.edu</a> · <a href="https://github.com/abinithago" target="_blank" rel="noopener">GitHub</a> · <a href="https://scholar.google.com/citations?user=AuBFq6AAAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a></span>
   </footer>
 
   <script>
     (function() {
-      var themeKey = 'abinitha-theme';
-      function getStored() { try { return localStorage.getItem(themeKey); } catch(e) { return null; } }
-      function setStored(v) { try { localStorage.setItem(themeKey, v); } catch(e) {} }
-      function isDark() { return document.documentElement.classList.contains('dark'); }
-      function setDark(on) {
-        document.documentElement.classList.toggle('dark', on);
-        setStored(on ? 'dark' : 'light');
-        var tb = document.querySelector('.theme-toggle');
-        if (tb) tb.setAttribute('aria-checked', on ? 'true' : 'false');
-      }
-      function initTheme() {
-        var s = getStored();
-        if (s === 'dark') setDark(true);
-        else if (s === 'light') setDark(false);
-        else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) setDark(true);
-      }
-      initTheme();
-      if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) { if (!getStored()) setDark(e.matches); });
-      var tb = document.querySelector('.theme-toggle');
-      if (tb) tb.addEventListener('click', function() { setDark(!isDark()); });
-
-      // Quadrillion-like header: keep it visually blended at the top,
-      // then switch to a distinct sticky bar after the first scroll.
       var header = document.querySelector('.page-header');
       var headerIsScrolled = false;
       function syncHeaderState() {
         if (!header) return;
         var y = window.scrollY;
-        // Hysteresis prevents flicker/jumpiness near the top.
         if (!headerIsScrolled && y > 24) headerIsScrolled = true;
         if (headerIsScrolled && y < 8) headerIsScrolled = false;
         header.classList.toggle('is-scrolled', headerIsScrolled);
@@ -843,46 +524,6 @@
           var open = navLinks.classList.toggle('is-open');
           navToggle.setAttribute('aria-expanded', open);
         });
-      }
-
-      var track = document.getElementById('researchTrack');
-      var prevBtn = document.querySelector('.research-nav.prev');
-      var nextBtn = document.querySelector('.research-nav.next');
-      var dotsEl = document.getElementById('researchDots');
-      if (track && prevBtn && nextBtn) {
-        var cards = track.querySelectorAll('.research-card');
-        var cardWidth = cards[0] ? cards[0].offsetWidth + 16 : 356;
-        var dots = [], totalPages = 1;
-        function createDots() {
-          if (!dotsEl) return;
-          dotsEl.innerHTML = ''; dots = [];
-          var maxScroll = track.scrollWidth - track.clientWidth;
-          totalPages = Math.max(1, Math.round(maxScroll / cardWidth) + 1);
-          for (var i = 0; i < totalPages; i++) {
-            var dot = document.createElement('button');
-            dot.type = 'button';
-            dot.className = 'research-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-            (function(idx) { dot.addEventListener('click', function() { track.scrollTo({ left: idx * cardWidth, behavior: 'smooth' }); }); })(i);
-            dotsEl.appendChild(dot); dots.push(dot);
-          }
-        }
-        function updateDot() {
-          if (!dots.length) return;
-          var p = Math.round(track.scrollLeft / cardWidth);
-          p = Math.max(0, Math.min(p, totalPages - 1));
-          dots.forEach(function(d, i) { d.classList.toggle('active', i === p); });
-        }
-        function updateNav() {
-          var sl = track.scrollLeft, mx = track.scrollWidth - track.clientWidth;
-          prevBtn.disabled = sl <= 0;
-          nextBtn.disabled = mx <= 0 || sl >= mx - 2;
-        }
-        prevBtn.addEventListener('click', function() { track.scrollBy({ left: -cardWidth, behavior: 'smooth' }); });
-        nextBtn.addEventListener('click', function() { track.scrollBy({ left: cardWidth, behavior: 'smooth' }); });
-        track.addEventListener('scroll', function() { updateNav(); updateDot(); });
-        window.addEventListener('resize', function() { cardWidth = cards[0] ? cards[0].offsetWidth + 16 : 356; createDots(); updateDot(); updateNav(); });
-        createDots(); updateNav(); updateDot();
       }
     })();
   </script>
