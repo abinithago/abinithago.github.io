@@ -144,12 +144,13 @@
       box-shadow: 0 4px 16px rgba(21,24,28,0.12) !important;
       padding: 7px 11px !important;
       pointer-events: none !important;
-      transition: opacity 0.15s ease !important;
+      transition: opacity 0.06s ease !important;
     }
     .leaflet-tooltip::before { border-top-color: #e3e5e8 !important; }
-    .tip-name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.84rem; color: #15181c; }
-    .tip-sci  { font-family: 'Inter', sans-serif; font-size: 0.67rem; font-style: italic; color: #5c636b; }
-    .tip-loc  { font-family: 'IBM Plex Mono', monospace; font-size: 0.64rem; color: #90969d; margin-top: 0.2rem; }
+    .tip-name  { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.84rem; color: #15181c; }
+    .tip-photo { display: block; width: 84px; height: 84px; object-fit: cover; border-radius: 6px; margin: 0.35rem 0; }
+    .tip-sci   { font-family: 'Inter', sans-serif; font-size: 0.67rem; font-style: italic; color: #5c636b; }
+    .tip-loc   { font-family: 'IBM Plex Mono', monospace; font-size: 0.64rem; color: #90969d; margin-top: 0.2rem; }
 
     .empty { padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
 
@@ -305,6 +306,67 @@
     {id:"S346668983",name:"Blackpoll Warbler",sci:"Setophaga striata",lat:42.356984,lon:-71.113336,loc:"Magazine Beach",region:"US-MA"},
     {id:"S341342347",name:"Yellow-rumped Warbler",sci:"Setophaga coronata",lat:50.433823,lon:-104.595582,loc:"Saskatchewan Science Center",region:"CA-SK"},
     {id:"S336318215",name:"Northern Cardinal",sci:"Cardinalis cardinalis",lat:42.36406,lon:-71.09215,loc:"Stata Center",region:"US-MA"},
+    {id:"S359367523",name:"Wild Turkey",sci:"Meleagris gallopavo",lat:42.411699,lon:-71.4467,loc:"Monroe Township",region:"US-MA"},
+    {id:"S360180985",name:"Turkey Vulture",sci:"Cathartes aura",lat:40.347936,lon:-74.376942,loc:"Monroe",region:"US-NJ"},
+    {id:"S361785333",name:"Field Sparrow",sci:"Spizella pusilla",lat:40.475674,lon:-74.698651,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S361785419",name:"Common Yellowthroat",sci:"Geothlypis trichas",lat:40.474199,lon:-74.697464,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S361785482",name:"Indigo Bunting",sci:"Passerina cyanea",lat:40.473186,lon:-74.701156,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S361785601",name:"Mourning Dove",sci:"Zenaida macroura",lat:40.472895,lon:-74.699049,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S361785644",name:"Brown-headed Cowbird",sci:"Molothrus ater",lat:40.472892,lon:-74.696593,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S361785863",name:"Barn Swallow",sci:"Hirundo rustica",lat:40.472226,lon:-74.700232,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S361806114",name:"Barn Swallow",sci:"Hirundo rustica",lat:40.475082,lon:-74.699598,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S361806858",name:"Red-winged Blackbird",sci:"Agelaius phoeniceus",lat:40.348483,lon:-74.377323,loc:"Monroe",region:"US-NJ"},
+    {id:"S361806923",name:"European Starling",sci:"Sturnus vulgaris",lat:40.349469,lon:-74.375614,loc:"Monroe",region:"US-NJ"},
+    {id:"S361807626",name:"Fish Crow",sci:"Corvus ossifragus",lat:40.349,lon:-74.669857,loc:"Princeton",region:"US-NJ"},
+    {id:"S362409115",name:"Wood Thrush",sci:"Hylocichla mustelina",lat:40.473864,lon:-74.700355,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S362409135",name:"Northern Flicker",sci:"Colaptes auratus",lat:40.474322,lon:-74.701568,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S362409186",name:"Red-winged Blackbird",sci:"Agelaius phoeniceus",lat:40.471989,lon:-74.698301,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S362409255",name:"American Goldfinch",sci:"Spinus tristis",lat:40.475385,lon:-74.701178,loc:"Sourland Mountain Preserve",region:"US-NJ"},
+    {id:"S362888416",name:"Eastern Towhee",sci:"Pipilo erythrophthalmus",lat:40.297258,lon:-74.816061,loc:"Titusville",region:"US-NJ"},
+    {id:"S365917248",name:"American Crow",sci:"Corvus brachyrhynchos",lat:49.279271,lon:-123.11255,loc:"Rogers Arena",region:"CA-BC"},
+    {id:"S365963648",name:"Glaucous-winged Gull",sci:"Larus glaucescens",lat:49.272253,lon:-123.134994,loc:"Public Market",region:"CA-BC"},
+    {id:"S365981023",name:"Double-crested Cormorant",sci:"Nannopterum auritum",lat:49.272173,lon:-123.134083,loc:"Public Market",region:"CA-BC"},
+    {id:"S368282355",name:"Black-headed Grosbeak",sci:"Pheucticus melanocephalus",lat:49.467712,lon:-123.233385,loc:"Lions Bay",region:"CA-BC"},
+    {id:"S368282548",name:"Bushtit",sci:"Psaltriparus minimus",lat:49.294318,lon:-123.138159,loc:"Stanley Park",region:"CA-BC"},
+    {id:"S367034681",name:"Rufous Hummingbird",sci:"Selasphorus rufus",lat:49.310577,lon:-123.14917,loc:"Stanley Park",region:"CA-BC"},
+    {id:"S367040092",name:"Orange-crowned Warbler",sci:"Leiothlypis celata",lat:49.309183,lon:-123.151235,loc:"Stanley Park",region:"CA-BC"},
+    {id:"S367224347",name:"Violet-green Swallow",sci:"Tachycineta thalassina",lat:49.376592,lon:-123.275044,loc:"Horseshoe Bay",region:"CA-BC"},
+    {id:"S368281381",name:"Pacific Wren",sci:"Troglodytes pacificus",lat:49.699517,lon:-123.163864,loc:"Squamish",region:"CA-BC"},
+    {id:"S368281589",name:"Violet-green Swallow",sci:"Tachycineta thalassina",lat:49.557128,lon:-123.236738,loc:"Porteau Cove",region:"CA-BC"},
+    {id:"S368281876",name:"Western Flycatcher",sci:"Empidonax difficilis",lat:49.301109,lon:-123.147996,loc:"Stanley Park",region:"CA-BC"},
+    {id:"S368282095",name:"Chestnut-backed Chickadee",sci:"Poecile rufescens",lat:49.293794,lon:-123.134363,loc:"Stanley Park",region:"CA-BC"},
+    {id:"S368282141",name:"Western Wood-Pewee",sci:"Contopus sordidulus",lat:49.294389,lon:-123.133586,loc:"Stanley Park",region:"CA-BC"},
+    {id:"S368282930",name:"Brown Creeper",sci:"Certhia americana",lat:49.611734,lon:-123.208828,loc:"Sea to Sky",region:"CA-BC"},
+    {id:"S368283137",name:"Wilson's Warbler",sci:"Cardellina pusilla",lat:49.376497,lon:-123.269953,loc:"Horseshoe Bay",region:"CA-BC"},
+    {id:"S368281219",name:"Spotted Towhee",sci:"Pipilo maculatus",lat:49.671495,lon:-123.158377,loc:"Spotted Townhee",region:"CA-BC"},
+    {id:"S368284360",name:"Black Phoebe",sci:"Sayornis nigricans",lat:32.728828,lon:-117.152281,loc:"Balboa Park",region:"US-CA"},
+    {id:"S369095048",name:"Hooded Oriole",sci:"Icterus cucullatus",lat:32.733857,lon:-117.141738,loc:"Balboa Park",region:"US-CA"},
+    {id:"S369095253",name:"White-throated Swift",sci:"Aeronautes saxatalis",lat:32.733352,lon:-117.141937,loc:"Balboa Park",region:"US-CA"},
+    {id:"S369095298",name:"Lesser Goldfinch",sci:"Spinus psaltria",lat:32.732681,lon:-117.140731,loc:"Balboa Park",region:"US-CA"},
+    {id:"S371856051",name:"Caspian Tern",sci:"Hydroprogne caspia",lat:33.016424,lon:-117.249446,loc:"Lagoon",region:"US-CA"},
+    {id:"S371856113",name:"Brandt's Cormorant",sci:"Urile penicillatus",lat:33.01673,lon:-117.250887,loc:"Lagoon",region:"US-CA"},
+    {id:"S369004779",name:"House Sparrow",sci:"Passer domesticus",lat:32.710832,lon:-117.167454,loc:"Hyatt",region:"US-CA"},
+    {id:"S369151339",name:"Brown Pelican",sci:"Pelecanus occidentalis",lat:32.719177,lon:-117.256387,loc:"Sunset Cliffs",region:"US-CA"},
+    {id:"S369575173",name:"Hudsonian Whimbrel",sci:"Numenius hudsonicus",lat:33.014876,lon:-117.249419,loc:"Lagoon",region:"US-CA"},
+    {id:"S369575287",name:"Least Tern",sci:"Sternula antillarum",lat:33.014311,lon:-117.248867,loc:"Lagoon Reserve",region:"US-CA"},
+    {id:"S369574620",name:"Cactus Wren",sci:"Campylorhynchus brunneicapillus",lat:34.026578,lon:-116.187095,loc:"Joshua Tree",region:"US-CA"},
+    {id:"S369574769",name:"Ash-throated Flycatcher",sci:"Myiarchus cinerascens",lat:33.894793,lon:-115.856313,loc:"Joshua Tree",region:"US-CA"},
+    {id:"S369574893",name:"Black-throated Sparrow",sci:"Amphispiza bilineata",lat:33.924486,lon:-115.814384,loc:"Joshua Tree",region:"US-CA"},
+    {id:"S369575001",name:"Rock Wren",sci:"Salpinctes obsoletus",lat:33.960285,lon:-115.578816,loc:"Joshua Tree",region:"US-CA"},
+    {id:"S369933600",name:"Great-tailed Grackle",sci:"Quiscalus mexicanus",lat:36.154521,lon:-115.207687,loc:"Olive Garden",region:"US-NV"},
+    {id:"S369933853",name:"Eurasian Collared-Dove",sci:"Streptopelia decaocto",lat:36.153874,lon:-115.207404,loc:"Olive Garden",region:"US-NV"},
+    {id:"S370277278",name:"Lesser Nighthawk",sci:"Chordeiles acutipennis",lat:36.188057,lon:-115.17066,loc:"Vegas",region:"US-NV"},
+    {id:"S371853465",name:"Verdin",sci:"Auriparus flaviceps",lat:36.126493,lon:-115.157066,loc:"Vegas",region:"US-NV"},
+    {id:"S371853540",name:"Say's Phoebe",sci:"Sayornis saya",lat:36.173703,lon:-115.185069,loc:"Vegas",region:"US-NV"},
+    {id:"S371854079",name:"Osprey",sci:"Pandion haliaetus",lat:33.01317,lon:-117.248486,loc:"Lagoon",region:"US-CA"},
+    {id:"S371854241",name:"Least Sandpiper",sci:"Calidris minutilla",lat:33.015442,lon:-117.250145,loc:"Lagoon",region:"US-CA"},
+    {id:"S371854376",name:"Great Blue Heron",sci:"Ardea herodias",lat:33.010985,lon:-117.245852,loc:"Lagoon",region:"US-CA"},
+    {id:"S371854493",name:"Pied-billed Grebe",sci:"Podilymbus podiceps",lat:33.015469,lon:-117.252247,loc:"Lagoon",region:"US-CA"},
+    {id:"S371854635",name:"Savannah Sparrow",sci:"Passerculus sandwichensis",lat:34.019769,lon:-116.184752,loc:"Joshua Tree",region:"US-CA"},
+    {id:"S371854989",name:"Snowy Egret",sci:"Egretta thula",lat:33.013079,lon:-117.247138,loc:"Lagoon",region:"US-CA"},
+    {id:"S371855190",name:"Yellow-crowned Night Heron",sci:"Nyctanassa violacea",lat:33.015378,lon:-117.253721,loc:"Lagoon",region:"US-CA"},
+    {id:"S371855737",name:"Great Egret",sci:"Ardea alba",lat:33.020086,lon:-117.246533,loc:"Lagoon",region:"US-CA"},
+    {id:"S371856334",name:"Western Sandpiper",sci:"Calidris mauri",lat:33.011263,lon:-117.243334,loc:"Lagoon",region:"US-CA"},
   ];
 
   const REGION_COLORS = {
@@ -312,14 +374,20 @@
     'CA-SK': '#4a80a0',
     'CA-MB': '#c37b89',
     'CA-ON': '#a07840',
-    'US-CA': '#8060a8'
+    'US-CA': '#8060a8',
+    'CA-BC': '#2f9aa0',
+    'US-NJ': '#c2622f',
+    'US-NV': '#b8942a'
   };
   const REGION_LABELS = {
     'US-MA': 'Massachusetts',
     'CA-SK': 'Saskatchewan',
     'CA-MB': 'Manitoba',
     'CA-ON': 'Ontario',
-    'US-CA': 'California'
+    'US-CA': 'California',
+    'CA-BC': 'British Columbia',
+    'US-NJ': 'New Jersey',
+    'US-NV': 'Nevada'
   };
 
   // Build species index
@@ -358,17 +426,27 @@
 
   OBS.forEach(o => {
     const color = REGION_COLORS[o.region] || '#90969d';
+    // Larger invisible circle underneath handles hover/click so you don't
+    // need to land the cursor precisely on the small visible dot.
+    const hit = L.circleMarker([o.lat, o.lon], {
+      radius: 14, fillOpacity: 0, opacity: 0, weight: 0, pane: 'markerPane'
+    });
     const m = L.circleMarker([o.lat, o.lon], {
       radius: 6, fillColor: color, color: '#fff',
-      weight: 1.5, fillOpacity: 0.85, pane: 'markerPane'
+      weight: 1.5, fillOpacity: 0.85, pane: 'markerPane', interactive: false
     });
-    m.bindTooltip(`
-      <div class="tip-name">${o.name}</div>
-      <div class="tip-sci">${o.sci}</div>
-      <div class="tip-loc">${o.loc}</div>
-    `, {direction: 'top', offset: [0, -7], opacity: 1, sticky: false});
-    m.on('click', () => selectSpecies(o.name, true));
-    markerData[o.id] = {marker: m, obs: o};
+    hit.bindTooltip(() => {
+      const photo = photoCache.get(o.name);
+      return `
+        <div class="tip-name">${o.name}</div>
+        ${photo ? `<img class="tip-photo" src="${photo}" alt="${o.name}">` : ''}
+        <div class="tip-sci">${o.sci}</div>
+        <div class="tip-loc">${o.loc}</div>
+      `;
+    }, {direction: 'top', offset: [0, -7], opacity: 1, sticky: false});
+    hit.on('click', () => selectSpecies(o.name, true));
+    markerData[o.id] = {marker: m, hit, obs: o};
+    hit.addTo(markerGroup);
     m.addTo(markerGroup);
   });
 
