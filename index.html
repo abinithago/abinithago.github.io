@@ -252,18 +252,21 @@
       color: var(--text-faint);
       margin: 0 0 0.6rem;
     }
+    .now-list-wrap {
+      border: 1.5px dashed #c3c7cc;
+      border-radius: 14px;
+      overflow: hidden;
+    }
     .now-list {
       list-style: none;
       margin: 0;
       padding: 0.4rem 0.9rem;
       max-height: 280px;
       overflow-y: auto;
-      border: 1.5px dashed #c3c7cc;
-      border-radius: 14px;
     }
     .now-list::-webkit-scrollbar { width: 4px; }
     .now-list::-webkit-scrollbar-track { background: transparent; }
-    .now-list::-webkit-scrollbar-thumb { background: var(--border); }
+    .now-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
     .now-list li {
       padding: 0.32rem 0;
       border-top: 1px dotted var(--border);
@@ -407,6 +410,7 @@
         </div>
         <aside class="now-block">
           <p class="side-label">News</p>
+          <div class="now-list-wrap">
           <ul class="now-list">
             <li><time>Apr 2026</time><span>Trace Inversion is accepted @ ACL Main Conference!</span></li>
             <li><time>Apr 2026</time><span>Our <a href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">paper</a> Trace Inversion is up on arXiv!</span></li>
@@ -424,6 +428,7 @@
             <li><time>Apr 2025</time><span>Presented @ the MIT <a href="https://imes.mit.edu/" target="_blank" rel="noopener">IMES</a> Seminar Series.</span></li>
             <li><time>Aug 2024</time><span>Started my PhD at MIT!</span></li>
           </ul>
+          </div>
         </aside>
       </div>
     </section>
