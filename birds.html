@@ -130,7 +130,11 @@
       font-family: var(--font-heading); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
       color: var(--text-muted); margin-bottom: 0.3rem;
     }
-    .legend-item { display: flex; align-items: center; gap: 0.4rem; padding: 0.1rem 0; color: var(--text-muted); }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; padding: 0.12rem 0; color: var(--text-muted); }
+    .legend-count {
+      font-family: var(--font-heading); font-weight: 600; font-size: 0.62rem;
+      min-width: 1.1em; text-align: right;
+    }
     .legend-dot {
       width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
       border: 1.5px solid rgba(255,255,255,0.6);
@@ -408,13 +412,33 @@
     maxZoom: 18
   }).addTo(map);
 
+  // Region species counts (unique species per region, for the legend).
+  // Each species is credited to only one region — wherever it was first
+  // logged (earliest entry in OBS) — so seeing the same bird again in a
+  // different region later doesn't double-count it.
+  const regionSpeciesCount = {};
+  const creditedSpecies = new Set();
+  OBS.forEach(o => {
+    if (creditedSpecies.has(o.name)) return;
+    creditedSpecies.add(o.name);
+    if (!regionSpeciesCount[o.region]) regionSpeciesCount[o.region] = new Set();
+    regionSpeciesCount[o.region].add(o.name);
+  });
+
   // Legend
   const legend = L.control({position: 'bottomright'});
   legend.onAdd = () => {
     const div = L.DomUtil.create('div', 'map-legend');
     const regions = [...new Set(OBS.map(o => o.region))];
     div.innerHTML = '<div class="legend-title">Region</div>' +
-      regions.map(r => `<div class="legend-item"><span class="legend-dot" style="background:${REGION_COLORS[r]||'#90969d'}"></span>${REGION_LABELS[r]||r}</div>`).join('');
+      regions.map(r => {
+        const color = REGION_COLORS[r] || '#90969d';
+        const count = regionSpeciesCount[r] ? regionSpeciesCount[r].size : 0;
+        return `<div class="legend-item">
+          <span class="legend-count" style="color:${color}">${count}</span>
+          <span class="legend-dot" style="background:${color}"></span>${REGION_LABELS[r]||r}
+        </div>`;
+      }).join('');
     return div;
   };
   legend.addTo(map);
@@ -426,31 +450,69 @@
 
   OBS.forEach(o => {
     const color = REGION_COLORS[o.region] || '#90969d';
-    // Larger invisible circle underneath handles hover/click so you don't
-    // need to land the cursor precisely on the small visible dot.
-    const hit = L.circleMarker([o.lat, o.lon], {
-      radius: 14, fillOpacity: 0, opacity: 0, weight: 0, pane: 'markerPane'
-    });
     const m = L.circleMarker([o.lat, o.lon], {
       radius: 6, fillColor: color, color: '#fff',
       weight: 1.5, fillOpacity: 0.85, pane: 'markerPane', interactive: false
     });
-    hit.bindTooltip(() => {
-      const photo = photoCache.get(o.name);
-      return `
-        <div class="tip-name">${o.name}</div>
-        ${photo ? `<img class="tip-photo" src="${photo}" alt="${o.name}">` : ''}
-        <div class="tip-sci">${o.sci}</div>
-        <div class="tip-loc">${o.loc}</div>
-      `;
-    }, {direction: 'top', offset: [0, -7], opacity: 1, sticky: false});
-    hit.on('click', () => selectSpecies(o.name, true));
-    markerData[o.id] = {marker: m, hit, obs: o};
-    hit.addTo(markerGroup);
+    markerData[o.id] = {marker: m, obs: o};
     m.addTo(markerGroup);
   });
 
   map.fitBounds(markerGroup.getBounds().pad(0.08));
+
+  // Hover follows whichever point is nearest the cursor, not just whichever
+  // dot happens to be on top — lets you sweep across a tight cluster and
+  // have the tooltip switch between overlapping points as you move.
+  const HOVER_PX_RADIUS = 20;
+  let hoverTooltip = null;
+  let hoverId = null;
+
+  function nearestObs(containerPoint) {
+    let best = null, bestDist = Infinity;
+    Object.entries(markerData).forEach(([id, d]) => {
+      const pt = map.latLngToContainerPoint([d.obs.lat, d.obs.lon]);
+      const dist = pt.distanceTo(containerPoint);
+      if (dist < bestDist) { bestDist = dist; best = {id, obs: d.obs}; }
+    });
+    return best && bestDist <= HOVER_PX_RADIUS ? best : null;
+  }
+
+  function showHoverTooltip(obs) {
+    const photo = photoCache.get(obs.name);
+    const html = `
+      <div class="tip-name">${obs.name}</div>
+      ${photo ? `<img class="tip-photo" src="${photo}" alt="${obs.name}">` : ''}
+      <div class="tip-sci">${obs.sci}</div>
+      <div class="tip-loc">${obs.loc}</div>
+    `;
+    if (!hoverTooltip) {
+      hoverTooltip = L.tooltip({direction: 'top', offset: [0, -7], opacity: 1, sticky: false});
+    }
+    hoverTooltip.setLatLng([obs.lat, obs.lon]).setContent(html);
+    if (!map.hasLayer(hoverTooltip)) hoverTooltip.addTo(map);
+  }
+
+  function hideHoverTooltip() {
+    if (hoverTooltip && map.hasLayer(hoverTooltip)) map.removeLayer(hoverTooltip);
+    hoverId = null;
+  }
+
+  map.on('mousemove', e => {
+    const found = nearestObs(e.containerPoint);
+    if (found) {
+      if (found.id !== hoverId) {
+        hoverId = found.id;
+        showHoverTooltip(found.obs);
+      }
+    } else if (hoverId) {
+      hideHoverTooltip();
+    }
+  });
+  map.on('mouseout', hideHoverTooltip);
+  map.on('click', e => {
+    const found = nearestObs(e.containerPoint);
+    if (found) selectSpecies(found.obs.name, true);
+  });
 
   function selectSpecies(name, scrollSidebar = true) {
     activeSpecies = name;
