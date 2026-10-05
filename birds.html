@@ -37,11 +37,11 @@
     .back-link:hover { color: var(--accent); }
     .back-link:hover svg { transform: translateX(-2px); }
     .hdr-rule { width: 1px; height: 22px; background: var(--line); }
+    /* Same treatment as the name on the homepage: body sans, semibold, one color. */
     .pg-header h1 {
-      margin: 0; font-family: var(--f-display); font-weight: var(--display-weight);
-      font-size: 24px; letter-spacing: var(--display-tracking); line-height: 1; color: var(--fg);
+      margin: 0; font-family: var(--f-body); font-weight: 600;
+      font-size: 21px; letter-spacing: -0.025em; line-height: 1; color: var(--fg);
     }
-    .pg-header h1 em { font-style: var(--display-em); color: var(--accent); }
     .hdr-right { margin-left: auto; display: flex; align-items: center; gap: 18px; }
     .hdr-stats { display: flex; gap: 16px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
     .hdr-stats strong { color: var(--fg); font-weight: 400; }
@@ -162,7 +162,7 @@
       .sidebar { flex: 1 1 auto; border-left: none; border-top: 1px solid var(--line); height: 60vh; }
       .hdr-stats, .hdr-rule { display: none; }
       .pg-header { gap: 12px; padding: 0 16px; }
-      .pg-header h1 { font-size: 21px; }
+      .pg-header h1 { font-size: 19px; }
       .map-legend { display: none; }
       .map-attribution { display: none; }
     }
@@ -175,7 +175,7 @@
       Abinitha
     </a>
     <span class="hdr-rule" aria-hidden="true"></span>
-    <h1>Birding <em>Log</em></h1>
+    <h1>Birding Log</h1>
     <div class="hdr-right">
       <div class="hdr-stats">
         <span><strong id="stat-sp">—</strong> species</span>
