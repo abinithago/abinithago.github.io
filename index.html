@@ -101,6 +101,8 @@
     .plate { margin: 0; background: var(--plate); border-radius: 10px; aspect-ratio: 16 / 10; max-width: 100%; display: grid; place-items: center; padding: 8px; overflow: hidden; }
     .plate img { width: 100%; height: 100%; object-fit: contain; filter: brightness(var(--plate-dim)); transition: transform 0.35s ease; }
     .card:hover .plate img { transform: scale(1.035); }
+    .card.no-thumb { grid-template-columns: minmax(0, 1fr); }
+    .card.no-thumb .plate { display: none; }
     .pub-title { font-family: var(--f-body); font-size: calc(16px * var(--body-scale)); font-weight: 600; line-height: 1.35; margin: 2px 0 6px; text-wrap: balance; }
     .authors { margin: 0 0 8px; color: var(--muted); font-size: calc(13.5px * var(--body-scale)); line-height: 1.5; }
     .authors b { color: var(--fg); font-weight: 600; }
@@ -209,6 +211,8 @@
           <aside class="news">
             <h2 class="label">News</h2>
             <ol class="news-list">
+              <li><time>Sep 2026</time><span>Two papers accepted to NeurIPS!</span></li>
+              <li><time>Sep 2026</time><span>Sense and Sensitivity is accepted to Findings of EMNLP 2026! Check out the <a href="https://arxiv.org/abs/2609.38600" target="_blank" rel="noopener">paper</a> and <a href="https://github.com/abinithago/Sen2Med" target="_blank" rel="noopener">code</a>.</span></li>
               <li><time>Apr 2026</time><span>Trace Inversion is accepted @ ACL Main Conference!</span></li>
               <li><time>Apr 2026</time><span>Our <a href="https://arxiv.org/abs/2604.02230" target="_blank" rel="noopener">paper</a> Trace Inversion is up on arXiv!</span></li>
               <li><time>Feb 2026</time><span>Our <a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">paper</a> on group robustness in realistic settings is released on arXiv!</span></li>
@@ -243,6 +247,15 @@
             <h3 class="year">2026</h3>
             <ul class="cards">
               <li class="card">
+                <figure class="plate"><img src="assets/files/thumbs/sen2med.jpg" alt="Sense and Sensitivity overview figure" loading="lazy" onerror="this.closest('.card').classList.add('no-thumb')" /></figure>
+                <div>
+                  <h4 class="pub-title">Sense and Sensitivity: Benchmarking LLM Clinical Triage Recommendations with Physician Experts</h4>
+                  <p class="authors"><b>Abinitha Gourabathina</b>, Haoran Zhang, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi</p>
+                  <div class="meta"><span class="venue">EMNLP 2026<span class="oral">Findings</span></span>
+                    <span class="pub-links"><a href="https://arxiv.org/abs/2609.38600" target="_blank" rel="noopener">Paper</a><a href="https://github.com/abinithago/Sen2Med" target="_blank" rel="noopener">Code</a></span></div>
+                </div>
+              </li>
+              <li class="card">
                 <figure class="plate"><img src="assets/files/thumbs/trace.jpg" alt="Trace inversion overview figure" loading="lazy" /></figure>
                 <div>
                   <h4 class="pub-title">Answering the Wrong Question: Reasoning Trace Inversion for Abstention in LLMs</h4>
@@ -254,9 +267,9 @@
               <li class="card">
                 <figure class="plate"><img src="assets/files/thumbs/leia.jpg" alt="LEIA decision boundary figure" loading="lazy" /></figure>
                 <div>
-                  <h4 class="pub-title">Robustness Beyond Known Groups with Low-rank Adaptation</h4>
+                  <h4 class="pub-title">Rank-Constrained Adaptation for Reliable Real-World Performance</h4>
                   <p class="authors"><b>Abinitha Gourabathina</b>, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz</p>
-                  <div class="meta"><span class="venue">Preprint</span>
+                  <div class="meta"><span class="venue">NeurIPS 2026<span class="oral">Main</span></span>
                     <span class="pub-links"><a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a><a href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a></span></div>
                 </div>
               </li>
@@ -283,6 +296,15 @@
             <li>
               <span class="yr">2026</span>
               <div>
+                <h4 class="pub-title">Sense and Sensitivity: Benchmarking LLM Clinical Triage Recommendations with Physician Experts</h4>
+                <p class="authors"><b>Abinitha Gourabathina</b>, Haoran Zhang, Yuexing Hao, Walter Gerych, and Marzyeh Ghassemi</p>
+                <div class="meta"><span class="venue">EMNLP 2026<span class="oral">Findings</span></span>
+                  <span class="pub-links"><a href="https://arxiv.org/abs/2609.38600" target="_blank" rel="noopener">Paper</a><a href="https://github.com/abinithago/Sen2Med" target="_blank" rel="noopener">Code</a></span></div>
+              </div>
+            </li>
+            <li>
+              <span class="yr"></span>
+              <div>
                 <h4 class="pub-title">Answering the Wrong Question: Reasoning Trace Inversion for Abstention in LLMs</h4>
                 <p class="authors"><b>Abinitha Gourabathina</b>, Inkit Padhi, Manish Nagireddy, Subhajit Chaudhury, and Prasanna Sattigeri</p>
                 <div class="meta"><span class="venue">ACL Main 2026<span class="oral">Oral</span></span>
@@ -292,10 +314,18 @@
             <li>
               <span class="yr"></span>
               <div>
-                <h4 class="pub-title">Robustness Beyond Known Groups with Low-rank Adaptation</h4>
+                <h4 class="pub-title">Rank-Constrained Adaptation for Reliable Real-World Performance</h4>
                 <p class="authors"><b>Abinitha Gourabathina</b>, Hyewon Jeong, Teya Bergamaschi, Marzyeh Ghassemi, and Collin Stultz</p>
-                <div class="meta"><span class="venue">Preprint, 2026</span>
+                <div class="meta"><span class="venue">NeurIPS 2026<span class="oral">Main</span></span>
                   <span class="pub-links"><a href="https://arxiv.org/abs/2602.06924" target="_blank" rel="noopener">Paper</a><a href="https://github.com/abinithago/LEIA" target="_blank" rel="noopener">Code</a></span></div>
+              </div>
+            </li>
+            <li>
+              <span class="yr"></span>
+              <div>
+                <h4 class="pub-title">Poison-then-Hide: Finetuning-Activated Backdoor Attack on Pretrained Vision Encoders</h4>
+                <p class="authors">Qixuan Jin, <b>Abinitha Gourabathina</b>, Vinith Menon Suriyakumar, Walter Gerych, and Marzyeh Ghassemi</p>
+                <div class="meta"><span class="venue">NeurIPS 2026<span class="oral">Main</span></span></div>
               </div>
             </li>
             <li>
