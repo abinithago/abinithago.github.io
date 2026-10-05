@@ -1,4 +1,4 @@
-/* Field Notes (Fern & Clay palette, Botanical type): shared tokens, theme toggle and theme transition for index.html and birds.html.
+/* Field Notes (Fern & Clay palette with a Graphite dark mode, Botanical type): shared tokens, theme toggle and theme transition for index.html and birds.html.
    To change fonts site-wide, edit the --f-* tokens here and the Google Fonts <link> in each page. */
 
 :root {
@@ -31,38 +31,38 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1c1b18;
-    --surface: #24231f;
-    --fg: #ece8e0;
-    --muted: #b2ab9f;
-    --faint: #7e786e;
-    --line: #36342e;
-    --accent: #a8d199;
-    --accent-soft: #262d21;
-    --wing: #e3967a;
-    --contour: #2b2a25;
-    --plate: #f1efea;
-    --plate-dim: 0.92;
-    --shadow: rgba(0, 0, 0, 0.5);
-    --glass: rgba(36, 35, 31, 0.86);
+    --bg: #2e2d2a;
+    --surface: #373532;
+    --fg: #e0dbd2;
+    --muted: #b4ada1;
+    --faint: #948d82;
+    --line: #47443e;
+    --accent: #a2c695;
+    --accent-soft: #363e30;
+    --wing: #df937b;
+    --contour: #3b3833;
+    --plate: #ebe8e2;
+    --plate-dim: 0.95;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --glass: rgba(55, 53, 50, 0.86);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #1c1b18;
-  --surface: #24231f;
-  --fg: #ece8e0;
-  --muted: #b2ab9f;
-  --faint: #7e786e;
-  --line: #36342e;
-  --accent: #a8d199;
-  --accent-soft: #262d21;
-  --wing: #e3967a;
-  --contour: #2b2a25;
-  --plate: #f1efea;
-  --plate-dim: 0.92;
-  --shadow: rgba(0, 0, 0, 0.5);
-  --glass: rgba(36, 35, 31, 0.86);
+  --bg: #2e2d2a;
+  --surface: #373532;
+  --fg: #e0dbd2;
+  --muted: #b4ada1;
+  --faint: #948d82;
+  --line: #47443e;
+  --accent: #a2c695;
+  --accent-soft: #363e30;
+  --wing: #df937b;
+  --contour: #3b3833;
+  --plate: #ebe8e2;
+  --plate-dim: 0.95;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --glass: rgba(55, 53, 50, 0.86);
   color-scheme: dark;
 }
 
