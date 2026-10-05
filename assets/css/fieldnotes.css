@@ -1,0 +1,119 @@
+/* Field Notes (Fern & Clay palette, Botanical type): shared tokens, theme toggle and theme transition for index.html and birds.html.
+   To change fonts site-wide, edit the --f-* tokens here and the Google Fonts <link> in each page. */
+
+:root {
+  --bg: #f4f2ed;
+  --surface: #fbfaf7;
+  --fg: #22201c;
+  --muted: #5c574f;
+  --faint: #837c73;
+  --line: #ddd9d0;
+  --accent: #3d6a3e;
+  --accent-soft: #e4eadd;
+  --wing: #a5553a;
+  --contour: #dbd7cd;
+  --plate: #ffffff;
+  --plate-dim: 1;
+  --shadow: rgba(45, 38, 28, 0.4);
+  --glass: rgba(251, 250, 247, 0.86);
+
+  --f-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --f-body: 'Commissioner', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-mono: 'Fragment Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --f-note: var(--f-mono);     /* dates and years; can be a script face */
+  --body-scale: 1;             /* optical size correction for the body face */
+  --note-scale: 1;             /* bump to ~1.4 for a handwritten --f-note */
+  --display-scale: 1;          /* size of the name in the hero */
+  --display-weight: 400;
+  --display-tracking: -0.025em;
+  --display-em: italic;        /* style of the accented surname; 'normal' for faces without italics */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1b18;
+    --surface: #24231f;
+    --fg: #ece8e0;
+    --muted: #b2ab9f;
+    --faint: #7e786e;
+    --line: #36342e;
+    --accent: #a8d199;
+    --accent-soft: #262d21;
+    --wing: #e3967a;
+    --contour: #2b2a25;
+    --plate: #f1efea;
+    --plate-dim: 0.92;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --glass: rgba(36, 35, 31, 0.86);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1c1b18;
+  --surface: #24231f;
+  --fg: #ece8e0;
+  --muted: #b2ab9f;
+  --faint: #7e786e;
+  --line: #36342e;
+  --accent: #a8d199;
+  --accent-soft: #262d21;
+  --wing: #e3967a;
+  --contour: #2b2a25;
+  --plate: #f1efea;
+  --plate-dim: 0.92;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --glass: rgba(36, 35, 31, 0.86);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--accent-soft); color: var(--accent); }
+
+/* ---------- Theme toggle (sun/moon) ---------- */
+.theme-toggle {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+.theme-toggle svg { width: 16px; height: 16px; grid-area: 1 / 1; transition: transform 0.6s cubic-bezier(.2,.7,.2,1), opacity 0.4s ease; }
+.theme-toggle .moon { opacity: 0; transform: rotate(-70deg) scale(0.6); }
+:root[data-theme="dark"] .theme-toggle .sun { opacity: 0; transform: rotate(70deg) scale(0.6); }
+:root[data-theme="dark"] .theme-toggle .moon { opacity: 1; transform: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .sun { opacity: 0; transform: rotate(70deg) scale(0.6); }
+  :root:not([data-theme="light"]) .theme-toggle .moon { opacity: 1; transform: none; }
+}
+
+/* ---------- Theme change ----------
+   Instant: transitions are paused for the frame in which the theme flips,
+   so hover fades on links and buttons don't trail behind. */
+.theme-switching,
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

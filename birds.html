@@ -5,205 +5,210 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Birding Log · Abinitha Gourabathina</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Commissioner:wght@400;500;600&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/fieldnotes.css">
+  <meta name="theme-color" content="#f4f2ed" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1b18" media="(prefers-color-scheme: dark)">
+  <script>try { var t = localStorage.getItem('theme'); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
   <style>
-    :root {
-      --bg: #ffffff;
-      --panel: #f5f6f5;
-      --blue-light: #e3e5e8;
-      --blue-mid: #90969d;
-      --text: #15181c;
-      --text-muted: #5c636b;
-      --accent: #2f6b46;
-      --border: #e3e5e8;
-      --font: 'Inter', -apple-system, sans-serif;
-      --font-heading: 'IBM Plex Mono', ui-monospace, monospace;
-      --radius: 6px;
-      --tr: 0.15s ease;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 14.5px; }
-    html, body { height: 100%; font-family: var(--font); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+    /* Layout: app shell. Thin header, map on the left, species field guide on the right.
+       Colors and fonts come from assets/css/fieldnotes.css. */
+    :root { --hdr-h: 60px; --side-w: 360px; --tr: 0.15s ease; }
+    html, body { height: 100%; }
+    body { font-size: 14.5px; overflow: hidden; }
+    button, input { font: inherit; color: inherit; }
 
     /* ---- Header ---- */
     .pg-header {
-      height: 52px; display: flex; align-items: center; gap: 1rem;
-      padding: 0 1.25rem; border-bottom: 1px solid var(--border);
-      background: var(--bg); position: sticky; top: 0; z-index: 300;
+      height: var(--hdr-h); display: flex; align-items: center; gap: 18px;
+      padding: 0 20px; border-bottom: 1px solid var(--line);
+      background: var(--bg); position: relative; z-index: 600;
     }
     .back-link {
-      display: flex; align-items: center; gap: 0.35rem;
-      color: var(--text-muted); text-decoration: none;
-      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
-      transition: color var(--tr);
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--muted); transition: color var(--tr);
     }
+    .back-link svg { width: 14px; height: 14px; transition: transform 0.2s ease; }
     .back-link:hover { color: var(--accent); }
+    .back-link:hover svg { transform: translateX(-2px); }
+    .hdr-rule { width: 1px; height: 22px; background: var(--line); }
     .pg-header h1 {
-      font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600;
-      letter-spacing: 0.04em; text-transform: uppercase; color: var(--text);
+      margin: 0; font-family: var(--f-display); font-weight: var(--display-weight);
+      font-size: 24px; letter-spacing: var(--display-tracking); line-height: 1; color: var(--fg);
     }
-    .hdr-stats {
-      margin-left: auto; display: flex; gap: 1.25rem;
-      font-family: var(--font-heading); font-size: 0.7rem; color: var(--text-muted);
-    }
-    .hdr-stats strong { color: var(--text); }
+    .pg-header h1 em { font-style: var(--display-em); color: var(--accent); }
+    .hdr-right { margin-left: auto; display: flex; align-items: center; gap: 18px; }
+    .hdr-stats { display: flex; gap: 16px; font-family: var(--f-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .hdr-stats strong { color: var(--fg); font-weight: 400; }
 
     /* ---- Layout ---- */
-    .app { display: flex; height: calc(100vh - 52px); }
-    .map-pane { flex: 1 1 auto; position: relative; }
-    #map { width: 100%; height: 100%; }
+    .app { display: flex; height: calc(100% - var(--hdr-h)); }
+    .map-pane { flex: 1 1 auto; position: relative; min-width: 0; }
+    #map { position: absolute; inset: 0; background: var(--bg); }
+
+    /* Basemaps: Esri grey canvas, warmed slightly so it sits with the palette.
+       Which one is visible is set from JS (Leaflet writes layer opacity inline). */
+    .tiles-light { filter: sepia(0.1) saturate(0.6) brightness(0.995); }
+    .tiles-dark { filter: sepia(0.28) saturate(0.8) brightness(0.92); }
+
+    /* Leaflet chrome in the site's style */
+    .leaflet-container { font-family: var(--f-body); background: var(--bg); }
+    .leaflet-bar { border: 1px solid var(--line) !important; border-radius: 12px !important; overflow: hidden; box-shadow: 0 6px 18px -12px var(--shadow) !important; }
+    .leaflet-bar a, .leaflet-bar a:hover { width: 32px !important; height: 32px !important; line-height: 30px !important; background: var(--surface); color: var(--fg); border-bottom-color: var(--line) !important; font-weight: 400; }
+    .leaflet-bar a:hover { color: var(--accent); }
+    .leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out { font-size: 18px; }
+    .leaflet-control-attribution { background: var(--glass) !important; color: var(--faint) !important; font: 10.5px/1.6 var(--f-mono) !important; border-radius: 8px 0 0 0; padding: 1px 8px !important; }
+    .leaflet-control-attribution a { color: var(--muted) !important; }
+    .leaflet-attribution-flag { display: none !important; }
+
+    /* ---- Map overlays ---- */
+    .map-reset {
+      position: absolute; top: 14px; right: 14px; z-index: 500;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+      padding: 7px 14px; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer; box-shadow: 0 6px 18px -12px var(--shadow);
+      opacity: 0; transform: translateY(-4px); pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease, color var(--tr), border-color var(--tr);
+    }
+    .map-reset.visible { opacity: 1; transform: none; pointer-events: auto; }
+    .map-reset:hover { color: var(--accent); border-color: var(--accent); }
+
+    .map-legend {
+      background: var(--glass); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px 10px;
+      color: var(--fg); box-shadow: 0 10px 24px -16px var(--shadow); min-width: 190px;
+    }
+    .legend-title { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+    .legend-item { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; align-items: center; gap: 9px; padding: 3px 0; font-size: 12.5px; color: var(--muted); }
+    .legend-count { font-family: var(--f-mono); font-size: 11.5px; color: var(--faint); font-variant-numeric: tabular-nums; text-align: right; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 0 2px var(--surface); }
+
+    .map-attribution {
+      position: absolute; bottom: 14px; left: 14px; z-index: 500;
+      background: var(--glass); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 5px 12px; font-family: var(--f-mono); font-size: 10.5px; color: var(--faint);
+    }
+    .map-attribution a { color: var(--muted); border-bottom: 1px solid var(--line); }
+    .map-attribution a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ---- Hover tooltip ---- */
+    .leaflet-tooltip {
+      background: var(--surface) !important; color: var(--fg) !important;
+      border: 1px solid var(--line) !important; border-radius: 12px !important;
+      box-shadow: 0 14px 30px -16px var(--shadow) !important;
+      padding: 10px 12px !important; pointer-events: none !important;
+    }
+    .leaflet-tooltip-top::before { border-top-color: var(--line) !important; }
+    .tip-photo { display: block; width: 120px; height: 90px; object-fit: cover; border-radius: 8px; margin-bottom: 8px; }
+    .tip-name { font-weight: 600; font-size: 13.5px; }
+    .tip-sci { font-size: 12px; font-style: italic; color: var(--muted); }
+    .tip-loc { display: flex; align-items: center; gap: 6px; margin-top: 4px; font-family: var(--f-mono); font-size: 11px; color: var(--faint); }
+    .tip-loc i { width: 7px; height: 7px; border-radius: 50%; }
 
     /* ---- Sidebar ---- */
     .sidebar {
-      flex: 0 0 340px; display: flex; flex-direction: column;
-      border-left: 1px solid var(--border); background: var(--bg); overflow: hidden;
+      flex: 0 0 var(--side-w); display: flex; flex-direction: column; min-width: 0;
+      border-left: 1px solid var(--line); background: var(--surface);
     }
-    .search-wrap { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); flex-shrink: 0; }
-    .search-wrap input {
-      width: 100%; padding: 0.36rem 0.7rem;
-      border: 1px solid var(--border); border-radius: var(--radius);
-      background: var(--panel); color: var(--text);
-      font-family: var(--font); font-size: 0.8rem; outline: none;
-      transition: border-color var(--tr);
+    .side-head { padding: 14px 16px 10px; display: grid; gap: 10px; border-bottom: 1px solid var(--line); }
+    .search { position: relative; }
+    .search svg { position: absolute; left: 12px; top: 50%; width: 15px; height: 15px; transform: translateY(-50%); color: var(--faint); pointer-events: none; }
+    .search input {
+      width: 100%; height: 36px; padding: 0 12px 0 34px;
+      border: 1px solid var(--line); border-radius: 999px; background: var(--bg);
+      font-size: 13.5px; outline: none; transition: border-color var(--tr), box-shadow var(--tr);
     }
-    .search-wrap input:focus { border-color: var(--blue-mid); }
-    .search-wrap input::placeholder { color: var(--text-muted); }
+    .search input::placeholder { color: var(--faint); }
+    .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .side-meta { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
 
-    .species-list {
-      flex: 1 1 auto; overflow-y: auto; padding: 0.35rem 0;
-    }
-    .species-list::-webkit-scrollbar { width: 5px; }
-    .species-list::-webkit-scrollbar-track { background: transparent; }
-    .species-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .species-list { flex: 1 1 auto; overflow-y: auto; padding: 6px 8px 16px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
 
-    /* ---- Species card ---- */
     .species-card {
-      display: flex; align-items: center; gap: 0.7rem;
-      padding: 0.5rem 0.85rem; cursor: pointer;
-      transition: background var(--tr); border-left: 3px solid transparent;
+      display: flex; align-items: center; gap: 12px;
+      padding: 8px; border-radius: 12px; cursor: pointer;
+      transition: background-color var(--tr);
     }
-    .species-card:hover { background: var(--panel); }
-    .species-card.active { background: var(--panel); border-left-color: var(--accent); }
+    .species-card + .species-card { margin-top: 2px; }
+    .species-card:hover { background: var(--bg); }
+    .species-card.active { background: var(--accent-soft); }
+    .species-card.active .sp-name { color: var(--accent); }
+    .species-card:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 
-    .sp-photo {
-      width: 50px; height: 50px; border-radius: 8px; object-fit: cover;
-      flex-shrink: 0; border: 1px solid var(--border); display: block;
-    }
-    .sp-placeholder {
-      width: 50px; height: 50px; border-radius: 8px; flex-shrink: 0;
-      border: 1px solid var(--border); background: var(--panel);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--blue-mid); font-size: 1.1rem;
-    }
-    .sp-info { min-width: 0; flex: 1; }
-    .sp-name {
-      font-size: 0.82rem; font-weight: 600; color: var(--text);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .sp-sci {
-      font-size: 0.67rem; font-style: italic; color: var(--text-muted);
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .sp-meta { font-family: var(--font-heading); font-size: 0.62rem; color: var(--blue-mid); margin-top: 0.15rem; }
+    .sp-photo, .sp-placeholder { width: 52px; height: 52px; border-radius: 10px; flex-shrink: 0; }
+    .sp-photo { object-fit: cover; display: block; background: var(--bg); }
+    .sp-placeholder { display: grid; place-items: center; background: var(--bg); color: var(--faint); border: 1px solid var(--line); }
+    .sp-placeholder svg { width: 20px; height: 20px; }
+    .sp-info { min-width: 0; flex: 1; display: grid; gap: 1px; }
+    .sp-name { font-size: 14px; font-weight: 600; color: var(--fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color var(--tr); }
+    .sp-sci { font-size: 12px; font-style: italic; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sp-meta { display: flex; flex-wrap: wrap; gap: 2px 10px; margin-top: 3px; font-size: 11.5px; color: var(--faint); }
+    .sp-region { display: inline-flex; align-items: center; gap: 5px; }
+    .sp-region i { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 
-    /* ---- Map controls ---- */
-    .map-reset {
-      position: absolute; top: 12px; right: 12px; z-index: 500;
-      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 0.3rem 0.65rem; font-family: var(--font-heading); font-size: 0.65rem;
-      font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
-      color: var(--text-muted); cursor: pointer; display: none; transition: all var(--tr);
-    }
-    .map-reset:hover { color: var(--accent); border-color: var(--accent); }
-    .map-reset.visible { display: block; }
+    .empty { padding: 40px 16px; text-align: center; color: var(--muted); font-size: 13.5px; }
 
-    /* ---- Legend ---- */
-    .map-legend {
-      background: rgba(255,255,255,0.92); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 0.5rem 0.7rem;
-      font-family: var(--font); font-size: 0.66rem; backdrop-filter: blur(4px);
-    }
-    .legend-title {
-      font-family: var(--font-heading); font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase;
-      color: var(--text-muted); margin-bottom: 0.3rem;
-    }
-    .legend-item { display: flex; align-items: center; gap: 0.4rem; padding: 0.12rem 0; color: var(--text-muted); }
-    .legend-count {
-      font-family: var(--font-heading); font-weight: 600; font-size: 0.62rem;
-      min-width: 1.1em; text-align: right;
-    }
-    .legend-dot {
-      width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
-      border: 1.5px solid rgba(255,255,255,0.6);
-    }
-
-    /* ---- Leaflet tooltip (hover) ---- */
-    .leaflet-tooltip {
-      background: #ffffff !important;
-      border: 1px solid #e3e5e8 !important;
-      border-radius: 6px !important;
-      box-shadow: 0 4px 16px rgba(21,24,28,0.12) !important;
-      padding: 7px 11px !important;
-      pointer-events: none !important;
-      transition: opacity 0.06s ease !important;
-    }
-    .leaflet-tooltip::before { border-top-color: #e3e5e8 !important; }
-    .tip-name  { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.84rem; color: #15181c; }
-    .tip-photo { display: block; width: 84px; height: 84px; object-fit: cover; border-radius: 6px; margin: 0.35rem 0; }
-    .tip-sci   { font-family: 'Inter', sans-serif; font-size: 0.67rem; font-style: italic; color: #5c636b; }
-    .tip-loc   { font-family: 'IBM Plex Mono', monospace; font-size: 0.64rem; color: #90969d; margin-top: 0.2rem; }
-
-    .empty { padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
-
-    /* ---- Attribution ---- */
-    .map-attribution {
-      position: absolute; bottom: 28px; left: 10px; z-index: 500;
-      background: rgba(255,255,255,0.88); backdrop-filter: blur(4px);
-      border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 0.28rem 0.55rem; font-family: var(--font-heading); font-size: 0.6rem; color: var(--text-muted);
-      line-height: 1.5; pointer-events: auto;
-    }
-    .map-attribution a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
-    .map-attribution a:hover { color: var(--accent); }
-
-    @media (max-width: 680px) {
-      .app { flex-direction: column; }
-      .map-pane { flex: 0 0 42vh; }
-      .sidebar { flex: 1 1 auto; border-left: none; border-top: 1px solid var(--border); width: 100%; }
-      .hdr-stats { display: none; }
+    @media (max-width: 760px) {
+      body { overflow: auto; }
+      .app { flex-direction: column; height: auto; }
+      .map-pane { flex: 0 0 auto; height: 46vh; }
+      .sidebar { flex: 1 1 auto; border-left: none; border-top: 1px solid var(--line); height: 60vh; }
+      .hdr-stats, .hdr-rule { display: none; }
+      .pg-header { gap: 12px; padding: 0 16px; }
+      .pg-header h1 { font-size: 21px; }
+      .map-legend { display: none; }
+      .map-attribution { display: none; }
     }
   </style>
 </head>
 <body>
   <header class="pg-header">
-    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Abinitha</a>
-    <h1>Birding Log</h1>
-    <div class="hdr-stats">
-      <span><strong id="stat-sp">—</strong> species</span>
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Abinitha
+    </a>
+    <span class="hdr-rule" aria-hidden="true"></span>
+    <h1>Birding <em>Log</em></h1>
+    <div class="hdr-right">
+      <div class="hdr-stats">
+        <span><strong id="stat-sp">—</strong> species</span>
+        <span><strong id="stat-rg">—</strong> regions</span>
+      </div>
+      <button type="button" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8.2 8.2 0 0 1 9.4 4a8.2 8.2 0 1 0 10.6 10.6Z"/></svg>
+      </button>
     </div>
   </header>
 
   <div class="app">
     <div class="map-pane">
       <div id="map"></div>
-      <button class="map-reset" id="mapReset">Show all</button>
+      <button type="button" class="map-reset" id="mapReset">Show all</button>
       <div class="map-attribution">
         IDs via <a href="https://merlin.allaboutbirds.org/" target="_blank" rel="noopener">Merlin Bird ID</a> &middot;
         Photos from <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>
       </div>
     </div>
-    <aside class="sidebar">
-      <div class="search-wrap">
-        <input type="search" id="searchInput" placeholder="Search…" autocomplete="off">
+    <aside class="sidebar" aria-label="Species">
+      <div class="side-head">
+        <label class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+          <input type="search" id="searchInput" placeholder="Search by common or scientific name" autocomplete="off" aria-label="Search species">
+        </label>
+        <div class="side-meta"><span id="listCount">Species</span><span>A–Z</span></div>
       </div>
       <div class="species-list" id="speciesList"></div>
     </aside>
   </div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="assets/js/theme.js"></script>
   <script>
   const OBS = [
     {id:"S346652877",name:"Graylag Goose",sci:"Anser anser",lat:42.353611,lon:-71.11013,loc:"Memorial Drive",region:"US-MA"},
@@ -404,6 +409,7 @@
 
   // Stats
   document.getElementById('stat-sp').textContent = allSpecies.length;
+  document.getElementById('stat-rg').textContent = new Set(OBS.map(o => o.region)).size;
 
   // Map
   const map = L.map('map', {zoomControl: true});
@@ -415,8 +421,30 @@
     maxNativeZoom: 16,
     maxZoom: 18
   };
-  L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', esriOpts).addTo(map);
-  L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {...esriOpts, attribution: ''}).addTo(map);
+  const esriTile = name => `https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/${name}/MapServer/tile/{z}/{y}/{x}`;
+  const lightTiles = [
+    L.tileLayer(esriTile('World_Light_Gray_Base'), {...esriOpts, className: 'tiles-light'}),
+    L.tileLayer(esriTile('World_Light_Gray_Reference'), {...esriOpts, attribution: '', className: 'tiles-light'})
+  ];
+  const darkTiles = [
+    L.tileLayer(esriTile('World_Dark_Gray_Base'), {...esriOpts, attribution: '', className: 'tiles-dark'}),
+    L.tileLayer(esriTile('World_Dark_Gray_Reference'), {...esriOpts, attribution: '', className: 'tiles-dark'})
+  ];
+  [...lightTiles, ...darkTiles].forEach(l => l.addTo(map));
+  // Show the basemap for the current theme. Both stay loaded so switching never waits on tiles.
+  function syncBasemap() {
+    const dark = window.siteTheme && window.siteTheme.current() === 'dark';
+    lightTiles.forEach(l => l.setOpacity(dark ? 0 : 1));
+    darkTiles.forEach(l => l.setOpacity(dark ? 1 : 0));
+  }
+  syncBasemap();
+  // On phones the credits pill is hidden; carry its credits in Leaflet's attribution line instead.
+  if (window.matchMedia('(max-width: 760px)').matches) {
+    map.attributionControl.addAttribution('IDs via <a href="https://merlin.allaboutbirds.org/" target="_blank" rel="noopener">Merlin</a> · Photos <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia</a>');
+  }
+
+  // Marker outlines use the page surface color so dots read on both basemaps.
+  const markerStroke = () => getComputedStyle(document.documentElement).getPropertyValue('--surface').trim() || '#fff';
 
   // Region species counts (unique species per region, for the legend).
   // Each species is credited to only one region — wherever it was first
@@ -436,13 +464,14 @@
   legend.onAdd = () => {
     const div = L.DomUtil.create('div', 'map-legend');
     const regions = [...new Set(OBS.map(o => o.region))];
-    div.innerHTML = '<div class="legend-title">Region</div>' +
+    div.innerHTML = '<div class="legend-title">Region · first sightings</div>' +
       regions.map(r => {
         const color = REGION_COLORS[r] || '#90969d';
         const count = regionSpeciesCount[r] ? regionSpeciesCount[r].size : 0;
         return `<div class="legend-item">
-          <span class="legend-count" style="color:${color}">${count}</span>
-          <span class="legend-dot" style="background:${color}"></span>${REGION_LABELS[r]||r}
+          <span class="legend-dot" style="background:${color}"></span>
+          <span>${REGION_LABELS[r]||r}</span>
+          <span class="legend-count">${count}</span>
         </div>`;
       }).join('');
     return div;
@@ -457,7 +486,7 @@
   OBS.forEach(o => {
     const color = REGION_COLORS[o.region] || '#90969d';
     const m = L.circleMarker([o.lat, o.lon], {
-      radius: 6, fillColor: color, color: '#fff',
+      radius: 6, fillColor: color, color: markerStroke(),
       weight: 1.5, fillOpacity: 0.85, pane: 'markerPane', interactive: false
     });
     markerData[o.id] = {marker: m, obs: o};
@@ -485,11 +514,12 @@
 
   function showHoverTooltip(obs) {
     const photo = photoCache.get(obs.name);
+    const color = REGION_COLORS[obs.region] || '#90969d';
     const html = `
+      ${photo ? `<img class="tip-photo" src="${photo}" alt="">` : ''}
       <div class="tip-name">${obs.name}</div>
-      ${photo ? `<img class="tip-photo" src="${photo}" alt="${obs.name}">` : ''}
       <div class="tip-sci">${obs.sci}</div>
-      <div class="tip-loc">${obs.loc}</div>
+      <div class="tip-loc"><i style="background:${color}"></i>${obs.loc} · ${REGION_LABELS[obs.region] || obs.region}</div>
     `;
     if (!hoverTooltip) {
       hoverTooltip = L.tooltip({direction: 'top', offset: [0, -7], opacity: 1, sticky: false});
@@ -525,10 +555,10 @@
     Object.values(markerData).forEach(({marker, obs}) => {
       const regionColor = REGION_COLORS[obs.region] || '#90969d';
       if (obs.name === name) {
-        marker.setStyle({fillColor: regionColor, fillOpacity: 1, radius: 9, weight: 2.5, color: '#fff'});
+        marker.setStyle({fillColor: regionColor, fillOpacity: 1, radius: 9, weight: 2.5, color: markerStroke()});
         marker.setZIndexOffset(500);
       } else {
-        marker.setStyle({fillColor: regionColor, fillOpacity: 0.85, radius: 6, weight: 1.5, color: '#fff'});
+        marker.setStyle({fillColor: regionColor, fillOpacity: 0.85, radius: 6, weight: 1.5, color: markerStroke()});
         marker.setZIndexOffset(0);
       }
     });
@@ -562,7 +592,7 @@
   function resetAll() {
     activeSpecies = null;
     Object.values(markerData).forEach(({marker, obs}) => {
-      marker.setStyle({fillColor: REGION_COLORS[obs.region]||'#90969d', fillOpacity: 0.85, radius: 6, weight: 1.5, color: '#fff'});
+      marker.setStyle({fillColor: REGION_COLORS[obs.region]||'#90969d', fillOpacity: 0.85, radius: 6, weight: 1.5, color: markerStroke()});
       marker.setZIndexOffset(0);
     });
     map.fitBounds(markerGroup.getBounds().pad(0.08));
@@ -570,10 +600,16 @@
     document.querySelectorAll('.species-card').forEach(c => c.classList.remove('active'));
   }
   document.getElementById('mapReset').addEventListener('click', resetAll);
+  document.addEventListener('themechange', () => {
+    syncBasemap();
+    Object.values(markerData).forEach(({marker}) => marker.setStyle({color: markerStroke()}));
+  });
 
   // Photo cache
   const photoCache = new Map();
   const photoElMap = new Map(); // name -> current DOM element
+
+  const FEATHER_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 3.8c-4.9-.6-9.6 1.4-12.3 5.4-1.6 2.4-2.2 5.3-1.8 8.2L4 21"/><path d="M6.1 17.4c3.6.2 7-1.3 9.4-4.1 2.3-2.7 3.6-6 4.7-9.5"/><path d="M9.3 13.6h5.2M11.6 9.6h5.6"/></svg>';
 
   function buildSpeciesList(filter) {
     const q = (filter || '').toLowerCase();
@@ -582,8 +618,10 @@
     const filtered = allSpecies.filter(s =>
       s.name.toLowerCase().includes(q) || s.sci.toLowerCase().includes(q)
     );
+    const countEl = document.getElementById('listCount');
+    countEl.textContent = q ? `${filtered.length} of ${allSpecies.length} species` : `${allSpecies.length} species`;
     if (!filtered.length) {
-      list.innerHTML = '<div class="empty">No species found.</div>';
+      list.innerHTML = '<div class="empty">No species match that search.</div>';
       return;
     }
     filtered.forEach(s => {
@@ -591,6 +629,8 @@
       const card = document.createElement('div');
       card.className = 'species-card' + (activeSpecies === s.name ? ' active' : '');
       card.dataset.name = s.name;
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
 
       let photoEl;
       if (photoCache.has(s.name)) {
@@ -601,7 +641,7 @@
       } else {
         photoEl = document.createElement('div');
         photoEl.className = 'sp-placeholder';
-        photoEl.innerHTML = '<i class="fas fa-feather-alt"></i>';
+        photoEl.innerHTML = FEATHER_SVG;
       }
       photoElMap.set(s.name, photoEl);
 
@@ -610,13 +650,17 @@
       info.innerHTML = `
         <div class="sp-name">${s.name}</div>
         <div class="sp-sci">${s.sci}</div>
-        <div class="sp-meta">${regions.join(', ')}</div>
+        <div class="sp-meta">${regions.map(r => `<span class="sp-region"><i style="background:${REGION_COLORS[r] || '#90969d'}"></i>${REGION_LABELS[r] || r}</span>`).join('')}</div>
       `;
       card.appendChild(photoEl);
       card.appendChild(info);
-      card.addEventListener('click', () => {
+      const choose = () => {
         if (activeSpecies === s.name) resetAll();
         else selectSpecies(s.name, false);
+      };
+      card.addEventListener('click', choose);
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(); }
       });
       list.appendChild(card);
     });
@@ -641,7 +685,7 @@
       });
       try {
         const titles = batch.map(n => n.replace(/ /g, '_')).join('|');
-        const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(titles)}&prop=pageimages&pithumbsize=120&format=json&origin=*&redirects=`;
+        const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(titles)}&prop=pageimages&pithumbsize=240&format=json&origin=*&redirects=`;
         const resp = await fetch(url);
         const data = await resp.json();
         const q = data.query;
