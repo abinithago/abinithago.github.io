@@ -105,15 +105,30 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid 
 }
 
 /* ---------- Theme change ----------
-   Instant: transitions are paused for the frame in which the theme flips,
-   so hover fades on links and buttons don't trail behind. */
-.theme-switching,
-.theme-switching *,
-.theme-switching *::before,
-.theme-switching *::after {
-  transition: none !important;
+   Preferred path: a View Transition. The old theme stays fully opaque underneath
+   while the new theme fades in over it, so there is no washed-out midpoint where
+   both are half transparent. Fallback: every color eases together. */
+::view-transition-old(root) {
+  animation: none;
+}
+::view-transition-new(root) {
+  animation: theme-fade-in 0.6s cubic-bezier(.4, 0, .2, 1) both;
+  mix-blend-mode: normal;
+}
+@keyframes theme-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.theme-fading,
+.theme-fading *,
+.theme-fading *::before,
+.theme-fading *::after {
+  transition: background-color 0.5s cubic-bezier(.4, 0, .2, 1), color 0.5s cubic-bezier(.4, 0, .2, 1),
+              border-color 0.5s cubic-bezier(.4, 0, .2, 1), fill 0.5s cubic-bezier(.4, 0, .2, 1),
+              stroke 0.5s cubic-bezier(.4, 0, .2, 1), box-shadow 0.5s cubic-bezier(.4, 0, .2, 1) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
 }
